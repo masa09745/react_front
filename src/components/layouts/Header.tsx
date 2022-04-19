@@ -2,11 +2,11 @@ import React, { useContext } from "react"
 import { useHistory, Link } from "react-router-dom"
 import Cookies from "js-cookie"
 
-import { makeStyles, Theme } from "@mui/material"
+import { styled } from "@mui/material/styles"
 
 import AppBar from "@mui/material/AppBar"
 import Toolbar from "@mui/material/Toolbar"
-import Typography from "@mui/material"
+import Typography from "@mui/material/Typography"
 import Button from "@mui/material/Button"
 import IconButton from "@mui/material/IconButton"
 import MenuIcon from "@mui/material/Icon"
@@ -15,23 +15,18 @@ import { signOut } from "lib/api/auth"
 
 import { AuthContext } from "App"
 
-const useStyles = makeStyles((theme: Theme) => ({
-  iconButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-    textDecoration: "none",
-    color: "inherit",
-  },
-  linkBtn: {
-    textTransform: "none"
-  }
-}))
+const CustomTypography = styled(Typography)({
+  flexGrow: 1,
+  textDecoration: "none",
+  color: "inherit",
+})
+
+const CustomLinkButton = styled(Button)({
+  textTransform: "none"
+})
 
 const Header: React.FC =() => {
   const { loading, isSignedIn, setIsSignedIn } = useContext(AuthContext)
-  const classes = useStyles()
   const history = useHistory()
 
   const handleSignOut = async(e: React.MouseEvent<HTMLButtonElement>) => {
@@ -61,12 +56,12 @@ const Header: React.FC =() => {
     if(!loading) {
       if(isSignedIn) {
         return (
-          <Button color="inherit" ClassName={classes.linkBtn} onClick={handleSignOut}>サインアウト</Button>
+          <CustomLinkButton color="inherit" onClick={handleSignOut}>サインアウト</CustomLinkButton>
         )
       }
       else {
         return (
-          <Button  component={Link} to='/signin' color="inherit" ClassName={classes.linkBtn}>サインイン</Button>
+          <CustomLinkButton color="inherit">サインイン</CustomLinkButton>
         )
       }
     }
@@ -79,12 +74,12 @@ const Header: React.FC =() => {
     <>
       <AppBar position="static">
         <Toolbar>
-          <IconButton edge="start" className={classes.iconButton} color="inherit">
+          <IconButton edge="start" color="inherit">
             <MenuIcon />
           </IconButton>
-          <Typography component={Link} to="/" variant="h6" className={classes.title}>
+          <CustomTypography variant="h6">
             Sample
-          </Typography>
+          </CustomTypography>
         </Toolbar>
       </AppBar>
     </>

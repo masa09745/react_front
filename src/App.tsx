@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Switch, Route, Redirect }  from "react-router-
 
 import CommonLayout from "components/layouts/CommonLayout"
 import Home from "components/pages/Home"
-import SignUp from "components/pages/SignUp"
 import SignIn from "components/pages/SignIn"
 
 import { getCurrentUser } from "lib/api/auth"
@@ -66,7 +65,6 @@ const App: React.FC = () => {
       <AuthContext.Provider value={{ loading, setLoading, isSignedIn, setIsSignedIn, currentUser, setCurrentUser }}>
         <CommonLayout>
           <Switch>
-            <Route exact path="/signup" component={SignUp} />
             <Route exact path="/signin" component={SignIn} />
             <Private>
               <Switch>

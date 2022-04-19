@@ -41,7 +41,7 @@ const SignUp: React.FC = () => {
   const[passwordConfirmation, setPasswordConfirmation] = useState<string>("")
   const[alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
 
-  const handleSubmit =async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
 
     const data: SignUpData = {
@@ -49,7 +49,7 @@ const SignUp: React.FC = () => {
       email: email,
       password: password,
       passwordConfirmation: passwordConfirmation
-    },
+    }
 
     try {
       const res = await SignUp(data)

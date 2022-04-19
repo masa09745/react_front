@@ -6,7 +6,7 @@ import { makeStyles, Theme } from "@mui/material"
 
 import AppBar from "@mui/material/AppBar"
 import Toolbar from "@mui/material/Toolbar"
-import Typography from "@mui/material/Typography"
+import Typography from "@mui/material"
 import Button from "@mui/material/Button"
 import IconButton from "@mui/material/IconButton"
 import MenuIcon from "@mui/material/Icon"

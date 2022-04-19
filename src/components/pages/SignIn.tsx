@@ -44,9 +44,10 @@ const SignIn: React.FC = () => {
   const history = useHistory()
 
   const { setIsSignedIn, setCurrentUser } = useContext(AuthContext)
-  const[email, setEmail] = useState<string>("")
-  const[password, setPassword] = useState<string>("")
-  const[alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
+
+  const [email, setEmail] = useState<string>("")
+  const [password, setPassword] = useState<string>("")
+  const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()

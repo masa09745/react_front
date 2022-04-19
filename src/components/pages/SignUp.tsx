@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import Cookies from 'js-cookie'
 
-import {makeStyles, Theme } from "@mui/material/styles"
+import { styled } from "@mui/material/styles"
 import TextField from "@mui/material/TextField"
 import Card from "@mui/material/Card"
 import CardContent from "@mui/material/CardContent"
@@ -11,35 +11,34 @@ import Button from "@mui/material/Button"
 
 import { AuthContext } from "App"
 import AlertMessage from "components/utils/AlertMessage"
-import { signUp } from "lib/api/auth"
-import { SignUpData } from "interfaces/index"
 
-const useStyles = makeStyles((theme: Theme) => ({
-  submitButton: {
-    paddingTop: theme.spacing(2),
-    textAlign: "right",
-    flexGrow: 1,
-    textTransform: "none"
-  },
-  header: {
-    textAlign: "center"
-  },
-  card: {
-    padding: theme.spacing(2),
-    maxWidth: 400
-  }
-}))
+import { SignUpData } from "interfaces/index"
+import { signUp } from "lib/api/auth"
+
+const CustomSubmitButton = styled(Button)({
+  textAlign: "right",
+  flexGrow: 1,
+  textTransform: "none"
+
+})
+const CustomHeader = styled(CardHeader)({
+  textAlign: "center"
+})
+const CustomCard = styled(Card)({
+  maxWidth: 400
+})
+
 
 const SignUp: React.FC = () => {
-  const classes =useStyles()
   const history = useHistory()
 
   const { setIsSignedIn, setCurrentUser } = useContext(AuthContext)
-  const[name, setName] = useState<string>("")
-  const[email, setEmail] = useState<string>("")
-  const[password, setPassword] = useState<string>("")
-  const[passwordConfirmation, setPasswordConfirmation] = useState<string>("")
-  const[alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
+
+  const [name, setName] = useState<string>("")
+  const [email, setEmail] = useState<string>("")
+  const [password, setPassword] = useState<string>("")
+  const [passwordConfirmation, setPasswordConfirmation] = useState<string>("")
+  const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
@@ -77,21 +76,28 @@ const SignUp: React.FC = () => {
     }
   }
 
+
+
+
+
+
+
+
+
+
   return (
     <>
       <form noValidate autoComplete="off">
-        <Card className={classes.card}>
-          <CardHeader className={classes.header} title="サインアップ" />
+        <CustomCard>
+          <CustomHeader title="サインアップ" />
           <CardContent>
             <TextField variant="outlined" required fullWidth label="名前" value={name} margin="dense" onChange={event => setName(event.target.value)} />
             <TextField variant="outlined" required fullWidth label="メールアドレス" value={email} margin="dense" onChange={event => setEmail(event.target.value)}/>
-            <TextField variant="outlined" required fullWidth label="パスワード" type="password" value={password} margin="dense" autoComplete="current-password" onChange={event => setEmail(event.target.value)}/>
-            <TextField variant="outlined" required fullWidth label="パスワード(確認用)" type="password" value={passwordConfirmation} margin="dense" autoComplete="current-password" onChange={event => setEmail(event.target.value)}/>
-            <div className={classes.submitBtn}>
-              <Button type="submit" variant="outlined" color="primary" disabled={!name || !email || !passwordConfirmation ? true : false} onClick={handleSubmit}>送信</button>
-            </div>
+            <TextField variant="outlined" required fullWidth label="パスワード" type="password" value={password} margin="dense" autoComplete="current-password" onChange={event => setPassword(event.target.value)}/>
+            <TextField variant="outlined" required fullWidth label="パスワード(確認用)" type="password" value={passwordConfirmation} margin="dense" autoComplete="current-password" onChange={event => setPasswordConfirmation(event.target.value)}/>
+              <CustomSubmitButton type="submit" variant="outlined" color="primary" disabled={!name || !email || !passwordConfirmation ? true : false} onClick={handleSubmit}>送信</CustomSubmitButton>
           </CardContent>
-        </Card>
+        </CustomCard>
       </form>
       <AlertMessage open={alertMessageOpen} setOpen={setAlertMessageOpen} severity="error" message="メールアドレスかパスワードが間違っています" />
     </>

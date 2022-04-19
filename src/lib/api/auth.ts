@@ -2,11 +2,11 @@ import client from "lib/api/client"
 import Cookies from "js-cookie"
 
 import { SignUpData, SignInData } from "interfaces/index"
-import { CLIENT_RENEG_WINDOW } from "tls"
+
 
 
 export const signUp = (data: SignUpData) => {
-  return client.post("auth",data)
+  return client.post("auth", data)
 }
 
 export const signIn = (data: SignInData) => {

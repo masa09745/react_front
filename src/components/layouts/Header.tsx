@@ -2,16 +2,14 @@ import React, { useContext } from "react"
 import { useHistory, Link } from "react-router-dom"
 import Cookies from "js-cookie"
 
-import { makeStyles, Theme} from "@mui/material"
+import { makeStyles, Theme } from "@mui/material"
 
-import AppBar from "@mui/material"
-import Toolbar from "@mui/material"
-import Typography from "@mui/system"
-import Button from "@mui/material"
-import IconButton from "@mui/material"
-import MenuIcon from "@mui/material"
-import { ClassNames } from "@emotion/react"
-
+import AppBar from "@mui/material/AppBar"
+import Toolbar from "@mui/material/Toolbar"
+import Typography from "@mui/material/Typography"
+import Button from "@mui/material/Button"
+import IconButton from "@mui/material/IconButton"
+import MenuIcon from "@mui/material/Icon"
 
 import { signOut } from "lib/api/auth"
 

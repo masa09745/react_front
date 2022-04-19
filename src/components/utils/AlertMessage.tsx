@@ -26,7 +26,7 @@ const AlertMessage = ({ open, setOpen, severity, message }: AlertMessageProps) =
 
   return (
     <>
-      <Snackbar open={open} autoHideDuration={6000} anchorOrigin={{ vertical:"top", horizontal:"center"}} onClose={handleCloseAlertMessage}>
+      <Snackbar open={open} autoHideDuration={6000} anchorOrigin={{ vertical:"top", horizontal:"center"}}>
         <Alert onClose={handleCloseAlertMessage} severity={severity}>
           {message}
         </Alert>

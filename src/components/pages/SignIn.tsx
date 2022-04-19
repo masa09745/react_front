@@ -48,7 +48,7 @@ const SignIn: React.FC = () => {
   const[password, setPassword] = useState<string>("")
   const[alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
 
-  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement) => {
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
 
     const data: SignInData = {

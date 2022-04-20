@@ -2,8 +2,7 @@ import React, { useState, useContext } from "react"
 import { useHistory, Link } from "react-router-dom"
 import Cookies from "js-cookie"
 
-import { styled } from "@mui/material/styles"
-import { Typography } from "@mui/material"
+import Typography from "@mui/material/Typography"
 import TextField from "@mui/material/TextField"
 import Card from "@mui/material/Card"
 import CardContent from "@mui/material/CardContent"
@@ -15,29 +14,6 @@ import { AuthContext } from "App"
 import AlertMessage from "components/utils/AlertMessage"
 import { signIn } from "lib/api/auth"
 import { SignInData } from "interfaces/index"
-
-const CustomButton = styled(Button)({
-  textAlign: "right",
-  flexGrow: 1,
-  textTransform: "none"
-})
-
-const customHeader = styled('div')({
-  textAlign: "center"
-})
-
-const CustomCard = styled(Card)({
-  maxWidth: 400
-})
-
-const CustomBox = styled(Box)({
-  paddingTop: "2rem"
-})
-
-const CustomLink = styled(Link)({
-  textDecoration: "none"
-})
-
 
 
 const SignIn: React.FC = () => {
@@ -86,25 +62,25 @@ const SignIn: React.FC = () => {
   return (
   <>
     <form noValidate autoComplete="off">
-      <CustomCard>
-        <CardHeader title="サインイン" />
+      <Card sx={{ maxWidth: 400, pt:2 }}>
+        <CardHeader sx={{ textAlign: 'center' }} title="サインイン" />
         <CardContent>
         <TextField variant="outlined" required fullWidth label="メールアドレス" value={email} margin="dense" onChange={event => setEmail(event.target.value)} />
         <TextField variant="outlined" required fullWidth label="パスワード" value={password} margin="dense" onChange={event => setPassword(event.target.value)} />
-        <CustomBox>
-          <CustomButton type="submit" variant="outlined" color="primary" disabled={!email || !password ? true : false} onClick={handleSubmit}>
+        <Box sx={{ pt:2, textAlign:'right', flexGrow:1, textTransform: 'none' }}>
+          <Button type="submit" variant="outlined" color="primary" disabled={!email || !password ? true : false} onClick={handleSubmit}>
             送信
-          </CustomButton>
-        </CustomBox>
-        <CustomBox textAlign="center">
-          <Typography variant="body2">
+          </Button>
+        </Box>
+        <Box sx={{ textAlign:"center", pt:'2rem' }}>
+          <Typography sx={{ variant: "body2" }} >
             まだアカウントがない方は
-            <CustomLink to="/signup">こちら</CustomLink>
+            <Link to="/signup">こちら</Link>
             から作成してください
           </Typography>
-        </CustomBox>
+        </Box>
         </CardContent>
-      </CustomCard>
+      </Card>
     </form>
     <AlertMessage open={alertMessageOpen} setOpen={setAlertMessageOpen} severity="error" message="メールアドレスかパスワードが間違っています" />
   </>

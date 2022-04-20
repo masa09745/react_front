@@ -15,16 +15,6 @@ import { signOut } from "lib/api/auth"
 
 import { AuthContext } from "App"
 
-const CustomTypography = styled(Typography)({
-  flexGrow: 1,
-  textDecoration: "none",
-  color: "inherit",
-})
-
-const CustomLinkButton = styled(Button)({
-  textTransform: "none"
-})
-
 const Header: React.FC =() => {
   const { loading, isSignedIn, setIsSignedIn } = useContext(AuthContext)
   const history = useHistory()
@@ -56,12 +46,12 @@ const Header: React.FC =() => {
     if(!loading) {
       if(isSignedIn) {
         return (
-          <CustomLinkButton color="inherit" onClick={handleSignOut}>サインアウト</CustomLinkButton>
+          <Button color="inherit" onClick={handleSignOut}>サインアウト</Button>
         )
       }
       else {
         return (
-          <CustomLinkButton color="inherit">サインイン</CustomLinkButton>
+          <Button color="inherit">サインイン</Button>
         )
       }
     }
@@ -74,12 +64,12 @@ const Header: React.FC =() => {
     <>
       <AppBar position="static">
         <Toolbar>
-          <IconButton edge="start" color="inherit">
+          <IconButton sx={{mr:2, edge: "start", color: "inherit" }} >
             <MenuIcon />
           </IconButton>
-          <CustomTypography variant="h6">
+          <Typography component={Link} to="/" sx={{ flexGrow: 1, textDecoration: "none", color: "inherit" }} variant="h6">
             Sample
-          </CustomTypography>
+          </Typography>
         </Toolbar>
       </AppBar>
     </>

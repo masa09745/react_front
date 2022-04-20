@@ -2,8 +2,6 @@ import React, { useContext } from "react"
 import { useHistory, Link } from "react-router-dom"
 import Cookies from "js-cookie"
 
-import { styled } from "@mui/material/styles"
-
 import AppBar from "@mui/material/AppBar"
 import Toolbar from "@mui/material/Toolbar"
 import Typography from "@mui/material/Typography"
@@ -70,6 +68,7 @@ const Header: React.FC =() => {
           <Typography component={Link} to="/" sx={{ flexGrow: 1, textDecoration: "none", color: "inherit" }} variant="h6">
             Sample
           </Typography>
+          <AuthButtons />
         </Toolbar>
       </AppBar>
     </>

@@ -62,7 +62,7 @@ const Header: React.FC =() => {
     <>
       <AppBar position="static">
         <Toolbar>
-          <IconButton sx={{mr:2, edge: "start", color: "inherit" }} >
+          <IconButton sx={{mr:2}} edge="start" color="inherit">
             <MenuIcon />
           </IconButton>
           <Typography component={Link} to="/" sx={{ flexGrow: 1, textDecoration: "none", color: "inherit" }} variant="h6">

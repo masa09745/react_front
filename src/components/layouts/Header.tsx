@@ -7,11 +7,13 @@ import Toolbar from "@mui/material/Toolbar"
 import Typography from "@mui/material/Typography"
 import Button from "@mui/material/Button"
 import IconButton from "@mui/material/IconButton"
-import MenuIcon from "@mui/material/Icon"
+
+import { Menu } from "@mui/icons-material"
 
 import { signOut } from "lib/api/auth"
 
 import { AuthContext } from "App"
+
 
 const Header: React.FC =() => {
   const { loading, isSignedIn, setIsSignedIn } = useContext(AuthContext)
@@ -63,7 +65,7 @@ const Header: React.FC =() => {
       <AppBar position="static">
         <Toolbar>
           <IconButton sx={{mr:2}} edge="start" color="inherit">
-            <MenuIcon />
+            <Menu />
           </IconButton>
           <Typography component={Link} to="/" sx={{ flexGrow: 1, textDecoration: "none", color: "inherit" }} variant="h6">
             Sample

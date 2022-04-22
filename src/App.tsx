@@ -1,5 +1,5 @@
 import React, {useEffect, useState, createContext }  from "react"
-import { BrowserRouter as Router, Switch, Route, Redirect }  from "react-router-dom"
+import { BrowserRouter, Routes, Route, Navigate, Outlet }  from "react-router-dom"
 
 import CommonLayout from "components/layouts/CommonLayout"
 import Home from "components/pages/Home"
@@ -7,6 +7,7 @@ import SignIn from "components/pages/SignIn"
 
 import { getCurrentUser } from "lib/api/auth"
 import { User } from "interfaces/index"
+
 
 export const AuthContext = createContext({} as {
   loading: boolean
@@ -52,7 +53,7 @@ const App: React.FC = () => {
         return children
       }
       else {
-        return <Redirect to ="/signin"/>
+        return <Navigate to ="/signin"/>
       }
     }
     else {
@@ -60,21 +61,19 @@ const App: React.FC = () => {
     }
   }
 
+
+
   return (
-    <Router>
+    <BrowserRouter>
       <AuthContext.Provider value={{ loading, setLoading, isSignedIn, setIsSignedIn, currentUser, setCurrentUser }}>
         <CommonLayout>
-          <Switch>
-            <Route exact path="/signin" component={SignIn} />
-            <Private>
-              <Switch>
-                <Route exact path="/" component={Home} />
-              </Switch>
-            </Private>
-          </Switch>
+          <Routes>
+            <Route  path="/signin" element={<SignIn />} />
+            <Route  path="/" element={<Home />} />
+          </Routes>
         </CommonLayout>
       </AuthContext.Provider>
-    </Router>
+    </BrowserRouter>
   )
 }
 

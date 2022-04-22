@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react"
-import { useHistory, Link } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import Cookies from "js-cookie"
 
 import Typography from "@mui/material/Typography"
@@ -17,7 +17,7 @@ import { SignInData } from "interfaces/index"
 
 
 const SignIn: React.FC = () => {
-  const history = useHistory()
+  const navigate = useNavigate()
 
   const { setIsSignedIn, setCurrentUser } = useContext(AuthContext)
 
@@ -45,7 +45,7 @@ const SignIn: React.FC = () => {
         setIsSignedIn(true)
         setCurrentUser(res.data.data)
 
-        history.push("/")
+        navigate("/")
 
         console.log("sign in success!!!")
       }

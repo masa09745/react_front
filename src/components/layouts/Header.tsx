@@ -1,5 +1,5 @@
 import React, { useContext } from "react"
-import { useHistory, Link } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import Cookies from "js-cookie"
 
 import AppBar from "@mui/material/AppBar"
@@ -17,7 +17,7 @@ import { AuthContext } from "App"
 
 const Header: React.FC =() => {
   const { loading, isSignedIn, setIsSignedIn } = useContext(AuthContext)
-  const history = useHistory()
+  const navigate = useNavigate()
 
   const handleSignOut = async(e: React.MouseEvent<HTMLButtonElement>) => {
     try {
@@ -29,7 +29,7 @@ const Header: React.FC =() => {
         Cookies.remove("_uid")
 
         setIsSignedIn(false)
-        history.push("/signin")
+        navigate("/signin")
 
         console.log("sign out success!!")
       }

@@ -3,6 +3,7 @@ import{ Container, Grid } from "@mui/material"
 
 
 import Header from 'components/layouts/Header'
+import Footer from 'components/layouts/Footer'
 
 
 interface CommonLayoutProps {
@@ -24,6 +25,9 @@ const CommonLayout = ({ children }: CommonLayoutProps) => {
           </Grid>
         </Container>
       </main>
+      <footer>
+        <Footer />
+      </footer>
     </>
   )
 }

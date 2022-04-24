@@ -51,7 +51,7 @@ const Header: React.FC =() => {
       }
       else {
         return (
-          <Button color="inherit">サインイン</Button>
+          <Button component={Link} to="/signin" color="inherit">サインイン</Button>
         )
       }
     }

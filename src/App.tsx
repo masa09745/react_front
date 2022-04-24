@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate, Outlet }  from "react-router-do
 
 import CommonLayout from "components/layouts/CommonLayout"
 import Home from "components/pages/Home"
+import SignUp from "components/pages/SignUp"
 import SignIn from "components/pages/SignIn"
 
 import { getCurrentUser } from "lib/api/auth"
@@ -68,6 +69,7 @@ const App: React.FC = () => {
       <AuthContext.Provider value={{ loading, setLoading, isSignedIn, setIsSignedIn, currentUser, setCurrentUser }}>
         <CommonLayout>
           <Routes>
+            <Route path="/signup" element={<SignUp />} />
             <Route  path="/signin" element={<SignIn />} />
             <Route  path="/" element={<Home />} />
           </Routes>

@@ -8,6 +8,8 @@ import Typography from "@mui/material/Typography"
 import Button from "@mui/material/Button"
 import IconButton from "@mui/material/IconButton"
 
+
+
 import { Menu } from "@mui/icons-material"
 
 import { signOut } from "lib/api/auth"
@@ -68,7 +70,7 @@ const Header: React.FC =() => {
             <Menu />
           </IconButton>
           <Typography component={Link} to="/" sx={{ flexGrow: 1, textDecoration: "none", color: "inherit" }} variant="h6">
-            Sample
+            AirLine Management System
           </Typography>
           <AuthButtons />
         </Toolbar>

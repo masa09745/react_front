@@ -2,7 +2,7 @@ import React, { useContext } from "react"
 
 import { AuthContext } from "App"
 
-const Home: React.FC = () => {
+function Home() {
   const { isSignedIn, currentUser } = useContext(AuthContext)
 
   return (
@@ -18,7 +18,7 @@ const Home: React.FC = () => {
         )
       }
     </>
-  )
+  );
 }
 
 export default Home

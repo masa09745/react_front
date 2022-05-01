@@ -18,7 +18,7 @@ export const AuthContext = createContext({} as {
   setCurrentUser: React.Dispatch<React.SetStateAction<User | undefined>>
 })
 
-const App: React.FC = () => {
+function App() {
   const [loading, setLoading] = useState<boolean>(true)
   const [isSignedIn, setIsSignedIn] = useState<boolean>(false)
   const [currentUser, setCurrentUser] = useState<User | undefined>()
@@ -61,8 +61,6 @@ const App: React.FC = () => {
     }
   }
 
-
-
   return (
     <BrowserRouter>
       <AuthContext.Provider value={{ loading, setLoading, isSignedIn, setIsSignedIn, currentUser, setCurrentUser }}>
@@ -74,7 +72,7 @@ const App: React.FC = () => {
         </CommonLayout>
       </AuthContext.Provider>
     </BrowserRouter>
-  )
+  );
 }
 
 export default App

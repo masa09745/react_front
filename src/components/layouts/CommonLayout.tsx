@@ -10,7 +10,7 @@ interface CommonLayoutProps {
   children: React.ReactElement
 }
 
-const CommonLayout = ({ children }: CommonLayoutProps) => {
+function CommonLayout ({ children }: CommonLayoutProps) {
   return (
     <>
       <header>
@@ -29,7 +29,7 @@ const CommonLayout = ({ children }: CommonLayoutProps) => {
         <Footer />
       </footer>
     </>
-  )
+  );
 }
 
 export default CommonLayout

@@ -15,7 +15,7 @@ import { signUp } from 'lib/api/auth'
 import { SignUpData } from 'interfaces/index'
 
 
-const SignUp: React.FC = () => {
+function SignUp() {
   const navigate = useNavigate()
   
   const { setIsSignedIn, setCurrentUser } = useContext(AuthContext)
@@ -82,8 +82,7 @@ const SignUp: React.FC = () => {
       </form>
       <AlertMessage open={alertMessageOpen} setOpen={setAlertMessageOpen} severity="error" message="メールアドレスかパスワードが間違っています" /> 
     </>
-  )
-
+  );
 }
 
 export default SignUp

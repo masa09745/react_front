@@ -17,7 +17,7 @@ import { signOut } from "lib/api/auth"
 import { AuthContext } from "App"
 
 
-const Header: React.FC =() => {
+function Header() {
   const { loading, isSignedIn, setIsSignedIn } = useContext(AuthContext)
   const navigate = useNavigate()
 
@@ -76,7 +76,7 @@ const Header: React.FC =() => {
         </Toolbar>
       </AppBar>
     </>
-  )
+  );
 }
 
 export default Header

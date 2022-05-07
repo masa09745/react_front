@@ -1,9 +1,11 @@
 import React, {useEffect, useState, createContext }  from "react"
-import { BrowserRouter, Routes, Route, Navigate, Outlet }  from "react-router-dom"
+import { BrowserRouter, Routes, Route, Navigate }  from "react-router-dom"
 
 import CommonLayout from "components/layouts/CommonLayout"
 import Home from "components/pages/Home"
 import SignIn from "components/pages/SignIn"
+import SignUp from "components/pages/SignUp"
+import Menu from "components/pages/Menu"
 
 import { getCurrentUser } from "lib/api/auth"
 import { User } from "interfaces/index"
@@ -66,8 +68,10 @@ function App() {
       <AuthContext.Provider value={{ loading, setLoading, isSignedIn, setIsSignedIn, currentUser, setCurrentUser }}>
         <CommonLayout>
           <Routes>
+            <Route  path="/signup" element={<SignUp />} />
             <Route  path="/signin" element={<SignIn />} />
             <Route  path="/" element={<Home />} />
+            <Route  path="/menu" element={<Menu />} />
           </Routes>
         </CommonLayout>
       </AuthContext.Provider>

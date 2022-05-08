@@ -2,15 +2,15 @@ import React from 'react'
 import{ Container, Grid } from "@mui/material"
 
 
-import Header from 'components/layouts/Header'
-import Footer from 'components/layouts/Footer'
+import { Header } from 'components/layouts/Header'
+import { Footer } from 'components/layouts/Footer'
 
 
 interface CommonLayoutProps {
   children: React.ReactElement
 }
 
-function CommonLayout ({ children }: CommonLayoutProps) {
+export const CommonLayout = ({ children }: CommonLayoutProps) => {
   return (
     <>
       <header>
@@ -31,5 +31,3 @@ function CommonLayout ({ children }: CommonLayoutProps) {
     </>
   );
 }
-
-export default CommonLayout

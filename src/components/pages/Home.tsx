@@ -2,7 +2,7 @@ import React, { useContext } from "react"
 
 import { AuthContext } from "App"
 
-export function Home() {
+export const Home: React.FC = () =>  {
   const { isSignedIn, currentUser } = useContext(AuthContext)
 
   return (

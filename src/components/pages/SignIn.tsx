@@ -16,7 +16,7 @@ import { signIn } from "lib/api/auth"
 import { SignInData } from "interfaces/index"
 
 
- export function SignIn() {
+ export const SignIn: React.FC = () => {
   const navigate = useNavigate()
 
   const { setIsSignedIn, setCurrentUser } = useContext(AuthContext)

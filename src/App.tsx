@@ -1,7 +1,7 @@
 import React, {useEffect, useState, createContext }  from "react"
 import { BrowserRouter, Routes, Route, Navigate }  from "react-router-dom"
 
-import CommonLayout from "components/layouts/CommonLayout"
+import { CommonLayout } from "components/layouts/CommonLayout"
 import { Home } from "components/pages/Home"
 import { SignIn } from "components/pages/SignIn"
 import { SignUp } from "components/pages/SignUp"

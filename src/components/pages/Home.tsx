@@ -2,7 +2,7 @@ import React, { useContext } from "react"
 
 import { AuthContext } from "App"
 
-function Home() {
+export function Home() {
   const { isSignedIn, currentUser } = useContext(AuthContext)
 
   return (
@@ -20,5 +20,3 @@ function Home() {
     </>
   );
 }
-
-export default Home

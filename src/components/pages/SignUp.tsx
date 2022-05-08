@@ -15,7 +15,7 @@ import { signUp } from 'lib/api/auth'
 import { SignUpData } from 'interfaces/index'
 
 
-function SignUp() {
+export function SignUp() {
   const navigate = useNavigate()
   
   const { setIsSignedIn, setCurrentUser } = useContext(AuthContext)
@@ -85,4 +85,3 @@ function SignUp() {
   );
 }
 
-export default SignUp

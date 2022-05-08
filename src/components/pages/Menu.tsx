@@ -1,6 +1,6 @@
 import React from "react";
 
-function Menu(){
+export function Menu(){
 
   return(
     <>
@@ -9,5 +9,3 @@ function Menu(){
   )
 
 }
-
-export default Menu

@@ -20,3 +20,9 @@ export interface User {
   image?: string
   allowPasswordChange: boolean
 }
+
+export interface MenuData {
+  key: number
+  id:  number
+  name: string
+}

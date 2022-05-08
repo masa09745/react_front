@@ -18,7 +18,7 @@ export const CommonLayout = ({ children }: CommonLayoutProps) => {
       </header>
       <main>
         <Container sx={{ pt: "3rem" }} maxWidth="lg">
-          <Grid container justifyContent="center">
+          <Grid container sx={{justifyContent: "center"}}>
             <Grid item>
               {children}
             </Grid>

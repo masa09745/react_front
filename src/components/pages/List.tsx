@@ -12,7 +12,7 @@ export const ListItem = (props: MenuData) => {
 
 
   return(
-    <Card>
+    <Card sx={{width: 200}} >
       <CardContent>
         <Typography variant="h5" component="div">
         {id} :{name}

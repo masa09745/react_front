@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
-import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+
 
 import { MenuData } from 'interfaces/index'
 import { menu } from 'lib/api/menu';
@@ -18,9 +19,13 @@ export const Menu: React.FC = () => {
 
   return(
     <>
-      {menus.map(menu => (
-        <ListItem key={menu.id} id={menu.id} name={menu.name} />
-      ))}
+      <Box sx={{display:'flex', gap:3}}>
+          {menus.map(menu => (
+            <ListItem key={menu.id} id={menu.id} name={menu.name} />
+          ))}
+      </Box>
+    
     </>
+
   )
 }

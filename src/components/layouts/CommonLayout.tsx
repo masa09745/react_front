@@ -1,5 +1,5 @@
 import React from 'react'
-import{ Container, Grid, Box } from "@mui/material"
+import{ Container, Grid, Box, Typography, Link } from "@mui/material"
 import CssBaseline from '@mui/material/CssBaseline';
 
 
@@ -15,39 +15,42 @@ export const CommonLayout = ({ children }: CommonLayoutProps) => {
   return (
     <>
       <Box
-        sx = {{
+        component="header"
+        sx={{
           backgroundColor: (theme) =>
             theme.palette.mode === 'light'
               ? theme.palette.grey[200]
               : theme.palette.grey[800],
-          display: 'flex',
-          flexDirection: 'column',
-          minHeight: "100vh",
         }}
       >
-        <CssBaseline />
-        <Container  component="main"  sx={{ mt:8, mb:2 }} maxWidth="sm">
-          <Grid container sx={{justifyContent: "center"}}>
-            <Grid item>
-              {children}
-            </Grid>
-          </Grid>
-        </Container>
+        <Header />
       </Box>
+      <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '100vh',
+      }}
+    >
+      <CssBaseline />
+      <Container component="main" sx={{ mt: 8, mb: 2 }} maxWidth="sm">
+        {children}
+      </Container>
       <Box
         component="footer"
         sx={{
-          py:3,
-          px:2,
+          py: 3,
+          px: 2,
           mt: 'auto',
           backgroundColor: (theme) =>
             theme.palette.mode === 'light'
               ? theme.palette.grey[200]
-              : theme.palette.grey[800]
+              : theme.palette.grey[800],
         }}
       >
         <Footer />
       </Box>
+    </Box>
     </>
   );
 }

@@ -1,30 +1,38 @@
 import React, { useState, useEffect } from "react";
 
 import Box from "@mui/material/Box";
-
-
-import { MenuData } from 'interfaces/index'
-import { menu } from 'lib/api/menu';
-import {ListItem} from 'components/pages/List'
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+import { CardActionArea} from '@mui/material';
 
 export const Menu: React.FC = () => {
-  const [menus, setMenus] = useState<MenuData[]>([]);
+  const menuArr = [
+    {name: "機材", description: "機材情報"},
+    {name: "スケジュール", description: "スケジュール管理"}]
+  
 
-  useEffect(() => {
-    menu().then((res) => {
-      console.log(res.data)
-      setMenus(res.data);
-    })
-  }, []);
+  const menuList = menuArr.map((menu) =>
+    <Card key={menu.name} sx={{width: 250}} >
+      <CardActionArea>
+        <CardContent>
+          <Typography variant="h5" component="div">
+            {menu.name}
+          </Typography>
+          <Typography sx={{ m:1.5}} color="text.secondary">
+            {menu.description}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+    </Card>
+  );
+
 
   return(
     <>
       <Box sx={{display:'flex', gap:3}}>
-          {menus.map(menu => (
-            <ListItem key={menu.id} id={menu.id} name={menu.name} />
-          ))}
+        {menuList}
       </Box>
-    
     </>
 
   )

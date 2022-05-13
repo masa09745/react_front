@@ -13,10 +13,21 @@ interface CommonLayoutProps {
 export const CommonLayout = ({ children }: CommonLayoutProps) => {
   return (
     <>
-      <header>
+      <Box component="header">
         <Header />
-      </header>
-      <main>
+      </Box>
+      <Box
+        component="main"
+        sx = {{
+          backgroundColor: (theme) =>
+            theme.palette.mode === 'light'
+              ? theme.palette.grey[200]
+              : theme.palette.grey[800],
+          flexGrow:1,
+          height: "100vh",
+          overflow: "auto"
+        }}
+      >
         <Container sx={{ pt: "3rem", hight:"100vh" }} maxWidth="lg">
           <Grid container sx={{justifyContent: "center"}}>
             <Grid item>
@@ -24,7 +35,7 @@ export const CommonLayout = ({ children }: CommonLayoutProps) => {
             </Grid>
           </Grid>
         </Container>
-      </main>
+      </Box>
       <Box
         component="footer"
         sx={{

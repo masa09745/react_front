@@ -14,6 +14,13 @@ interface CommonLayoutProps {
 export const CommonLayout = ({ children }: CommonLayoutProps) => {
   return (
     <>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '100vh',
+      }}
+    >
       <Box
         component="header"
         sx={{
@@ -22,16 +29,9 @@ export const CommonLayout = ({ children }: CommonLayoutProps) => {
               ? theme.palette.grey[200]
               : theme.palette.grey[800],
         }}
-      >
+        >
         <Header />
       </Box>
-      <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        minHeight: '100vh',
-      }}
-    >
       <CssBaseline />
       <Container component="main" sx={{ mt: 8, mb: 2 }} maxWidth="sm">
         {children}

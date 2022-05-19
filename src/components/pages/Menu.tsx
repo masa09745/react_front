@@ -30,7 +30,12 @@ export const Menu: React.FC = () => {
 
   return(
     <>
-      <Box sx={{display:'flex', gap:3}}>
+      <Box
+        sx={{
+          display:'flex',
+          gap: 3,
+        }}
+      >
         {menuList}
       </Box>
     </>

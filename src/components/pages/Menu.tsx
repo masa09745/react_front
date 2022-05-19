@@ -8,6 +8,7 @@ import { CardActionArea} from '@mui/material';
 
 import { Link } from "react-router-dom"
 
+
 export const Menu: React.FC = () => {
   const menuArr = [
     {name: "機材", description: "機材情報", link:"/ship" },
@@ -36,6 +37,7 @@ export const Menu: React.FC = () => {
         sx={{
           display:'flex',
           gap: 3,
+          mb: 3,
         }}
       >
         {menuList}

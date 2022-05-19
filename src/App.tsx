@@ -7,6 +7,7 @@ import { SignIn } from "components/pages/SignIn"
 import { SignUp } from "components/pages/SignUp"
 import { Menu }from "components/pages/Menu"
 import { Schedule } from "components/pages/Schedule"
+import { Ship } from "components/pages/Ship"
 
 import { getCurrentUser } from "lib/api/auth"
 import { User } from "interfaces/index"
@@ -74,6 +75,7 @@ function App() {
             <Route  path="/" element={<Home />} />
             <Route  path="/menu" element={<Menu />} />
             <Route  path="/schedule" element={<Schedule />} />
+            <Route  path="/ship" element={<Ship />} />
           </Routes>
         </CommonLayout>
       </AuthContext.Provider>

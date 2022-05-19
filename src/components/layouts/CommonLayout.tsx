@@ -33,7 +33,7 @@ export const CommonLayout = ({ children }: CommonLayoutProps) => {
         <Header />
       </Box>
       <CssBaseline />
-      <Container component="main" sx={{mt: 8, mb: 2}} maxWidth="sm">
+      <Container component="main" sx={{mt: 5, mb: 2}} maxWidth="sm">
         {children}
       </Container>
       <Box

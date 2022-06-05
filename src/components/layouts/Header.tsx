@@ -108,7 +108,7 @@ export const Header: React.FC = () => {
 
   return (
     <>
-      <AppBar position="fixed" open={open}>
+      <AppBar position="static" open={open}>
         <Toolbar>
           <IconButton
             sx={{mr:2, ...(open && {display:'none' }) }}
@@ -143,7 +143,7 @@ export const Header: React.FC = () => {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <List component="nav">
+        <List>
           {MenuList}
         </List>
       </Drawer>

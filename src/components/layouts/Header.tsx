@@ -1,16 +1,15 @@
 import React, { useContext, useState } from "react"
+import { styled, useTheme } from "@mui/material/styles"
 import { useNavigate, Link } from "react-router-dom"
 import Cookies from "js-cookie"
 
-import AppBar from "@mui/material/AppBar"
+import MUIAppBar, {AppBarProps as MUIAppBarProps} from "@mui/material/AppBar"
 import Toolbar from "@mui/material/Toolbar"
 import Typography from "@mui/material/Typography"
 import Button from "@mui/material/Button"
 import IconButton from "@mui/material/IconButton"
 
-
-
-import { ChevronLeftOutlined, Menu } from "@mui/icons-material"
+import { ChevronLeftOutlined, ChevronRightOutlined, Menu } from "@mui/icons-material"
 
 import { signOut } from "lib/api/auth"
 
@@ -19,12 +18,49 @@ import { Drawer, List, Divider } from "@mui/material"
 
 import { MenuList } from "components/utils/MenuList"
 
+const drawerWidth = 240;
+
+interface AppBarProps extends MUIAppBarProps {
+  open? : boolean;
+}
+
+const AppBar = styled(MUIAppBar, {
+  shouldForwardProp: (prop) => prop !== 'open',
+})<AppBarProps>(( { theme, open }) => ({
+  transition: theme.transitions.create(['margin','width'], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  ...(open && {
+    width: `calc(100% - ${drawerWidth}px)`,
+    marginLeft: `${drawerWidth}px`,
+    transition: theme.transitions.create(['margin','width'], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  }),
+}));
+
+const DrawerHeader = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  padding: theme.spacing(0, 1),
+  ...theme.mixins.toolbar,
+  justifyContent: 'flex-end',
+}));
+
 
 export const Header: React.FC = () => {
-  const [open, setOpen] = React.useState(true);
-  const toggleDrawer = () => {
-    setOpen(!open)
-  }
+
+  const theme = useTheme
+  const [open, setOpen] = React.useState(false);
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+
 
   const { loading, isSignedIn, setIsSignedIn } = useContext(AuthContext)
   const navigate = useNavigate()
@@ -72,9 +108,14 @@ export const Header: React.FC = () => {
 
   return (
     <>
-      <AppBar position="static">
+      <AppBar position="fixed" open={open}>
         <Toolbar>
-          <IconButton sx={{mr:2}} edge="start" color="inherit" onClick={toggleDrawer}>
+          <IconButton
+            sx={{mr:2, ...(open && {display:'none' }) }}
+            edge="start"
+            color="inherit"
+            onClick={handleDrawerOpen}
+          >
             <Menu />
           </IconButton>
           <Typography component={Link} to="/" sx={{ flexGrow: 1, textDecoration: "none", color: "inherit" }} variant="h6">
@@ -83,18 +124,24 @@ export const Header: React.FC = () => {
           <AuthButtons />
         </Toolbar>
       </AppBar>
-      <Drawer variant="permanent" open={open}>
-        <Toolbar 
-          sx = {{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'flex-end',
-            px: [1],
-          }}>
-            <IconButton onClick={toggleDrawer} >
-              <ChevronLeftOutlined />
-            </IconButton>
-        </Toolbar>
+      <Drawer
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          '& .MuiDrawer-paper': {
+            width: drawerWidth,
+            boxSizing: 'border-box',
+          },
+        }}
+        variant="persistent"
+        anchor="left"
+        open={open}
+      >
+        <DrawerHeader>
+          <IconButton onClick={handleDrawerClose}>
+           <ChevronLeftOutlined />
+          </IconButton>
+        </DrawerHeader>
         <Divider />
         <List component="nav">
           {MenuList}

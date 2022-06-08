@@ -36,6 +36,7 @@ export const Menu: React.FC = () => {
       <Box
         sx={{
           display:'flex',
+          justifyContent: 'center',
           gap: 3,
           mb: 3,
         }}

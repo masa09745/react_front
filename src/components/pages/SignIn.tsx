@@ -10,7 +10,7 @@ import CardHeader from "@mui/material/CardHeader"
 import Button from "@mui/material/Button"
 import Box from "@mui/material/Box"
 
-import { AuthContext } from "App"
+import { AuthContext } from "components/providers/AuthContextProvider"
 import AlertMessage from "components/utils/AlertMessage"
 import { signIn } from "lib/api/auth"
 import { SignInData } from "interfaces/index"
@@ -61,8 +61,8 @@ import { SignInData } from "interfaces/index"
 
   return (
   <>
-    <form noValidate autoComplete="off">
-      <Card sx={{ maxWidth: 400, pt:2 }}>
+    <form noValidate autoComplete="off" >
+      <Card sx={{ maxWidth: 400, pt:2}}>
         <CardHeader sx={{ textAlign: 'center' }} title="サインイン" />
         <CardContent>
         <TextField variant="outlined" required fullWidth label="メールアドレス" value={email} margin="dense" onChange={event => setEmail(event.target.value)} />

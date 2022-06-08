@@ -9,7 +9,7 @@ import CardHeader from '@mui/material/CardHeader'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 
-import { AuthContext } from 'App'
+import { AuthContext } from "components/providers/AuthContextProvider"
 import AlertMessage from 'components/utils/AlertMessage'
 import { signUp } from 'lib/api/auth'
 import { SignUpData } from 'interfaces/index'
@@ -35,6 +35,8 @@ export const SignUp: React.FC =() => {
       password: password,
       passwordConfirmation: passwordConfirmation
     }
+
+    console.log(data)
 
     try {
       const res = await signUp(data)

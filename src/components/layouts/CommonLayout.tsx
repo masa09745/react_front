@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import{ Container, Grid, Box, Typography } from "@mui/material"
 import CssBaseline from '@mui/material/CssBaseline';
-import { styled, useTheme } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import { useNavigate, Link } from "react-router-dom"
 import Cookies from "js-cookie"
 
@@ -10,11 +10,11 @@ import Toolbar from "@mui/material/Toolbar"
 import Button from "@mui/material/Button"
 import IconButton from "@mui/material/IconButton"
 
-import { ChevronLeftOutlined, ChevronRightOutlined, Menu } from "@mui/icons-material"
+import { ChevronLeftOutlined, Menu } from "@mui/icons-material"
 
 import { signOut } from "lib/api/auth"
 
-import { AuthContext } from "App"
+import { AuthContext } from "components/providers/AuthContextProvider"
 import { Drawer, List, Divider } from "@mui/material"
 
 import { MenuList } from "components/utils/MenuList"
@@ -80,7 +80,6 @@ const Main = styled('main', {
   }));
 
 export const CommonLayout = ({ children }: CommonLayoutProps) => {
-  const theme = useTheme
   const [open, setOpen] = React.useState(false);
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -179,8 +178,9 @@ export const CommonLayout = ({ children }: CommonLayoutProps) => {
       <Main open={open}>
         <DrawerHeader />
         {children}
+        <Footer />
       </Main>
     </Box>
     </>
-  );
+  )
 }

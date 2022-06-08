@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react"
-import { styled, useTheme } from "@mui/material/styles"
+import React, { useContext } from "react"
+import { styled } from "@mui/material/styles"
 import { useNavigate, Link } from "react-router-dom"
 import Cookies from "js-cookie"
 
@@ -13,7 +13,7 @@ import { ChevronLeftOutlined, ChevronRightOutlined, Menu } from "@mui/icons-mate
 
 import { signOut } from "lib/api/auth"
 
-import { AuthContext } from "App"
+import { AuthContext } from "components/providers/AuthContextProvider"
 import { Drawer, List, Divider } from "@mui/material"
 
 import { MenuList } from "components/utils/MenuList"
@@ -52,7 +52,6 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 export const Header: React.FC = () => {
 
-  const theme = useTheme
   const [open, setOpen] = React.useState(false);
   const handleDrawerOpen = () => {
     setOpen(true);

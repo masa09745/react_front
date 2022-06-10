@@ -5,20 +5,26 @@ import AirplanemodeActiveIcon from '@mui/icons-material/AirplanemodeActive';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 
+import { Link } from "react-router-dom"
+
 export const MenuList = (
   <React.Fragment>
-    <ListItemButton>
-      <ListItemIcon>
-        < AirplanemodeActiveIcon />
-      </ListItemIcon>
-      <ListItemText primary="機材情報" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        < CalendarMonthIcon />
-      </ListItemIcon>
-      <ListItemText primary="スケジュール情報" />
-    </ListItemButton>
+    <Link to="/ship">
+      <ListItemButton>
+        <ListItemIcon>
+          < AirplanemodeActiveIcon />
+        </ListItemIcon>
+        <ListItemText primary="機材情報" />
+      </ListItemButton>
+    </Link>
+    <Link to ="/schedule">
+      <ListItemButton>
+        <ListItemIcon>
+          < CalendarMonthIcon />
+        </ListItemIcon>
+        <ListItemText primary="スケジュール情報" />
+      </ListItemButton>
+    </Link>
     <ListItemButton>
       <ListItemIcon>
         < PeopleAltIcon />

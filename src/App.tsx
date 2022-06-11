@@ -14,16 +14,16 @@ import { User } from "interfaces/index"
 import { AuthContextProvider } from "components/providers/AuthContextProvider"
 
 
-function App() {
+export const App: React.FC = () =>  {
 
   return (
     <BrowserRouter>
       <AuthContextProvider>
         <CommonLayout>
           <Routes>
+            <Route  path="/" element={<Home />} />
             <Route  path="/signup" element={<SignUp />} />
             <Route  path="/signin" element={<SignIn />} />
-            <Route  path="/" element={<Home />} />
             <Route  path="/menu" element={<Menu />} />
             <Route  path="/schedule" element={<Schedule />} />
             <Route  path="/ship" element={<Ship />} />
@@ -32,7 +32,4 @@ function App() {
       </AuthContextProvider>
     </BrowserRouter>
   );
-}
-
-export default App
-
+};

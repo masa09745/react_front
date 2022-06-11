@@ -134,7 +134,14 @@ export const CommonLayout = ({ children }: CommonLayoutProps) => {
 
   return (
     <>
-    <Box sx={{display:'flex'}}>
+    <Box
+      sx={{
+        display:'flex',
+        flexDirection: 'column',
+        minHeight: "100vh",
+
+        }}
+    >
       <CssBaseline />
       <AppBar position="fixed" open={open}>
         <Toolbar>
@@ -178,8 +185,17 @@ export const CommonLayout = ({ children }: CommonLayoutProps) => {
       <Main open={open}>
         <DrawerHeader />
         {children}
-        <Footer />
       </Main>
+      <Box
+          component="footer"
+          sx={{
+            py: 3,
+            px: 2,
+            mt: 'auto',
+          }}
+      >
+        <Footer />
+      </Box>
     </Box>
     </>
   )

@@ -137,7 +137,6 @@ export const CommonLayout = ({ children }: CommonLayoutProps) => {
     <Box
       sx={{
         display:'flex',
-        flexDirection: 'column',
         minHeight: "100vh",
 
         }}
@@ -185,17 +184,16 @@ export const CommonLayout = ({ children }: CommonLayoutProps) => {
       <Main open={open}>
         <DrawerHeader />
         {children}
-      </Main>
-      <Box
+        <Box
           component="footer"
           sx={{
-            py: 3,
-            px: 2,
-            mt: 'auto',
+            position: 'sticky',
+            top:'100vh'
           }}
-      >
-        <Footer />
-      </Box>
+        >
+          <Footer />
+        </Box>
+      </Main>
     </Box>
     </>
   )

@@ -33,7 +33,7 @@ export const Ship: React.FC = () => {
   return (
     <>
       <Box>
-        <Typography component="div" sx={{ mb:1}}>
+        <Typography sx={{ mb:1}}>
           機材一覧
         </Typography>
         <Box
@@ -46,6 +46,9 @@ export const Ship: React.FC = () => {
         >
           {shipList}
         </Box>
+        <Typography>
+          ここに機材情報
+        </Typography>
       </Box>
     </>
   )

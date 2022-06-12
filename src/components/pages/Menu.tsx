@@ -16,13 +16,26 @@ export const Menu: React.FC = () => {
   
 
   const menuList = menuArr.map((menu) =>
-    <Card component={Link} to={menu.link} key={menu.name} sx={{width: 250, textDecoration:"none"}} >
+    <Card
+      component={Link}
+      to={menu.link}
+      key={menu.name}
+      sx={{
+        width: 250,
+        textDecoration:"none"
+      }}
+    >
       <CardActionArea>
         <CardContent>
           <Typography variant="h5" component="div" >
             {menu.name}
           </Typography>
-          <Typography sx={{ m:1.5}} color="text.secondary">
+          <Typography
+            color="text.secondary"
+            sx={{ 
+              m:1.5
+            }}
+          >
             {menu.description}
           </Typography>
         </CardContent>

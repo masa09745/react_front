@@ -1,19 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+
+import { ShipData } from 'interfaces/index';
+import { ship } from 'lib/api/ship';
+
 import { Box, Card, CardActionArea, CardContent, Typography } from "@mui/material"
 
 
 export const Ship: React.FC = () => {
-  const shipArr = [
-    {name: "JA01MJ"},
-    {name: "JA02MJ"},
-    {name: "JA03MJ"},
-    {name: "JA04MJ"},
-    {name: "JA05MJ"},
-  ]
+  const [ships, setShips] = useState<ShipData[]>([])
 
-  const shipList =  shipArr.map((ship) =>
+  useEffect (() => {
+    ship().then ((res) => {
+      console.log(res.data);
+      setShips(res.data);
+    })
+  }, []);
+
+  const shipList =  ships.map((ship) =>
     <Card
-      key={ship.name}
+      key={ship.id}
       sx={{
         width:100,
         textDecoration:"none",
@@ -23,7 +28,7 @@ export const Ship: React.FC = () => {
       <CardActionArea>
         <CardContent>
           <Typography variant="h6" component="div">
-            {ship.name}
+            {ship.regiNumber}
           </Typography>
         </CardContent>
       </CardActionArea>

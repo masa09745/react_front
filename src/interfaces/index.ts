@@ -20,3 +20,8 @@ export interface User {
   image?: string
   allowPasswordChange: boolean
 }
+
+export interface ShipData {
+  id: number
+  regiNumber: string
+}

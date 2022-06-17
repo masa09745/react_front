@@ -1,8 +1,8 @@
 import React, { useContext } from "react"
 
-import { AuthContext } from "App"
+import { AuthContext } from "components/providers/AuthContextProvider"
 
-const Home: React.FC = () => {
+export const Home: React.FC = () =>  {
   const { isSignedIn, currentUser } = useContext(AuthContext)
 
   return (
@@ -18,7 +18,5 @@ const Home: React.FC = () => {
         )
       }
     </>
-  )
+  );
 }
-
-export default Home

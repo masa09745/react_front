@@ -3,9 +3,10 @@ import React, { useState, useEffect } from 'react';
 import { ShipData } from 'interfaces/index';
 import { ship } from 'lib/api/ship';
 
-import { Box, Card, CardActionArea, CardContent, Typography } from "@mui/material"
+import { Box, Typography } from "@mui/material"
 
 import { ShipList } from 'components/utils/ShipList'
+import { ShipDetails } from 'components/pages/ShipDetails'
 
 
 export const Ship: React.FC = () => {
@@ -36,10 +37,10 @@ export const Ship: React.FC = () => {
             <ShipList key={ship.id} id={ship.id} regiNumber={ship.regiNumber} />
           ))}
         </Box>
-        <Typography>
-          ここに機材情報
-        </Typography>
       </Box>
+      <Typography>
+        機材情報
+      </Typography>
     </>
   )
 }

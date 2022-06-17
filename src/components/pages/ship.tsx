@@ -5,6 +5,8 @@ import { ship } from 'lib/api/ship';
 
 import { Box, Card, CardActionArea, CardContent, Typography } from "@mui/material"
 
+import { ShipList } from 'components/utils/ShipList'
+
 
 export const Ship: React.FC = () => {
   const [ships, setShips] = useState<ShipData[]>([])
@@ -15,25 +17,6 @@ export const Ship: React.FC = () => {
       setShips(res.data);
     })
   }, []);
-
-  const shipList =  ships.map((ship) =>
-    <Card
-      key={ship.id}
-      sx={{
-        width:100,
-        textDecoration:"none",
-        textAlign: "center"
-      }}
-    >
-      <CardActionArea>
-        <CardContent>
-          <Typography variant="h6" component="div">
-            {ship.regiNumber}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      </Card>
-  );
 
   return (
     <>
@@ -49,7 +32,9 @@ export const Ship: React.FC = () => {
             mb: 5,
           }}
         >
-          {shipList}
+          {ships.map(ship => (
+            <ShipList key={ship.id} id={ship.id} regiNumber={ship.regiNumber} />
+          ))}
         </Box>
         <Typography>
           ここに機材情報

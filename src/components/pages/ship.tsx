@@ -3,7 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { ShipData } from 'interfaces/index';
 import { ship } from 'lib/api/ship';
 
-import { Box, Typography } from "@mui/material"
+import { Box, Card, CardActionArea, CardContent, Typography } from "@mui/material";
+
 
 import { ShipList } from 'components/utils/ShipList'
 import { ShipDetails } from 'components/pages/ShipDetails'
@@ -11,15 +12,17 @@ import { ShipDetails } from 'components/pages/ShipDetails'
 
 export const Ship: React.FC = () => {
   const [ships, setShips] = useState<ShipData[]>([])
+  const [selectShip, setSelectShip] = useState("")
 
   useEffect (() => {
-    ship().then ((res) => {
-      console.log(res.data);
+    const fetchShip = async () => {
+      const res =  await ship();
       setShips(res.data);
-    })
+    };
+    fetchShip();
   }, []);
 
-  return (
+  return(
     <>
       <Box>
         <Typography sx={{ mb:1}}>
@@ -33,14 +36,33 @@ export const Ship: React.FC = () => {
             mb: 5,
           }}
         >
-          {ships.map(ship => (
-            <ShipList key={ship.id} id={ship.id} regiNumber={ship.regiNumber} />
-          ))}
+          {ships.map((ship) =>
+            <Card
+            key={ship.id}
+            onClick={() => setSelectShip(ship.regiNumber)}
+            sx={{
+              width:100,
+              textDecoration:"none",
+              textAlign: "center"
+            }}
+          >
+            <CardActionArea>
+              <CardContent>
+                <Typography variant="h6" component="div">
+                  {ship.regiNumber}
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+          )}
         </Box>
       </Box>
       <Typography>
         機材情報
       </Typography>
+        <Box>
+          {selectShip}
+        </Box>
     </>
   )
 }

@@ -3,7 +3,7 @@ import { ShipData } from 'interfaces/index'
 import { Card, CardActionArea, CardContent, Typography } from "@mui/material"
 
 
-export const ShipList = (props:ShipData) => {
+export const ShipList: React.FC<ShipData> = props => {
   const { regiNumber } = props;
 
   const selectShip = () => {

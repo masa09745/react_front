@@ -66,24 +66,25 @@ export const Ship: React.FC = () => {
       <Typography sx={{mb:1}}>
         機材情報
       </Typography>
-        <Box sx={{px:2}}>
-          選択中の機番 : {selectShip}
+        <Box>
+          <Box sx={{px:2}}>
+            選択中の機番 : {selectShip}
+          </Box>
+          <Box sx={{width: '100%', typography:'body1'}}>
+            <TabContext value={value}>
+              <Box sx={{borderBottom:1, borderColor:'divider'}}>
+                <TabList onChange={handleChange} aria-label="tab API Test">
+                  <Tab label="スケジュール" value="1" />
+                  <Tab label="整備" value="2" />
+                  <Tab label="旅客" value="3" />
+                </TabList>
+              </Box>
+              <TabPanel value="1">スケジュール</TabPanel>
+              <TabPanel value="2">整備情報</TabPanel>
+              <TabPanel value="3">旅客情報</TabPanel>
+            </TabContext>
+          </Box>
         </Box>
-        <Box sx={{width: '100%', typography:'body1'}}>
-          <TabContext value={value}>
-            <Box sx={{borderBottom:1, borderColor:'divider'}}>
-              <TabList onChange={handleChange} aria-label="tab API Test">
-                <Tab label="スケジュール" value="1" />
-                <Tab label="整備" value="2" />
-                <Tab label="旅客" value="3" />
-              </TabList>
-            </Box>
-            <TabPanel value="1">スケジュール</TabPanel>
-            <TabPanel value="2">整備情報</TabPanel>
-            <TabPanel value="3">旅客情報</TabPanel>
-          </TabContext>
-        </Box>
-
     </>
   )
 }

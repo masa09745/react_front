@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { ShipData } from 'interfaces/index';
 import { ship } from 'lib/api/ship';
 
-import { Box, Card, CardActionArea, CardContent, Typography, Tab, } from "@mui/material";
+import { Box, Card, CardActionArea, CardContent, Typography, Tab} from "@mui/material";
 import { TabContext, TabPanel, TabList} from '@mui/lab'
 
 import { ShipList } from 'components/utils/ShipList'
@@ -12,11 +12,17 @@ import { ShipDetails } from 'components/pages/ShipDetails'
 
 export const Ship: React.FC = () => {
   const [ships, setShips] = useState<ShipData[]>([])
-  const [selectShip, setSelectShip] = useState("")
+  const [selectShip, setSelectShip] = useState< string | undefined >("機番を選んで下さい")
   const [value, setValue] = useState("1")
 
-  const handleChange = (event: React.SyntheticEvent, newValue:string) =>{
+  const handleChange = (e: React.SyntheticEvent, newValue:string) =>{
     setValue(newValue)
+  };
+
+  const handleOnClick = (e: React.MouseEvent<HTMLElement>) => {
+    console.log(e.currentTarget.dataset.ship)
+    setSelectShip(e.currentTarget.dataset.ship)
+
   };
 
   useEffect (() => {
@@ -45,7 +51,8 @@ export const Ship: React.FC = () => {
           {ships.map((ship) =>
             <Card
             key={ship.id}
-            onClick={() => setSelectShip(ship.regiNumber)}
+            onClick={handleOnClick}
+            data-ship={ship.regiNumber}
             sx={{
               width:100,
               textDecoration:"none",
@@ -68,7 +75,7 @@ export const Ship: React.FC = () => {
       </Typography>
         <Box>
           <Box sx={{px:2}}>
-            選択中の機番 : {selectShip}
+            機番 : {selectShip}
           </Box>
           <Box sx={{width: '100%', typography:'body1'}}>
             <TabContext value={value}>

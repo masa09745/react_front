@@ -5,7 +5,6 @@ import { ship } from 'lib/api/ship';
 
 import { Box, Card, CardActionArea, CardContent, Typography} from "@mui/material";
 
-import { ShipList } from 'components/utils/ShipList'
 import { ShipDetails } from 'components/pages/ShipDetails'
 
 

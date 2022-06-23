@@ -1,20 +1,36 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 
 import { Box, Tab, Typography } from "@mui/material";
 import { TabContext, TabPanel, TabList} from '@mui/lab'
+import { ScheduleList } from "components/utils/ScheduleList";
+import { ScheduleData } from "interfaces/index"
+
+
+import { Schedule } from 'lib/api/ship'
 
 type selectShip = {
-  selectShip: string | undefined
+  id? :string
+  selectShip?: string
 }
 
 export const ShipDetails:React.FC<selectShip> = (props) => {
 
-  const { selectShip } = props;
+  const { id, selectShip } = props;
   const [value, setValue] = useState("1")
+  const [schedules, setSchedule] = useState<ScheduleData[]>([])
 
   const handleChange = (e: React.SyntheticEvent, newValue:string) =>{
     setValue(newValue)
   };
+
+  useEffect (() => {
+    const fetchSchedule = async () => {
+      const res = await Schedule(id);
+      setSchedule(res.data)
+    };
+    fetchSchedule();
+  }, [id])
+  
 
   return(
     <>
@@ -35,7 +51,11 @@ export const ShipDetails:React.FC<selectShip> = (props) => {
                   <Tab label="旅客" value="3" />
                 </TabList>
               </Box>
-              <TabPanel value="1">スケジュール</TabPanel>
+              <TabPanel value="1">
+                {schedules.map((schedule) =>(
+                  <ScheduleList key={schedule.id} id={schedule.id} from={schedule.from} to={schedule.to} depTime={schedule.depTime} arrTime={schedule.arrTime} />
+                ))}
+              </TabPanel>
               <TabPanel value="2">整備情報</TabPanel>
               <TabPanel value="3">旅客情報</TabPanel>
             </TabContext>

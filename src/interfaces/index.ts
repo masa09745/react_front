@@ -21,7 +21,15 @@ export interface User {
   allowPasswordChange: boolean
 }
 
-export interface ShipData {
+export type ShipData = {
   id: number
   regiNumber: string
+};
+
+export type ScheduleData = {
+  id: number
+  from: string
+  to: string
+  depTime: string
+  arrTime: string
 }

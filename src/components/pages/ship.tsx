@@ -10,10 +10,12 @@ import { ShipDetails } from 'components/pages/ShipDetails'
 
 export const Ship: React.FC = () => {
   const [ships, setShips] = useState<ShipData[]>([])
+  const [selectShipId, setSelectShipId] = useState< string | undefined >()
   const [selectShip, setSelectShip] = useState< string | undefined >("")
   const [isActive, setIsActive] = useState(false)
 
   const handleOnClick = (e: React.MouseEvent<HTMLElement>) => {
+    setSelectShipId(e.currentTarget.dataset.id)
     setSelectShip(e.currentTarget.dataset.ship)
     setIsActive(true)
 
@@ -46,6 +48,7 @@ export const Ship: React.FC = () => {
             <Card
             key={ship.id}
             onClick={handleOnClick}
+            data-id={ship.id}
             data-ship={ship.regiNumber}
             sx={{
               width:100,
@@ -64,7 +67,7 @@ export const Ship: React.FC = () => {
           )}
         </Box>
       </Box>
-      {isActive? <ShipDetails selectShip={selectShip} /> : "機番を選んで下さい"}
+      {isActive? <ShipDetails id={selectShipId} selectShip={selectShip} /> : "機番を選んで下さい"}
     </>
   )
 }

@@ -55,13 +55,15 @@ export const ShipDetails:React.FC<SelectShip> = (props) => {
                       <TableRow>
                         <TableCell align='right'> From </TableCell>
                         <TableCell align='right'> To </TableCell>
+                        <TableCell align='right'> Dep Date </TableCell>
                         <TableCell align='right'> Dep Time </TableCell>
+                        <TableCell align='right'> Arr Date </TableCell>
                         <TableCell align='right'> Arr Time </TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
                       {schedules.map((schedule) =>(
-                        <ScheduleList key={schedule.id} id={schedule.id} from={schedule.from} to={schedule.to} depTime={schedule.depTime} arrTime={schedule.arrTime} />
+                        <ScheduleList key={schedule.id} id={schedule.id} from={schedule.from} to={schedule.to} depDate={schedule.depDate} depTime={schedule.depTime} arrDate={schedule.arrDate} arrTime={schedule.arrTime} />
                       ))}
                     </TableBody>
                   </Table>

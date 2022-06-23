@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
 
-import { ShipData } from 'interfaces/index';
-import { ship } from 'lib/api/ship';
-
 import { Box, Card, CardActionArea, CardContent, Typography} from "@mui/material";
+
+import { ship } from 'lib/api/ship';
+import type { ShipData } from 'types/ship'
 
 import { ShipDetails } from 'components/pages/ShipDetails'
 
-
 export const Ship: React.FC = () => {
   const [ships, setShips] = useState<ShipData[]>([])
-  const [selectShipId, setSelectShipId] = useState< string | undefined >()
+  const [selectShipId, setSelectShipId] = useState< string | undefined >("")
   const [selectShip, setSelectShip] = useState< string | undefined >("")
   const [isActive, setIsActive] = useState(false)
 
@@ -18,7 +17,6 @@ export const Ship: React.FC = () => {
     setSelectShipId(e.currentTarget.dataset.id)
     setSelectShip(e.currentTarget.dataset.ship)
     setIsActive(true)
-
   };
 
   useEffect (() => {

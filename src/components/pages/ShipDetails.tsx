@@ -2,18 +2,14 @@ import React, { useState, useEffect } from "react"
 
 import { Box, Tab, Typography } from "@mui/material";
 import { TabContext, TabPanel, TabList} from '@mui/lab'
+
+import { schedule } from 'lib/api/ship'
+import type { ScheduleData } from "types/schedule"
+import type { SelectShip } from "types/ship"
+
 import { ScheduleList } from "components/utils/ScheduleList";
-import { ScheduleData } from "interfaces/index"
 
-
-import { Schedule } from 'lib/api/ship'
-
-type selectShip = {
-  id? :string
-  selectShip?: string
-}
-
-export const ShipDetails:React.FC<selectShip> = (props) => {
+export const ShipDetails:React.FC<SelectShip> = (props) => {
 
   const { id, selectShip } = props;
   const [value, setValue] = useState("1")
@@ -25,12 +21,11 @@ export const ShipDetails:React.FC<selectShip> = (props) => {
 
   useEffect (() => {
     const fetchSchedule = async () => {
-      const res = await Schedule(id);
+      const res = await schedule(id);
       setSchedule(res.data)
     };
     fetchSchedule();
   }, [id])
-  
 
   return(
     <>

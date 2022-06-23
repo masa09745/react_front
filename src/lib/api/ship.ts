@@ -4,6 +4,6 @@ export const ship = () => {
   return client.get('/ships');
 };
 
-export const Schedule = (id: string | undefined) => {
+export const schedule = (id: string | undefined) => {
   return client.get(`ships/${id}`)
 }

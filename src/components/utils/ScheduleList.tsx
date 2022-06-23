@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import {ScheduleData} from "interfaces/index"
+import type {ScheduleData} from "types/schedule"
 
 
 import { Table, TableBody, TableRow, TableCell, TableHead, TableContainer, Paper} from "@mui/material"

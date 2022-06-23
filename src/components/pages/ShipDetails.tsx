@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react"
 
 import { Box, Tab, Typography } from "@mui/material";
 import { TabContext, TabPanel, TabList} from '@mui/lab'
+import { Table, TableBody, TableRow, TableCell, TableHead, TableContainer, Paper} from "@mui/material"
+
 
 import { schedule } from 'lib/api/ship'
 import type { ScheduleData } from "types/schedule"
@@ -47,9 +49,23 @@ export const ShipDetails:React.FC<SelectShip> = (props) => {
                 </TabList>
               </Box>
               <TabPanel value="1">
-                {schedules.map((schedule) =>(
-                  <ScheduleList key={schedule.id} id={schedule.id} from={schedule.from} to={schedule.to} depTime={schedule.depTime} arrTime={schedule.arrTime} />
-                ))}
+                <TableContainer component={Paper}>
+                  <Table>
+                    <TableHead>
+                      <TableRow>
+                        <TableCell align='right'> From </TableCell>
+                        <TableCell align='right'> To </TableCell>
+                        <TableCell align='right'> Dep Time </TableCell>
+                        <TableCell align='right'> Arr Time </TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {schedules.map((schedule) =>(
+                        <ScheduleList key={schedule.id} id={schedule.id} from={schedule.from} to={schedule.to} depTime={schedule.depTime} arrTime={schedule.arrTime} />
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
               </TabPanel>
               <TabPanel value="2">整備情報</TabPanel>
               <TabPanel value="3">旅客情報</TabPanel>

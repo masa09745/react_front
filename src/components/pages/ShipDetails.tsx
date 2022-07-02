@@ -29,6 +29,21 @@ export const ShipDetails:React.FC<SelectShip> = (props) => {
     fetchSchedule();
   }, [id])
 
+  const changeView = (date:string|Date) => {
+    date = new Date(date);
+    if(date.getFullYear() <= 2000){
+      if (date.getMinutes() < 10){
+        date = date.getHours()+":0"+date.getMinutes()
+      }else{
+        date = date.getHours()+":"+date.getMinutes()
+      }
+    }else{
+      date = date.getFullYear()+"/"+date.getMonth()+"/"+date.getDate()
+    }
+    return date;
+  }
+
+
   return(
     <>
       <Typography sx={{mb:1}}>
@@ -63,7 +78,7 @@ export const ShipDetails:React.FC<SelectShip> = (props) => {
                     </TableHead>
                     <TableBody>
                       {schedules.map((schedule) =>(
-                        <ScheduleList key={schedule.id} id={schedule.id} from={schedule.from} to={schedule.to} depDate={schedule.depDate} depTime={schedule.depTime} arrDate={schedule.arrDate} arrTime={schedule.arrTime} />
+                        <ScheduleList key={schedule.id} id={schedule.id} from={schedule.from} to={schedule.to} depDate={changeView(schedule.depDate)} depTime= {changeView(schedule.depTime)} arrDate={changeView(schedule.arrDate)} arrTime={changeView(schedule.arrTime)} />
                       ))}
                     </TableBody>
                   </Table>

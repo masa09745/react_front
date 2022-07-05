@@ -68,17 +68,18 @@ export const ShipDetails:React.FC<SelectShip> = (props) => {
                   <Table>
                     <TableHead>
                       <TableRow>
-                        <TableCell align='right'> From </TableCell>
-                        <TableCell align='right'> To </TableCell>
-                        <TableCell align='right'> Dep Date </TableCell>
-                        <TableCell align='right'> Dep Time </TableCell>
-                        <TableCell align='right'> Arr Date </TableCell>
-                        <TableCell align='right'> Arr Time </TableCell>
+                        <TableCell align='center'>Fright Number</TableCell>
+                        <TableCell align='center'>From</TableCell>
+                        <TableCell align='center'>To</TableCell>
+                        <TableCell align='center'>Dep Date</TableCell>
+                        <TableCell align='center'>Dep Time</TableCell>
+                        <TableCell align='center'>Arr Date</TableCell>
+                        <TableCell align='center'>Arr Time</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
                       {schedules.map((schedule) =>(
-                        <ScheduleList key={schedule.id} id={schedule.id} from={schedule.from} to={schedule.to} depDate={changeView(schedule.depDate)} depTime= {changeView(schedule.depTime)} arrDate={changeView(schedule.arrDate)} arrTime={changeView(schedule.arrTime)} />
+                        <ScheduleList key={schedule.id} id={schedule.id} flightNumber={schedule.flightNumber} from={schedule.from} to={schedule.to} depDate={changeView(schedule.depDate)} depTime= {changeView(schedule.depTime)} arrDate={changeView(schedule.arrDate)} arrTime={changeView(schedule.arrTime)} />
                       ))}
                     </TableBody>
                   </Table>

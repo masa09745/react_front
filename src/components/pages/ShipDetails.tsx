@@ -6,16 +6,20 @@ import { Table, TableBody, TableRow, TableCell, TableHead, TableContainer, Paper
 
 
 import { schedule } from 'lib/api/ship'
+import { maintenance } from 'lib/api/ship'
 import type { ScheduleData } from "types/schedule"
+import type { MaintenanceData } from "types/maintenance"
 import type { SelectShip } from "types/ship"
 
 import { ScheduleList } from "components/utils/ScheduleList";
+import { MaintenanceList } from "components/utils/MaintenanceList";
 
 export const ShipDetails:React.FC<SelectShip> = (props) => {
 
   const { id, selectShip } = props;
   const [value, setValue] = useState("1")
   const [schedules, setSchedule] = useState<ScheduleData[]>([])
+  const [maintenances, setMaintenance] = useState<MaintenanceData[]>([])
 
   const handleChange = (e: React.SyntheticEvent, newValue:string) =>{
     setValue(newValue)
@@ -27,6 +31,13 @@ export const ShipDetails:React.FC<SelectShip> = (props) => {
       setSchedule(res.data)
     };
     fetchSchedule();
+
+    const fetchMaintenance = async () => {
+      const res = await maintenance(id);
+      setMaintenance(res.data)
+      console.log(res.data)
+    };
+    fetchMaintenance();
   }, [id])
 
   const changeView = (date:string|Date) => {
@@ -85,7 +96,25 @@ export const ShipDetails:React.FC<SelectShip> = (props) => {
                   </Table>
                 </TableContainer>
               </TabPanel>
-              <TabPanel value="2">整備情報</TabPanel>
+              <TabPanel value="2">
+              <TableContainer component={Paper}>
+                  <Table>
+                    <TableHead>
+                      <TableRow>
+                        <TableCell align='center'>Date</TableCell>
+                        <TableCell align='center'>ATA</TableCell>
+                        <TableCell align='center'>Title</TableCell>
+                        <TableCell align='center'>Description</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {maintenances.map((maintenance) =>(
+                        <MaintenanceList key={maintenance.id} id={maintenance.id} date={changeView(maintenance.date)} ata={maintenance.ata} title={maintenance.title} description={maintenance.description}/>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              </TabPanel>
               <TabPanel value="3">旅客情報</TabPanel>
             </TabContext>
           </Box>

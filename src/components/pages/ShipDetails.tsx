@@ -35,7 +35,6 @@ export const ShipDetails:React.FC<SelectShip> = (props) => {
     const fetchMaintenance = async () => {
       const res = await maintenance(id);
       setMaintenance(res.data)
-      console.log(res.data)
     };
     fetchMaintenance();
   }, [id])

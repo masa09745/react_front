@@ -5,7 +5,7 @@ import { TabContext, TabPanel, TabList} from '@mui/lab'
 import { Table, TableBody, TableRow, TableCell, TableHead, TableContainer, Paper} from "@mui/material"
 
 
-import { schedule } from 'lib/api/ship'
+import { schedule } from 'lib/api/schedule'
 import type { ScheduleData } from "types/schedule"
 import type { SelectShip } from "types/ship"
 

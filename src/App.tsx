@@ -11,25 +11,26 @@ import { Ship } from "components/pages/Ship"
 
 import { getCurrentUser } from "lib/api/auth"
 import { User } from "interfaces/index"
-import { AuthContextProvider } from "components/providers/AuthContextProvider"
+import {AuthContext} from "components/providers/AuthContextProvider"
 
 
 export const App: React.FC = () =>  {
 
+  const contextValue = useContext(AuthContext)
+  console.log(contextValue)
+
   return (
     <BrowserRouter>
-      <AuthContextProvider>
-        <CommonLayout>
-          <Routes>
-            <Route  path="/" element={<Home />} />
-            <Route  path="/signup" element={<SignUp />} />
-            <Route  path="/signin" element={<SignIn />} />
-            <Route  path="/menu" element={<Menu />} />
-            <Route  path="/schedule" element={<Schedule />} />
-            <Route  path="/ship" element={<Ship />} />
-          </Routes>
-        </CommonLayout>
-      </AuthContextProvider>
+      <CommonLayout>
+        <Routes>
+          <Route  path="/" element={<Home />} />
+          <Route  path="/signup" element={<SignUp />} />
+          <Route  path="/signin" element={<SignIn />} />
+          <Route  path="/menu" element={<Menu />} />
+          <Route  path="/schedule" element={<Schedule />} />
+          <Route  path="/ship" element={<Ship />} />
+        </Routes>
+      </CommonLayout>
     </BrowserRouter>
   );
 };

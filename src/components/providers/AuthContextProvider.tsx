@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from "react";
-import { User } from "interfaces/index"
+import type { User } from "types/user"
 import { getCurrentUser } from "lib/api/auth"
 
 
@@ -11,14 +11,13 @@ export const AuthContext = createContext({} as {
   setIsSignedIn: React.Dispatch<React.SetStateAction<boolean>>
   currentUser: User | undefined
   setCurrentUser: React.Dispatch<React.SetStateAction<User | undefined>>
+
 });
 
 
-
-interface props {
+type props = {
   children: React.ReactNode;
 }
-
 
 export const AuthContextProvider = (props: props) => {
 
@@ -30,7 +29,7 @@ export const AuthContextProvider = (props: props) => {
     try {
 
       const res = await getCurrentUser()
-      console.log(res)
+
 
       if (res?.status === 200) {
         setIsSignedIn(true)

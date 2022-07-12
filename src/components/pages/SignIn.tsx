@@ -35,7 +35,6 @@ import type { SignInData } from "types/user"
 
     try {
       const res = await signIn(data)
-      console.log(res)
 
       if (res.status === 200) {
         Cookies.set("_access_token", res.headers["access-token"])

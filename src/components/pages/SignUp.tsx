@@ -38,11 +38,8 @@ export const SignUp: React.FC =() => {
       passwordConfirmation: passwordConfirmation
     }
 
-    console.log(data)
-
     try {
       const res = await signUp(data)
-      console.log(res)
 
       if (res.status === 200) {
         Cookies.set("_access_token", res.headers["access-token"])

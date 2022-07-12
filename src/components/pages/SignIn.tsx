@@ -13,7 +13,7 @@ import Box from "@mui/material/Box"
 import { AuthContext } from "components/providers/AuthContextProvider"
 import AlertMessage from "components/utils/AlertMessage"
 import { signIn } from "lib/api/auth"
-import { SignInData } from "interfaces/index"
+import type { SignInData } from "types/user"
 
 
  export const SignIn: React.FC = () => {

@@ -1,7 +1,7 @@
 import client from "lib/api/client"
 import Cookies from "js-cookie"
 
-import { SignUpData, SignInData } from "interfaces/index"
+import type { SignUpData, SignInData } from "types/user"
 
 
 

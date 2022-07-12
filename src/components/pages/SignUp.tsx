@@ -12,7 +12,7 @@ import Button from '@mui/material/Button'
 import { AuthContext } from "components/providers/AuthContextProvider"
 import AlertMessage from 'components/utils/AlertMessage'
 import { signUp } from 'lib/api/auth'
-import { SignUpData } from 'interfaces/index'
+import type { SignUpData } from 'types/user'
 
 
 export const SignUp: React.FC =() => {

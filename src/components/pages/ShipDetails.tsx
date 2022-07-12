@@ -70,7 +70,6 @@ export const ShipDetails:React.FC<SelectShip> = (props) => {
                 <TabList onChange={handleChange} aria-label="tab API Test">
                   <Tab label="スケジュール" value="1" />
                   <Tab label="整備" value="2" />
-                  <Tab label="旅客" value="3" />
                 </TabList>
               </Box>
               <TabPanel value="1">
@@ -114,7 +113,6 @@ export const ShipDetails:React.FC<SelectShip> = (props) => {
                   </Table>
                 </TableContainer>
               </TabPanel>
-              <TabPanel value="3">旅客情報</TabPanel>
             </TabContext>
           </Box>
         </Box>

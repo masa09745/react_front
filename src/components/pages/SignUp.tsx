@@ -22,6 +22,7 @@ export const SignUp: React.FC =() => {
 
   const [name, setName] = useState<string>("")
   const [email, setEmail] = useState<string>("")
+  const [employeeNumber, setEmployeeNumber] = useState<string>("")
   const [password, setPassword] = useState<string>("")
   const [passwordConfirmation, setPasswordConfirmation] = useState<string>("")
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
@@ -32,6 +33,7 @@ export const SignUp: React.FC =() => {
     const data: SignUpData = {
       name: name,
       email: email,
+      employeeNumber: employeeNumber,
       password: password,
       passwordConfirmation: passwordConfirmation
     }
@@ -72,6 +74,7 @@ export const SignUp: React.FC =() => {
           <CardContent>
             <TextField variant="outlined" required fullWidth label="名前" value={name} margin="dense" onChange={event => setName(event.target.value)} />
             <TextField variant="outlined" required fullWidth label="メールアドレス" value={email} margin="dense" onChange={event => setEmail(event.target.value)} />
+            <TextField variant="outlined" required fullWidth label="社員番号" value={employeeNumber} margin="dense" onChange={event => setEmployeeNumber(event.target.value)} />
             <TextField variant="outlined" required fullWidth label="パスワード" type="password" value={password} margin="dense" autoComplete="current-password" onChange={event => setPassword(event.target.value)} />
             <TextField variant="outlined" required fullWidth label="パスワード(確認用)" type="password" value={passwordConfirmation} margin="dense" autoComplete="current-password" onChange={event => setPasswordConfirmation(event.target.value)} />
             <Typography sx={{pt:2, textAlign:"right", flexGrow:1, textTransform:"none"}}>

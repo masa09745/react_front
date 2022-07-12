@@ -21,7 +21,7 @@ import { SignInData } from "interfaces/index"
 
   const { setIsSignedIn, setCurrentUser } = useContext(AuthContext)
 
-  const [email, setEmail] = useState<string>("")
+  const [employeeNumber, setEmployeeNumber] = useState<string>("")
   const [password, setPassword] = useState<string>("")
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
 
@@ -29,7 +29,7 @@ import { SignInData } from "interfaces/index"
     e.preventDefault()
 
     const data: SignInData = {
-      email: email,
+      employeeNumber: employeeNumber,
       password: password
     }
 
@@ -65,10 +65,10 @@ import { SignInData } from "interfaces/index"
       <Card sx={{ maxWidth: 400, mt:10, mx:"auto"}}>
         <CardHeader sx={{ textAlign: 'center' }} title="サインイン" />
         <CardContent>
-        <TextField variant="outlined" required fullWidth label="メールアドレス" value={email} margin="dense" onChange={event => setEmail(event.target.value)} />
+        <TextField variant="outlined" required fullWidth label="社員番号" value={employeeNumber} margin="dense" onChange={event => setEmployeeNumber(event.target.value)} />
         <TextField variant="outlined" required fullWidth label="パスワード" value={password} margin="dense" onChange={event => setPassword(event.target.value)} />
         <Box sx={{ pt:2, textAlign:'right', flexGrow:1, textTransform: 'none' }}>
-          <Button type="submit" variant="outlined" color="primary" disabled={!email || !password ? true : false} onClick={handleSubmit}>
+          <Button type="submit" variant="outlined" color="primary" disabled={!employeeNumber || !password ? true : false} onClick={handleSubmit}>
             送信
           </Button>
         </Box>

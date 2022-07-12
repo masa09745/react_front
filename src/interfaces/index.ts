@@ -1,12 +1,13 @@
 export interface SignUpData {
   name: string
   email: string
+  employeeNumber: string
   password: string
   passwordConfirmation: string
 }
 
 export interface SignInData {
-  email: string
+  employeeNumber: string
   password: string
 }
 

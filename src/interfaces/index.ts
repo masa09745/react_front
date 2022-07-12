@@ -21,7 +21,4 @@ export interface User {
   allowPasswordChange: boolean
 }
 
-export interface ShipData {
-  id: number
-  regiNumber: string
-}
+

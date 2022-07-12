@@ -62,7 +62,7 @@ import { SignInData } from "interfaces/index"
   return (
   <>
     <form noValidate autoComplete="off" >
-      <Card sx={{ maxWidth: 400, pt:2}}>
+      <Card sx={{ maxWidth: 400, mt:10, mx:"auto"}}>
         <CardHeader sx={{ textAlign: 'center' }} title="サインイン" />
         <CardContent>
         <TextField variant="outlined" required fullWidth label="メールアドレス" value={email} margin="dense" onChange={event => setEmail(event.target.value)} />

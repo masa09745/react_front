@@ -67,7 +67,7 @@ export const SignUp: React.FC =() => {
   return (
     <>
       <form noValidate autoComplete="off">
-        <Card sx={{p:2, maxWidth: 400}} >
+        <Card sx={{maxWidth: 400, mt:10, mx:"auto"}} >
           <CardHeader sx={{textAlign: "center" }} title="サインアップ" />
           <CardContent>
             <TextField variant="outlined" required fullWidth label="名前" value={name} margin="dense" onChange={event => setName(event.target.value)} />

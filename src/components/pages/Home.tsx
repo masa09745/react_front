@@ -6,7 +6,8 @@ export const Home: React.FC = () =>  {
 
   return(
     <>
-      社員番号：{currentUser?.employeeNumber}
+      <p>社員番号 : {currentUser?.employeeNumber}</p>
+      <p>氏名 : {currentUser?.lastName} {currentUser?.firstName}</p>
     </>
   )
 }

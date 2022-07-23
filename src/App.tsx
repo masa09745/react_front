@@ -12,15 +12,20 @@ import {AuthContext} from "components/providers/AuthContextProvider"
 
 export const App: React.FC = () =>  {
 
-  const {isSignedIn} = useContext(AuthContext)
+  const {loading, isSignedIn} = useContext(AuthContext)
 
   const PrivateRoute = ({ children }: { children: JSX.Element }) => {
-    if (!isSignedIn) {
-      return <Navigate to="/signin" replace/>;
+    if(!loading) {
+      if (!isSignedIn) {
+        return <Navigate to="/signin" replace/>;
+      } else {
+        return children
+      }
+    }else {
+      return  <></>
     }
-
-    return children
   }
+
 
   return (
     <BrowserRouter>

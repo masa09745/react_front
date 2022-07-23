@@ -7,6 +7,8 @@ import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardHeader from '@mui/material/CardHeader'
 import Typography from '@mui/material/Typography'
+import Box from '@mui/material/Box'
+import Grid from '@mui/material/Grid'
 import Button from '@mui/material/Button'
 
 import { AuthContext } from "components/providers/AuthContextProvider"
@@ -17,12 +19,16 @@ import type { SignUpData } from 'types/user'
 
 export const SignUp: React.FC =() => {
   const navigate = useNavigate()
-  
+
   const { setIsSignedIn, setCurrentUser } = useContext(AuthContext)
 
-  const [name, setName] = useState<string>("")
-  const [email, setEmail] = useState<string>("")
+  const [firstName, setFirstName] = useState<string>("")
+  const [lastName, setLastName] = useState<string>("")
+  const [firstKana, setFirstKana] = useState<string>("")
+  const [lastKana, setLastKana] = useState<string>("")
   const [employeeNumber, setEmployeeNumber] = useState<string>("")
+  const [email, setEmail] = useState<string>("")
+  const [section, setSection] = useState<string>("")
   const [password, setPassword] = useState<string>("")
   const [passwordConfirmation, setPasswordConfirmation] = useState<string>("")
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
@@ -31,9 +37,13 @@ export const SignUp: React.FC =() => {
     e.preventDefault()
 
     const data: SignUpData = {
-      name: name,
-      email: email,
+      firstName: firstName,
+      lastName: lastName,
+      firstKana: firstKana,
+      lastKana: lastKana,
       employeeNumber: employeeNumber,
+      email: email,
+      section: section,
       password: password,
       passwordConfirmation: passwordConfirmation
     }
@@ -65,23 +75,135 @@ export const SignUp: React.FC =() => {
 
   return (
     <>
-      <form noValidate autoComplete="off">
-        <Card sx={{maxWidth: 400, mt:10, mx:"auto"}} >
-          <CardHeader sx={{textAlign: "center" }} title="サインアップ" />
-          <CardContent>
-            <TextField variant="outlined" required fullWidth label="名前" value={name} margin="dense" onChange={event => setName(event.target.value)} />
-            <TextField variant="outlined" required fullWidth label="メールアドレス" value={email} margin="dense" onChange={event => setEmail(event.target.value)} />
-            <TextField variant="outlined" required fullWidth label="社員番号" value={employeeNumber} margin="dense" onChange={event => setEmployeeNumber(event.target.value)} />
-            <TextField variant="outlined" required fullWidth label="パスワード" type="password" value={password} margin="dense" autoComplete="current-password" onChange={event => setPassword(event.target.value)} />
-            <TextField variant="outlined" required fullWidth label="パスワード(確認用)" type="password" value={passwordConfirmation} margin="dense" autoComplete="current-password" onChange={event => setPasswordConfirmation(event.target.value)} />
-            <Typography sx={{pt:2, textAlign:"right", flexGrow:1, textTransform:"none"}}>
-              <Button type="submit" variant="outlined" color="primary" disabled={!name || !email || !password || !passwordConfirmation ? true : false} onClick={handleSubmit}>
-                送信
-              </Button>
-            </Typography>
-          </CardContent>
-        </Card>
-      </form>
+      <Card
+        sx={{
+          maxWidth: 400,
+          mt:2,
+          mx: "auto",
+          p: 3,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center'
+        }}>
+        <Typography component="h1" variant="h5">
+          新規登録
+        </Typography>
+        <Box component="form" noValidate autoComplete="off" sx={{ mt: 3 }}>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                autoComplete="family-name"
+                name="lastName"
+                required
+                fullWidth
+                id="lastName"
+                label="性"
+                autoFocus
+                value={lastName}
+                onChange={event => setLastName(event.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                autoComplete="given-name"
+                name="firstName"
+                required
+                fullWidth
+                id="firstName"
+                label="名"
+                autoFocus
+                value={firstName}
+                onChange={event => setFirstName(event.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                autoComplete="off"
+                name="lastKana"
+                required
+                fullWidth
+                id="lastKana"
+                label="性(カナ)"
+                autoFocus
+                value={lastKana}
+                onChange={event => setLastKana(event.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                autoComplete="off"
+                name="firstKana"
+                required
+                fullWidth
+                id="firstKana"
+                label="名(カナ)"
+                autoFocus
+                value={firstKana}
+                onChange={event => setFirstKana(event.target.value)}
+              />
+            </Grid>
+            <Grid item xs={5}>
+              <TextField
+                autoComplete="off"
+                name="employeeNumber"
+                required
+                fullWidth
+                id="employeeNumber"
+                label="社員番号"
+                autoFocus
+                value={employeeNumber}
+                onChange={event => setEmployeeNumber(event.target.value)}
+              />
+            </Grid>
+            <Grid item xs={10}>
+              <TextField
+                autoComplete="email"
+                name="email"
+                required
+                fullWidth
+                id="email"
+                label="メールアドレス"
+                autoFocus
+                value={email}
+                onChange={event => setEmail(event.target.value)}
+              />
+            </Grid>
+            <Grid item xs={7}>
+              <TextField
+                autoComplete="current-password"
+                name="password"
+                required
+                fullWidth
+                id="password"
+                label="パスワード"
+                type="password"
+                autoFocus
+                value={password}
+                onChange={event => setPassword(event.target.value)}
+              />
+            </Grid>
+            <Grid item xs={7}>
+              <TextField
+                autoComplete="current-password"
+                name="passwordConfirmation"
+                required
+                fullWidth
+                id="passwordConfirmation"
+                label="パスワード(確認用)"
+                type="password"
+                autoFocus
+                value={passwordConfirmation}
+                onChange={event => setPasswordConfirmation(event.target.value)}
+              />
+            </Grid>
+          </Grid>
+          <Typography sx={{pt:2, textAlign:"right", flexGrow:1, textTransform:"none"}}>
+            <Button type="submit" variant="outlined" color="primary" disabled={!firstName || !lastName || !firstKana || !lastKana || !email || !password || !passwordConfirmation ? true : false} onClick={handleSubmit} >
+              送信
+            </Button>
+          </Typography>
+        </Box>
+      </Card>
       <AlertMessage open={alertMessageOpen} setOpen={setAlertMessageOpen} severity="error" message="メールアドレスかパスワードが間違っています" /> 
     </>
   );

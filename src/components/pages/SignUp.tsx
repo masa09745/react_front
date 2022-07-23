@@ -2,13 +2,15 @@ import React, { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import  Cookies from 'js-cookie'
 
-import TextField from '@mui/material/TextField'
 import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
-import CardHeader from '@mui/material/CardHeader'
+import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
+import Select  from '@mui/material/Select'
+import MenuItem from '@mui/material/MenuItem'
+import InputLabel from '@mui/material/InputLabel'
+import FormControl from '@mui/material/FormControl'
 import Button from '@mui/material/Button'
 
 import { AuthContext } from "components/providers/AuthContextProvider"
@@ -142,7 +144,7 @@ export const SignUp: React.FC =() => {
                 onChange={event => setFirstKana(event.target.value)}
               />
             </Grid>
-            <Grid item xs={5}>
+            <Grid item xs={6}>
               <TextField
                 autoComplete="off"
                 name="employeeNumber"
@@ -154,6 +156,23 @@ export const SignUp: React.FC =() => {
                 value={employeeNumber}
                 onChange={event => setEmployeeNumber(event.target.value)}
               />
+            </Grid>
+            <Grid item xs={7}>
+              <FormControl fullWidth>
+                <InputLabel id="section-label" required>所属</InputLabel>
+                <Select
+                  required
+                  labelId="section-label"
+                  id="section"
+                  label="所属"
+                  value={section}
+                  onChange={event => setSection(event.target.value)}
+                >
+                  <MenuItem value={"運航乗員部"}>運航乗員部</MenuItem>
+                  <MenuItem value={"客室乗員部"}>客室乗員部</MenuItem>
+                  <MenuItem value={"整備部"}>整備部</MenuItem>
+                </Select>
+              </FormControl>
             </Grid>
             <Grid item xs={10}>
               <TextField

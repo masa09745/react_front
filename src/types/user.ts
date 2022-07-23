@@ -16,9 +16,11 @@ export type User = {
   uid: string
   provider: string
   email: string
-  name: string
+  firstName: string,
+  lastName: string,
+  firstKana: string,
+  lastKana: string,
   employeeNumber: string
-  nickname?: string
-  image?: string
+  section: string
   allowPasswordChange: boolean
 }

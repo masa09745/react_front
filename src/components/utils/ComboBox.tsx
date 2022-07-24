@@ -5,11 +5,11 @@ import MenuItem from '@mui/material/MenuItem'
 import InputLabel from '@mui/material/InputLabel'
 import FormControl from '@mui/material/FormControl'
 
-import type { comboBoxItem} from 'types/comboBoxItem';
+import type { ComboBoxItem } from 'types/ComboBoxItem';
 
 type Props = {
   inputLabel: string
-  items: comboBoxItem[]
+  items: ComboBoxItem[]
   defaultValue: string
   value: string
   onChange: (selected: string) => void

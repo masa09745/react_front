@@ -15,8 +15,13 @@ import Button from '@mui/material/Button'
 
 import { AuthContext } from "components/providers/AuthContextProvider"
 import AlertMessage from 'components/utils/AlertMessage'
+import ComboBox from 'components/utils/ComboBox'
+
 import { signUp } from 'lib/api/auth'
+
 import type { SignUpData } from 'types/user'
+import type { ComboBoxItem } from 'types/ComboBoxItem'
+
 
 
 export const SignUp: React.FC =() => {

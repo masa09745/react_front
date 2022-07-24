@@ -21,7 +21,30 @@ import { signUp } from 'lib/api/auth'
 
 import type { SignUpData } from 'types/user'
 import type { ComboBoxItem } from 'types/ComboBoxItem'
+import type { SectionRole } from 'types/SectionRole'
 
+const SectionRoleList: SectionRole[] = [
+  {
+    sectionName: "運航乗員部",
+    roles: [
+      {roleName: "機長"},
+      {roleName: "副操縦士"},
+    ],
+  },
+  {
+    sectionName: "客室乗員部",
+    roles: [
+      {roleName: "チーフ"},
+      {roleName: "キャビンアテンダント"},
+    ]
+  },
+  {
+    sectionName: "整備部",
+    roles: [
+      {roleName: "整備士"},
+    ]
+  }
+]
 
 
 export const SignUp: React.FC =() => {

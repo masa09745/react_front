@@ -157,7 +157,7 @@ export const SignUp: React.FC =() => {
                 onChange={event => setEmployeeNumber(event.target.value)}
               />
             </Grid>
-            <Grid item xs={7}>
+            <Grid item xs={6}>
               <FormControl fullWidth>
                 <InputLabel id="section-label" required>所属</InputLabel>
                 <Select

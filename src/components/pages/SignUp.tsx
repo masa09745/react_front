@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import  Cookies from 'js-cookie'
 
@@ -24,6 +24,12 @@ import type { ComboBoxItem } from 'types/ComboBoxItem'
 import type { SectionRole } from 'types/SectionRole'
 
 const SectionRoleList: SectionRole[] = [
+  {
+    sectionName: "所属を選んで下さい",
+    roles: [
+      {roleName: "役職を選んで下さい"}
+    ]
+  },
   {
     sectionName: "運航乗員部",
     roles: [
@@ -62,6 +68,47 @@ export const SignUp: React.FC =() => {
   const [password, setPassword] = useState<string>("")
   const [passwordConfirmation, setPasswordConfirmation] = useState<string>("")
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
+
+  const [sectionOptions] =useState<ComboBoxItem[]>(
+    SectionRoleList.map((i) => {
+      return {
+        value: i.sectionName,
+      };
+    })
+  );
+  
+  const [selectedSectionName, setSelectedSectionName] = useState<string>(
+    SectionRoleList[0].sectionName
+  );
+
+  const roleOptionRef = useRef(
+    SectionRoleList.filter(
+      (i) =>i.sectionName === selectedSectionName
+    )[0].roles.map((i) => {
+      return{
+        value: i.roleName
+      };
+    })
+  );
+
+  const [selectedRoleName, setSelectedRoleName] = useState<string>(
+    SectionRoleList[0].roles[0].roleName
+  )
+
+  const onSectionComboBoxChangeHandler = (sectionName: string) => {
+    setSelectedSectionName(sectionName);
+
+    const selectedSectionRoles = SectionRoleList.filter(
+      (i) => i.sectionName === sectionName
+    )[0].roles;
+
+    setSelectedRoleName(selectedSectionRoles[0].roleName);
+    roleOptionRef.current = selectedSectionRoles.map((i) => {
+      return {
+        value: i.roleName
+      };
+    });
+  };
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
@@ -185,22 +232,23 @@ export const SignUp: React.FC =() => {
                 onChange={event => setEmployeeNumber(event.target.value)}
               />
             </Grid>
-            <Grid item xs={6}>
-              <FormControl fullWidth>
-                <InputLabel id="section-label" required>所属</InputLabel>
-                <Select
-                  required
-                  labelId="section-label"
-                  id="section"
-                  label="所属"
-                  value={section}
-                  onChange={event => setSection(event.target.value)}
-                >
-                  <MenuItem value={"運航乗員部"}>運航乗員部</MenuItem>
-                  <MenuItem value={"客室乗員部"}>客室乗員部</MenuItem>
-                  <MenuItem value={"整備部"}>整備部</MenuItem>
-                </Select>
-              </FormControl>
+            <Grid item xs={7}>
+              <ComboBox
+                inputLabel= "所属"
+                items = {sectionOptions}
+                value = {selectedSectionName}
+                defaultValue={sectionOptions[0].value}
+                onChange={(selected) => onSectionComboBoxChangeHandler(selected)}
+              />
+            </Grid>
+            <Grid item xs={7}>
+              <ComboBox
+                inputLabel= "役職"
+                items={roleOptionRef.current}
+                defaultValue={""}
+                value={selectedRoleName}
+                onChange={(selected) => setSelectedRoleName(selected)}
+              />
             </Grid>
             <Grid item xs={10}>
               <TextField

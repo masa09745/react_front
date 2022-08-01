@@ -16,14 +16,16 @@ type Props = {
 }
 
 const ComboBox: React.FC<Props> = (props) => {
-  const{ inputLabel, items, defaultValue, value, onChange } = props;
+  const{ inputLabel, items, value, onChange } = props;
 
   return (
-    <FormControl>
-      <InputLabel>{inputLabel}</InputLabel>
+    <FormControl fullWidth>
+      <InputLabel id="section-label">{inputLabel}</InputLabel>
       <Select
-        defaultValue={defaultValue}
         value={value}
+        labelId="section-label"
+        label={inputLabel}
+        required
         onChange={(e)=>{
           if(e.target.value !== 'undefined') {
             onChange(e.target.value as string);

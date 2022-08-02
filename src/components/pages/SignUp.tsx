@@ -1,4 +1,4 @@
-import React, { useState, useContext, useRef } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import  Cookies from 'js-cookie'
 
@@ -18,39 +18,16 @@ import AlertMessage from 'components/utils/AlertMessage'
 import ComboBox from 'components/utils/ComboBox'
 
 import { signUp } from 'lib/api/auth'
+import { section } from 'lib/api/SectionRole'
+import { role } from 'lib/api/SectionRole'
 
 import type { SignUpData } from 'types/user'
 import type { ComboBoxItem } from 'types/ComboBoxItem'
 import type { SectionRole } from 'types/SectionRole'
+import type { SectionData } from 'types/section'
+import type { RoleData } from 'types/role'
 
-const SectionRoleList: SectionRole[] = [
-  {
-    sectionName: "所属を選んで下さい",
-    roles: [
-      {roleName: "役職を選んで下さい"}
-    ]
-  },
-  {
-    sectionName: "運航乗員部",
-    roles: [
-      {roleName: "機長"},
-      {roleName: "副操縦士"},
-    ],
-  },
-  {
-    sectionName: "客室乗員部",
-    roles: [
-      {roleName: "チーフ"},
-      {roleName: "キャビンアテンダント"},
-    ]
-  },
-  {
-    sectionName: "整備部",
-    roles: [
-      {roleName: "整備士"},
-    ]
-  }
-]
+
 
 
 export const SignUp: React.FC =() => {
@@ -70,49 +47,10 @@ export const SignUp: React.FC =() => {
   const [passwordConfirmation, setPasswordConfirmation] = useState<string>("")
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
 
-  
+
+  useEffect (() => {})
 
 
-  const [sectionOptions] =useState<ComboBoxItem[]>(
-    SectionRoleList.map((i) => {
-      return {
-        value: i.sectionName,
-      };
-    })
-  );
-  
-  const [selectedSectionName, setSelectedSectionName] = useState<string>(
-    SectionRoleList[0].sectionName
-  );
-
-  const roleOptionRef = useRef(
-    SectionRoleList.filter(
-      (i) =>i.sectionName === selectedSectionName
-    )[0].roles.map((i) => {
-      return{
-        value: i.roleName
-      };
-    })
-  );
-
-  const [selectedRoleName, setSelectedRoleName] = useState<string>(
-    SectionRoleList[0].roles[0].roleName
-  )
-
-  const onSectionComboBoxChangeHandler = (sectionName: string) => {
-    setSelectedSectionName(sectionName);
-
-    const selectedSectionRoles = SectionRoleList.filter(
-      (i) => i.sectionName === sectionName
-    )[0].roles;
-
-    setSelectedRoleName(selectedSectionRoles[0].roleName);
-    roleOptionRef.current = selectedSectionRoles.map((i) => {
-      return {
-        value: i.roleName
-      };
-    });
-  };
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()

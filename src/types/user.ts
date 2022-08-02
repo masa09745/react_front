@@ -6,6 +6,7 @@ export type SignUpData = {
   employeeNumber: string
   email: string
   section: string
+  role: string
   password: string
   passwordConfirmation: string
 }
@@ -26,5 +27,6 @@ export type User = {
   employeeNumber: string
   email: string
   section: string
+  role: string
   allowPasswordChange: boolean
 }

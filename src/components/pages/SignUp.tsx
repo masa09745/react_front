@@ -65,9 +65,13 @@ export const SignUp: React.FC =() => {
   const [employeeNumber, setEmployeeNumber] = useState<string>("")
   const [email, setEmail] = useState<string>("")
   const [section, setSection] = useState<string>("")
+  const [role, setRole] = useState<string>("")
   const [password, setPassword] = useState<string>("")
   const [passwordConfirmation, setPasswordConfirmation] = useState<string>("")
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
+
+  
+
 
   const [sectionOptions] =useState<ComboBoxItem[]>(
     SectionRoleList.map((i) => {
@@ -121,6 +125,7 @@ export const SignUp: React.FC =() => {
       employeeNumber: employeeNumber,
       email: email,
       section: section,
+      role: role,
       password: password,
       passwordConfirmation: passwordConfirmation
     }

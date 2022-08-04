@@ -10,31 +10,31 @@ import type { ComboBoxItem } from 'types/ComboBoxItem';
 type Props = {
   inputLabel: string
   items: ComboBoxItem[]
-  defaultValue: string
   value: string
   onChange: (selected: string) => void
 }
 
 const ComboBox: React.FC<Props> = (props) => {
   const{ inputLabel, items, value, onChange } = props;
+ 
 
   return (
     <FormControl fullWidth>
       <InputLabel id="section-label">{inputLabel}</InputLabel>
       <Select
-        value={value}
         labelId="section-label"
         label={inputLabel}
         required
-        onChange={(e)=>{
-          if(e.target.value !== 'undefined') {
-            onChange(e.target.value as string);
+        value = {value}
+        onChange={(e) =>{
+          if (e.target.value !== 'undefined'){
+            onChange(e.target.value);
           }
         }}
       >
         {items.map((item) =>(
-          <MenuItem value={item.value} key={item.value}>
-            {item.value}
+          <MenuItem value={item.id} key={item.id}>
+            {item.name}
           </MenuItem>
         ))}
       </Select>

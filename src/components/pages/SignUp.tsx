@@ -18,8 +18,8 @@ import AlertMessage from 'components/utils/AlertMessage'
 import ComboBox from 'components/utils/ComboBox'
 
 import { signUp } from 'lib/api/auth'
-import { section } from 'lib/api/SectionRole'
-import { role } from 'lib/api/SectionRole'
+import { GetSection } from 'lib/api/SectionRole'
+import { GetRole } from 'lib/api/SectionRole'
 
 import type { SignUpData } from 'types/user'
 import type { ComboBoxItem } from 'types/ComboBoxItem'
@@ -35,6 +35,10 @@ export const SignUp: React.FC =() => {
 
   const { setIsSignedIn, setCurrentUser } = useContext(AuthContext)
 
+  const [sectionList, setSectionList] = useState<SectionData[]>([])
+  const [roleList, setRoleList] = useState<SectionData[]>([])
+
+
   const [firstName, setFirstName] = useState<string>("")
   const [lastName, setLastName] = useState<string>("")
   const [firstKana, setFirstKana] = useState<string>("")
@@ -47,9 +51,23 @@ export const SignUp: React.FC =() => {
   const [passwordConfirmation, setPasswordConfirmation] = useState<string>("")
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
 
+  const sectionRoleChangeHandler = (sectionId: string) => {
+    setSection(sectionId);
 
-  useEffect (() => {})
+    const fetchRole = async() => {
+      const res = await GetRole(sectionId);
+      setRoleList(res.data);
+    };
+    fetchRole();
+  }
 
+  useEffect (() => {
+    const fetchSection = async () => {
+      const res = await GetSection();
+      setSectionList(res.data);
+    };
+    fetchSection();
+  },[])
 
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -62,8 +80,8 @@ export const SignUp: React.FC =() => {
       lastKana: lastKana,
       employeeNumber: employeeNumber,
       email: email,
-      section: section,
-      role: role,
+      sectionId: section,
+      roleId: role,
       password: password,
       passwordConfirmation: passwordConfirmation
     }
@@ -178,19 +196,17 @@ export const SignUp: React.FC =() => {
             <Grid item xs={7}>
               <ComboBox
                 inputLabel= "所属"
-                items = {sectionOptions}
-                value = {selectedSectionName}
-                defaultValue={sectionOptions[0].value}
-                onChange={(selected) => onSectionComboBoxChangeHandler(selected)}
+                items = {sectionList}
+                value = {section}
+                onChange={(selected) => sectionRoleChangeHandler(selected)}
               />
             </Grid>
             <Grid item xs={7}>
               <ComboBox
                 inputLabel= "役職"
-                items={roleOptionRef.current}
-                defaultValue={""}
-                value={selectedRoleName}
-                onChange={(selected) => setSelectedRoleName(selected)}
+                items = {roleList}
+                value={role}
+                onChange={(selected) => setRole(selected)}
               />
             </Grid>
             <Grid item xs={10}>

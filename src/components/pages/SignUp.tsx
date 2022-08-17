@@ -7,10 +7,6 @@ import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
-import Select  from '@mui/material/Select'
-import MenuItem from '@mui/material/MenuItem'
-import InputLabel from '@mui/material/InputLabel'
-import FormControl from '@mui/material/FormControl'
 import Button from '@mui/material/Button'
 
 import { AuthContext } from "components/providers/AuthContextProvider"
@@ -18,14 +14,12 @@ import AlertMessage from 'components/utils/AlertMessage'
 import ComboBox from 'components/utils/ComboBox'
 
 import { signUp } from 'lib/api/auth'
-import { GetSection } from 'lib/api/SectionRole'
-import { GetRole } from 'lib/api/SectionRole'
+
 
 import type { SignUpData } from 'types/user'
 import type { ComboBoxItem } from 'types/ComboBoxItem'
 import type { SectionRole } from 'types/SectionRole'
-import type { SectionData } from 'types/section'
-import type { RoleData } from 'types/role'
+
 
 
 
@@ -35,8 +29,7 @@ export const SignUp: React.FC =() => {
 
   const { setIsSignedIn, setCurrentUser } = useContext(AuthContext)
 
-  const [sectionList, setSectionList] = useState<SectionData[]>([])
-  const [roleList, setRoleList] = useState<SectionData[]>([])
+
 
 
   const [firstName, setFirstName] = useState<string>("")
@@ -51,24 +44,6 @@ export const SignUp: React.FC =() => {
   const [passwordConfirmation, setPasswordConfirmation] = useState<string>("")
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
 
-  const sectionRoleChangeHandler = (sectionId: string) => {
-    setSection(sectionId);
-
-    const fetchRole = async() => {
-      const res = await GetRole(sectionId);
-      setRoleList(res.data);
-    };
-    fetchRole();
-  }
-
-  useEffect (() => {
-    const fetchSection = async () => {
-      const res = await GetSection();
-      setSectionList(res.data);
-    };
-    fetchSection();
-  },[])
-
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
@@ -80,8 +55,8 @@ export const SignUp: React.FC =() => {
       lastKana: lastKana,
       employeeNumber: employeeNumber,
       email: email,
-      sectionId: section,
-      roleId: role,
+      section: section,
+      role: role,
       password: password,
       passwordConfirmation: passwordConfirmation
     }
@@ -191,22 +166,6 @@ export const SignUp: React.FC =() => {
                 autoFocus
                 value={employeeNumber}
                 onChange={event => setEmployeeNumber(event.target.value)}
-              />
-            </Grid>
-            <Grid item xs={7}>
-              <ComboBox
-                inputLabel= "所属"
-                items = {sectionList}
-                value = {section}
-                onChange={(selected) => sectionRoleChangeHandler(selected)}
-              />
-            </Grid>
-            <Grid item xs={7}>
-              <ComboBox
-                inputLabel= "役職"
-                items = {roleList}
-                value={role}
-                onChange={(selected) => setRole(selected)}
               />
             </Grid>
             <Grid item xs={10}>

@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import  Cookies from 'js-cookie'
 
@@ -65,6 +65,42 @@ export const SignUp: React.FC =() => {
   const [passwordConfirmation, setPasswordConfirmation] = useState<string>("")
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
 
+  const [sectionList] = useState<ComboBoxItem[]>(
+    SectionRoleList.map((d) => {
+      return{
+        value: d.sectionName
+      }
+    })
+  )
+
+  const [selectSection, setSelectSection] = useState<string>(SectionRoleList[0].sectionName)
+
+  const sectionRoleRef =useRef(
+    SectionRoleList.filter(
+      (d) => d.sectionName === selectSection)[0].roles.map((d)=> {
+        return{
+          value: d.roleName
+        }
+      }))
+
+  const [selectRole, setSelectRole] = useState(SectionRoleList[0].roles[0].roleName)
+  
+
+  const onSectionComboBoxChangeHandler = (sectionName: string) => {
+    setSection(sectionName)
+
+    const selectSectionRoles = SectionRoleList.filter(
+      (d) => d.sectionName === sectionName
+    )[0].roles;
+
+    setSelectRole(selectSectionRoles[0].roleName)
+
+    sectionRoleRef.current = selectSectionRoles.map((d) => {
+      return {
+        value: d.roleName
+      }
+    })
+  }
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
@@ -176,7 +212,7 @@ export const SignUp: React.FC =() => {
                 onChange={event => setFirstKana(event.target.value)}
               />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={7}>
               <TextField
                 autoComplete="off"
                 name="employeeNumber"
@@ -187,6 +223,22 @@ export const SignUp: React.FC =() => {
                 autoFocus
                 value={employeeNumber}
                 onChange={event => setEmployeeNumber(event.target.value)}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <ComboBox
+                inputLabel = "所属"
+                items={sectionList}
+                value={selectSection}
+                onChange={(selected) => onSectionComboBoxChangeHandler(selected)}
+              />
+            </Grid>
+            <Grid item xs={9}>
+              <ComboBox
+                inputLabel = "役職"
+                items={sectionRoleRef.current}
+                value={selectRole}
+                onChange={(selected) => setSelectRole(selected)}
               />
             </Grid>
             <Grid item xs={10}>

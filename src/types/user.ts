@@ -5,8 +5,8 @@ export type SignUpData = {
   lastKana: string,
   employeeNumber: string
   email: string
-  sectionId: string
-  roleId: string
+  section: string
+  role: string
   password: string
   passwordConfirmation: string
 }
@@ -26,7 +26,7 @@ export type User = {
   lastKana: string,
   employeeNumber: string
   email: string
-  sectionId: string
-  roleId: string
+  section: string
+  role: string
   allowPasswordChange: boolean
 }

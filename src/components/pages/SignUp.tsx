@@ -23,10 +23,13 @@ import type { SectionRole } from 'types/SectionRole'
 
 const SectionRoleList: SectionRole[] = [
   {
+    sectionName: "所属を選択", roles: [{roleName: "役職を選択"}]
+  },
+  {
     sectionName: "運航乗員部", roles: [ {roleName: "機長"}, {roleName: "副操縦士"}]
   },
   {
-    sectionName: "客室乗員部", roles: [ {roleName: "チーフ"}, {roleName: "キャビンアテンダント"}]
+    sectionName: "客室乗員部", roles: [ {roleName: "チーフ"}, {roleName: "一般"}]
   },
   {
     sectionName: "整備部", roles: [ {roleName: "整備士"}]
@@ -233,7 +236,7 @@ export const SignUp: React.FC =() => {
                 onChange={(selected) => onSectionComboBoxChangeHandler(selected)}
               />
             </Grid>
-            <Grid item xs={9}>
+            <Grid item xs={6}>
               <ComboBox
                 inputLabel = "役職"
                 items={sectionRoleRef.current}

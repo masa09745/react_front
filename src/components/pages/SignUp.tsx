@@ -98,7 +98,7 @@ export const SignUp: React.FC =() => {
     )[0].roles;
 
     setSelectRole(selectSectionRoles[0].roleName)
-    
+    setRole(selectSectionRoles[0].roleName)
 
     sectionRoleRef.current = selectSectionRoles.map((d) => {
       return {
@@ -294,7 +294,7 @@ export const SignUp: React.FC =() => {
             </Grid>
           </Grid>
           <Typography sx={{pt:2, textAlign:"right", flexGrow:1, textTransform:"none"}}>
-            <Button type="submit" variant="outlined" color="primary" disabled={!firstName || !lastName || !firstKana || !lastKana || !employeeNumber || !section || !role || !email || !password || !passwordConfirmation  ? true : false} onClick={handleSubmit} >
+            <Button type="submit" variant="outlined" color="primary" disabled={!firstName || !lastName || !firstKana || !lastKana || !employeeNumber  || !email || !password || !passwordConfirmation  ? true : false} onClick={handleSubmit} >
               送信
             </Button>
           </Typography>

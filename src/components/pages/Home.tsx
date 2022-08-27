@@ -8,6 +8,7 @@ export const Home: React.FC = () =>  {
     <>
       <p>社員番号 : {currentUser?.employeeNumber}</p>
       <p>氏名 : {currentUser?.lastName} {currentUser?.firstName}</p>
+      <p>所属 : {currentUser?.section}</p>
     </>
   )
 }

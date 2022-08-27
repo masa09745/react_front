@@ -90,6 +90,7 @@ export const SignUp: React.FC =() => {
   
 
   const onSectionComboBoxChangeHandler = (sectionName: string) => {
+    setSelectSection(sectionName)
     setSection(sectionName)
 
     const selectSectionRoles = SectionRoleList.filter(
@@ -97,12 +98,18 @@ export const SignUp: React.FC =() => {
     )[0].roles;
 
     setSelectRole(selectSectionRoles[0].roleName)
+    
 
     sectionRoleRef.current = selectSectionRoles.map((d) => {
       return {
         value: d.roleName
       }
     })
+  }
+
+  const onSelectRoleChangeHandler = (roleName: string) => {
+    setRole(roleName)
+    setSelectRole(roleName)
   }
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -241,7 +248,7 @@ export const SignUp: React.FC =() => {
                 inputLabel = "役職"
                 items={sectionRoleRef.current}
                 value={selectRole}
-                onChange={(selected) => setSelectRole(selected)}
+                onChange={(selected) => onSelectRoleChangeHandler(selected)}
               />
             </Grid>
             <Grid item xs={10}>
@@ -287,7 +294,7 @@ export const SignUp: React.FC =() => {
             </Grid>
           </Grid>
           <Typography sx={{pt:2, textAlign:"right", flexGrow:1, textTransform:"none"}}>
-            <Button type="submit" variant="outlined" color="primary" disabled={!firstName || !lastName || !firstKana || !lastKana || !email || !password || !passwordConfirmation ? true : false} onClick={handleSubmit} >
+            <Button type="submit" variant="outlined" color="primary" disabled={!firstName || !lastName || !firstKana || !lastKana || !employeeNumber || !section || !role || !email || !password || !passwordConfirmation  ? true : false} onClick={handleSubmit} >
               送信
             </Button>
           </Typography>

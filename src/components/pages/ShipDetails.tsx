@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from "react"
+import React from "react"
 
 import { Box, Tab, Typography } from "@mui/material";
 import { TabContext, TabPanel, TabList} from '@mui/lab'
 import { Table, TableBody, TableRow, TableCell, TableHead, TableContainer, Paper} from "@mui/material"
 
 
-import { schedule } from 'lib/api/ship'
-import { maintenance } from 'lib/api/ship'
-import type { ScheduleData } from "types/schedule"
-import type { MaintenanceData } from "types/maintenance"
+import { useShipDetails } from 'hooks/useShipDetails'
+
 import type { SelectShip } from "types/ship"
 
 import { ScheduleList } from "components/utils/ScheduleList";
@@ -16,43 +14,7 @@ import { MaintenanceList } from "components/utils/MaintenanceList";
 
 export const ShipDetails:React.FC<SelectShip> = (props) => {
 
-  const { id, selectShip } = props;
-  const [value, setValue] = useState("1")
-  const [schedules, setSchedule] = useState<ScheduleData[]>([])
-  const [maintenances, setMaintenance] = useState<MaintenanceData[]>([])
-
-  const handleChange = (e: React.SyntheticEvent, newValue:string) =>{
-    setValue(newValue)
-  };
-
-  useEffect (() => {
-    const fetchSchedule = async () => {
-      const res = await schedule(id);
-      setSchedule(res.data)
-    };
-    fetchSchedule();
-
-    const fetchMaintenance = async () => {
-      const res = await maintenance(id);
-      setMaintenance(res.data)
-    };
-    fetchMaintenance();
-  }, [id])
-
-  const changeView = (date:string|Date) => {
-    date = new Date(date);
-    if(date.getFullYear() <= 2000){
-      if (date.getMinutes() < 10){
-        date = date.getHours()+":0"+date.getMinutes()
-      }else{
-        date = date.getHours()+":"+date.getMinutes()
-      }
-    }else{
-      date = date.getFullYear()+"/"+date.getMonth()+"/"+date.getDate()
-    }
-    return date;
-  }
-
+  const { selectShip, value, schedules, maintenances, handleChange, changeView } = useShipDetails(props)
 
   return(
     <>

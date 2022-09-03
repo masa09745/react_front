@@ -64,8 +64,26 @@ import type { SignInData } from "types/user"
       <Card sx={{ maxWidth: 400, mt:10, mx:"auto"}}>
         <CardHeader sx={{ textAlign: 'center' }} title="サインイン" />
         <CardContent>
-        <TextField variant="outlined" required fullWidth label="社員番号" value={employeeNumber} margin="dense" onChange={event => setEmployeeNumber(event.target.value)} />
-        <TextField variant="outlined" required fullWidth label="パスワード" value={password} margin="dense" onChange={event => setPassword(event.target.value)} />
+        <TextField
+          variant="outlined"
+          required
+          fullWidth
+          label="社員番号"
+          value={employeeNumber}
+          margin="dense"
+          onChange={event => setEmployeeNumber(event.target.value)}
+        />
+        <TextField
+          auto-complete="current-password"
+          variant="outlined"
+          required
+          fullWidth
+          label="パスワード"
+          value={password}
+          type="password"
+          margin="dense"
+          onChange={event => setPassword(event.target.value)}
+        />
         <Box sx={{ pt:2, textAlign:'right', flexGrow:1, textTransform: 'none' }}>
           <Button type="submit" variant="outlined" color="primary" disabled={!employeeNumber || !password ? true : false} onClick={handleSubmit}>
             送信

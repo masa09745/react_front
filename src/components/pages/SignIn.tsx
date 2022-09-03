@@ -13,7 +13,7 @@ import Box from "@mui/material/Box"
 import { AuthContext } from "components/providers/AuthContextProvider"
 import AlertMessage from "components/utils/AlertMessage"
 import { signIn } from "lib/api/auth"
-import { SignInData } from "interfaces/index"
+import type { SignInData } from "types/user"
 
 
  export const SignIn: React.FC = () => {
@@ -21,7 +21,7 @@ import { SignInData } from "interfaces/index"
 
   const { setIsSignedIn, setCurrentUser } = useContext(AuthContext)
 
-  const [email, setEmail] = useState<string>("")
+  const [employeeNumber, setEmployeeNumber] = useState<string>("")
   const [password, setPassword] = useState<string>("")
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
 
@@ -29,13 +29,12 @@ import { SignInData } from "interfaces/index"
     e.preventDefault()
 
     const data: SignInData = {
-      email: email,
+      employeeNumber: employeeNumber,
       password: password
     }
 
     try {
       const res = await signIn(data)
-      console.log(res)
 
       if (res.status === 200) {
         Cookies.set("_access_token", res.headers["access-token"])
@@ -62,13 +61,31 @@ import { SignInData } from "interfaces/index"
   return (
   <>
     <form noValidate autoComplete="off" >
-      <Card sx={{ maxWidth: 400, pt:2}}>
+      <Card sx={{ maxWidth: 400, mt:10, mx:"auto"}}>
         <CardHeader sx={{ textAlign: 'center' }} title="サインイン" />
         <CardContent>
-        <TextField variant="outlined" required fullWidth label="メールアドレス" value={email} margin="dense" onChange={event => setEmail(event.target.value)} />
-        <TextField variant="outlined" required fullWidth label="パスワード" value={password} margin="dense" onChange={event => setPassword(event.target.value)} />
+        <TextField
+          variant="outlined"
+          required
+          fullWidth
+          label="社員番号"
+          value={employeeNumber}
+          margin="dense"
+          onChange={event => setEmployeeNumber(event.target.value)}
+        />
+        <TextField
+          auto-complete="current-password"
+          variant="outlined"
+          required
+          fullWidth
+          label="パスワード"
+          value={password}
+          type="password"
+          margin="dense"
+          onChange={event => setPassword(event.target.value)}
+        />
         <Box sx={{ pt:2, textAlign:'right', flexGrow:1, textTransform: 'none' }}>
-          <Button type="submit" variant="outlined" color="primary" disabled={!email || !password ? true : false} onClick={handleSubmit}>
+          <Button type="submit" variant="outlined" color="primary" disabled={!employeeNumber || !password ? true : false} onClick={handleSubmit}>
             送信
           </Button>
         </Box>

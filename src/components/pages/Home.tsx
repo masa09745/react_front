@@ -1,22 +1,14 @@
 import React, { useContext } from "react"
-
 import { AuthContext } from "components/providers/AuthContextProvider"
 
 export const Home: React.FC = () =>  {
-  const { isSignedIn, currentUser } = useContext(AuthContext)
+  const { currentUser } = useContext(AuthContext)
 
-  return (
+  return(
     <>
-      {
-        isSignedIn && currentUser ? (
-          <>
-            <h2>メールアドレス: {currentUser?.email}</h2>
-            <h2>名前: {currentUser?.name}</h2>
-          </>
-        ) : (
-          <></>
-        )
-      }
+      <p>社員番号 : {currentUser?.employeeNumber}</p>
+      <p>氏名 : {currentUser?.lastName} {currentUser?.firstName}</p>
+      <p>所属 : {currentUser?.section}</p>
     </>
-  );
+  )
 }

@@ -14,36 +14,15 @@ import AlertMessage from 'components/utils/AlertMessage'
 import ComboBox from 'components/utils/ComboBox'
 
 import { signUp } from 'lib/api/auth'
-
+import { getSection } from 'lib/api/SectionRole'
+import { getRole } from 'lib/api/SectionRole'
 
 import type { SignUpData } from 'types/user'
+import type { SectionData } from 'types/section'
+import type { RoleData } from 'types/role'
 import type { ComboBoxItem } from 'types/ComboBoxItem'
-import type { SectionRole } from 'types/SectionRole'
 
 
-const SectionRoleList: SectionRole[] = [
-  {
-    sectionName: "所属を選択", roles: [{roleName: "役職を選択"}]
-  },
-  {
-    sectionName: "運航乗員部", roles: [ {roleName: "機長"}, {roleName: "副操縦士"}]
-  },
-  {
-    sectionName: "客室乗員部", roles: [ {roleName: "チーフ"}, {roleName: "一般"}]
-  },
-  {
-    sectionName: "整備部", roles: [ {roleName: "整備士"}]
-  },
-  {
-    sectionName: "運航管理部", roles: [ {roleName: "スケジューラー"}]
-  },
-  {
-    sectionName: "総務部", roles: [ {roleName: "人事"}]
-  },
-  {
-    sectionName: "品質管理部", roles: [ {roleName: "機材管理"}]
-  },
-]
 
 
 
@@ -53,8 +32,8 @@ export const SignUp: React.FC =() => {
 
   const { setIsSignedIn, setCurrentUser } = useContext(AuthContext)
 
-
-
+  const [sectionList, setSectionList] = useState<SectionData[]>([])
+  const [roleList, setRoleList] = useState<SectionData[]>([])
 
   const [firstName, setFirstName] = useState<string>("")
   const [lastName, setLastName] = useState<string>("")
@@ -68,49 +47,24 @@ export const SignUp: React.FC =() => {
   const [passwordConfirmation, setPasswordConfirmation] = useState<string>("")
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
 
-  const [sectionList] = useState<ComboBoxItem[]>(
-    SectionRoleList.map((d) => {
-      return{
-        value: d.sectionName
-      }
-    })
-  )
+  const sectionRoleChangeHandler = (sectionId: string) => {
+    setSection(sectionId);
 
-  const [selectSection, setSelectSection] = useState<string>(SectionRoleList[0].sectionName)
-
-  const sectionRoleRef =useRef(
-    SectionRoleList.filter(
-      (d) => d.sectionName === selectSection)[0].roles.map((d)=> {
-        return{
-          value: d.roleName
-        }
-      }))
-
-  const [selectRole, setSelectRole] = useState(SectionRoleList[0].roles[0].roleName)
-  
-
-  const onSectionComboBoxChangeHandler = (sectionName: string) => {
-    setSelectSection(sectionName)
-    setSection(sectionName)
-
-    const selectSectionRoles = SectionRoleList.filter(
-      (d) => d.sectionName === sectionName
-    )[0].roles;
-
-    setSelectRole(selectSectionRoles[0].roleName)
-    setRole(selectSectionRoles[0].roleName)
-
-    sectionRoleRef.current = selectSectionRoles.map((d) => {
-      return {
-        value: d.roleName
-      }
-    })
+    const fetchRole = async() => {
+      const res = await getRole(sectionId);
+      setRoleList(res.data);
+    };
+    fetchRole();
   }
 
-  const onSelectRoleChangeHandler = (roleName: string) => {
-    setRole(roleName)
-    setSelectRole(roleName)
-  }
+  useEffect (() => {
+    const fetchSection = async () => {
+      const res = await getSection();
+      setSectionList(res.data);
+    };
+    fetchSection();
+  },[])
+
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
@@ -238,17 +192,17 @@ export const SignUp: React.FC =() => {
             <Grid item xs={6}>
               <ComboBox
                 inputLabel = "所属"
-                items={sectionList}
-                value={selectSection}
-                onChange={(selected) => onSectionComboBoxChangeHandler(selected)}
+                items = {sectionList}
+                value = {section}
+                onChange={(selected) => sectionRoleChangeHandler(selected)}
               />
             </Grid>
             <Grid item xs={6}>
               <ComboBox
                 inputLabel = "役職"
-                items={sectionRoleRef.current}
-                value={selectRole}
-                onChange={(selected) => onSelectRoleChangeHandler(selected)}
+                items = {roleList}
+                value={role}
+                onChange={(selected) => setRole(selected)}
               />
             </Grid>
             <Grid item xs={10}>

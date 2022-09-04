@@ -1,9 +1,9 @@
 import client from 'lib/api/client'
 
-export const section = () => {
+export const getSection = () => {
   return client.get('/sections');
 }
 
-export const role = ( id: string | undefined ) => {
+export const getRole = ( id: string | undefined ) => {
   return client.get(`/sections/${id}/roles`)
 }

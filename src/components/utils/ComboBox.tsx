@@ -33,8 +33,8 @@ const ComboBox: React.FC<Props> = (props) => {
         }}
       >
         {items.map((item) =>(
-          <MenuItem value={item.value} key={item.value}>
-            {item.value}
+          <MenuItem value={item.id} key={item.id}>
+            {item.name}
           </MenuItem>
         ))}
       </Select>

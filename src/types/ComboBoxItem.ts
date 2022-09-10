@@ -1,4 +1,4 @@
 export type ComboBoxItem = {
-  id: number,
+  id: string,
   name: string
 }

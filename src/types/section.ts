@@ -1,5 +1,5 @@
 export type SectionData = {
-  id: number,
+  id: string,
   name: string
 
 }

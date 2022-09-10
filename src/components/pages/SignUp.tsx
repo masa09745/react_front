@@ -14,9 +14,10 @@ import AlertMessage from 'components/utils/AlertMessage'
 import ComboBox from 'components/utils/ComboBox'
 
 import { signUp } from 'lib/api/auth'
-import { getSection } from 'lib/api/SectionRole'
-import { getRole } from 'lib/api/SectionRole'
 
+
+import { sections } from 'data/sections'
+import { roles } from 'data/roles'
 import type { SignUpData } from 'types/user'
 import type { SectionData } from 'types/section'
 import type { RoleData } from 'types/role'
@@ -32,8 +33,6 @@ export const SignUp: React.FC =() => {
 
   const { setIsSignedIn, setCurrentUser } = useContext(AuthContext)
 
-  const [sectionList, setSectionList] = useState<SectionData[]>([])
-  const [roleList, setRoleList] = useState<SectionData[]>([])
 
   const [firstName, setFirstName] = useState<string>("")
   const [lastName, setLastName] = useState<string>("")
@@ -47,23 +46,42 @@ export const SignUp: React.FC =() => {
   const [passwordConfirmation, setPasswordConfirmation] = useState<string>("")
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
 
-  const sectionRoleChangeHandler = (sectionId: string) => {
-    setSection(sectionId);
+  const [selectRole, setSelectRole] = useState<string>("")
 
-    const fetchRole = async() => {
-      const res = await getRole(sectionId);
-      setRoleList(res.data);
-    };
-    fetchRole();
+  const sectionRoleRef = useRef(
+    roles.filter(
+      (d) => d.sectionName === section).map(
+        (d) => {
+          return {
+            id: d.id,
+            name: d.name
+          }
+        }
+      )
+  )
+
+
+  const sectionRoleChangeHandler = (sectionName:string) => {
+    setSection(sectionName)
+
+    const selectSectionRoles = roles.filter(
+      (d) => d.sectionName === sectionName
+    );
+
+    setSelectRole(selectSectionRoles[0].name)
+
+    sectionRoleRef.current = selectSectionRoles.map((d) => {
+      return {
+        id: d.id,
+        name: d.name
+      }
+    })
   }
 
-  useEffect (() => {
-    const fetchSection = async () => {
-      const res = await getSection();
-      setSectionList(res.data);
-    };
-    fetchSection();
-  },[])
+  const onSelectRoleChangeHandler = (roleName: string) => {
+    setRole(roleName)
+    setSelectRole(roleName)
+  }
 
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -192,7 +210,7 @@ export const SignUp: React.FC =() => {
             <Grid item xs={6}>
               <ComboBox
                 inputLabel = "所属"
-                items = {sectionList}
+                items = {sections}
                 value = {section}
                 onChange={(selected) => sectionRoleChangeHandler(selected)}
               />
@@ -200,9 +218,9 @@ export const SignUp: React.FC =() => {
             <Grid item xs={6}>
               <ComboBox
                 inputLabel = "役職"
-                items = {roleList}
-                value={role}
-                onChange={(selected) => setRole(selected)}
+                items = {sectionRoleRef.current}
+                value={selectRole}
+                onChange={(selected) => onSelectRoleChangeHandler(selected)}
               />
             </Grid>
             <Grid item xs={10}>

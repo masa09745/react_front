@@ -1,4 +1,5 @@
 export type RoleData = {
-  id: number,
+  id : string;
+  sectionName: string;
   name: string,
 }

@@ -11,6 +11,7 @@ type Props = {
   inputLabel: string
   items: ComboBoxItem[]
   value: string
+
   onChange: (selected: string) => void
 }
 
@@ -33,8 +34,8 @@ const ComboBox: React.FC<Props> = (props) => {
         }}
       >
         {items.map((item) =>(
-          <MenuItem value={item.value} key={item.value}>
-            {item.value}
+          <MenuItem value={item.name} key={item.id}>
+            {item.name}
           </MenuItem>
         ))}
       </Select>

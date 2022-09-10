@@ -1,4 +1,5 @@
-export type ComboBoxItem = {
+export type SectionData = {
   id: string,
   name: string
+
 }

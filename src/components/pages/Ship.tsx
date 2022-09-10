@@ -1,31 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import { Box, Card, CardActionArea, CardContent, Typography} from "@mui/material";
 
-import { ship } from 'lib/api/ship';
-import type { ShipData } from 'types/ship'
-
+import { useFetchShips } from 'hooks/useFetchShips'
 import { ShipDetails } from 'components/pages/ShipDetails'
 
 export const Ship: React.FC = () => {
-  const [ships, setShips] = useState<ShipData[]>([])
-  const [selectShipId, setSelectShipId] = useState< string | undefined >("")
-  const [selectShip, setSelectShip] = useState< string | undefined >("")
-  const [isActive, setIsActive] = useState(false)
-
-  const handleOnClick = (e: React.MouseEvent<HTMLElement>) => {
-    setSelectShipId(e.currentTarget.dataset.id)
-    setSelectShip(e.currentTarget.dataset.ship)
-    setIsActive(true)
-  };
-
-  useEffect (() => {
-    const fetchShip = async () => {
-      const res =  await ship();
-      setShips(res.data);
-    };
-    fetchShip();
-  }, []);
+  
+  const { ships, selectShipId, selectShip, isActive, onClickSelectShips } = useFetchShips()
 
   return(
     <>
@@ -45,7 +27,7 @@ export const Ship: React.FC = () => {
           {ships.map((ship) =>
             <Card
             key={ship.id}
-            onClick={handleOnClick}
+            onClick={onClickSelectShips}
             data-id={ship.id}
             data-ship={ship.regiNumber}
             sx={{

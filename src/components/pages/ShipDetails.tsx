@@ -1,6 +1,6 @@
 import React from "react"
 
-import { Box, Tab, Typography, Button } from "@mui/material";
+import { Box, Tab, Typography } from "@mui/material";
 import { TabContext, TabPanel, TabList} from '@mui/lab'
 import { Table, TableBody, TableRow, TableCell, TableHead, TableContainer, Paper} from "@mui/material"
 
@@ -11,6 +11,7 @@ import type { SelectShip } from "types/ship"
 
 import { ScheduleList } from "components/utils/ScheduleList";
 import { MaintenanceList } from "components/utils/MaintenanceList";
+import { BasicModal } from "components/utils/Modal"
 
 export const ShipDetails:React.FC<SelectShip> = (props) => {
 
@@ -56,8 +57,8 @@ export const ShipDetails:React.FC<SelectShip> = (props) => {
                 </TableContainer>
               </TabPanel>
               <TabPanel value="2">
-                <Box sx={{mb:1}}>
-                  <Button variant="contained">追加</Button>
+                <Box >
+                  <BasicModal />
                 </Box>
                 <TableContainer component={Paper}>
                   <Table>

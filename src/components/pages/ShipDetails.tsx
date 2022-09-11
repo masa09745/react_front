@@ -1,6 +1,6 @@
 import React from "react"
 
-import { Box, Tab, Typography } from "@mui/material";
+import { Box, Tab, Typography, Button } from "@mui/material";
 import { TabContext, TabPanel, TabList} from '@mui/lab'
 import { Table, TableBody, TableRow, TableCell, TableHead, TableContainer, Paper} from "@mui/material"
 
@@ -22,10 +22,9 @@ export const ShipDetails:React.FC<SelectShip> = (props) => {
         機材情報
       </Typography>
       <Box>
-          <Box sx={{px:2}}>
+          <Box sx={{px:2, mb:1}}>
             機番 : {selectShip}
           </Box>
-
           <Box sx={{width: '100%', typography:'body1'}}>
             <TabContext value={value}>
               <Box sx={{borderBottom:1, borderColor:'divider'}}>
@@ -57,7 +56,10 @@ export const ShipDetails:React.FC<SelectShip> = (props) => {
                 </TableContainer>
               </TabPanel>
               <TabPanel value="2">
-              <TableContainer component={Paper}>
+                <Box sx={{mb:1}}>
+                  <Button variant="contained">追加</Button>
+                </Box>
+                <TableContainer component={Paper}>
                   <Table>
                     <TableHead>
                       <TableRow>

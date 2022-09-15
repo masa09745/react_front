@@ -1,8 +1,6 @@
 import React, { createContext, useState, useEffect } from "react";
 
 import type { ShipData } from "types/ship";
-import type { ScheduleData } from "types/schedule"
-import type { MaintenanceData } from "types/maintenance"
 
 import { ship } from 'lib/api/ship';
 

@@ -20,21 +20,15 @@ import {ShipContext} from "components/providers/ShipContextProvider"
 import { AuthContext } from "components/providers/AuthContextProvider"
 
 type Inputs = {
+  mode: string
   title: string
   ATA: string
   MaintenanceMessage: string
   Checkbox: boolean
   Select: number
   description: string
-}
-
-const defaultValues: DefaultValues<Inputs> = {
-  title: "",
-  ATA: "",
-  MaintenanceMessage: "",
-  Checkbox: false,
-  description: "",
-  Select: 0,
+  shipId: string
+  userId: number | undefined
 }
 
 export const BasicModal = () => {
@@ -45,9 +39,19 @@ export const BasicModal = () => {
   const {selectShipId, selectShip} = useContext(ShipContext)
   const { currentUser } = useContext(AuthContext)
 
-  console.log(currentUser?.employeeNumber)
+  const defaultValues: DefaultValues<Inputs> = {
+    mode: "onSubmit",
+    title: "",
+    ATA: "",
+    MaintenanceMessage: "",
+    Checkbox: false,
+    description: "",
+    Select: 0,
+    shipId: selectShipId,
+    userId: currentUser?.id
+  }
 
-  const { control, handleSubmit, formState:{errors} } = useForm<Inputs>({defaultValues});
+  const { control, handleSubmit } = useForm<Inputs>({defaultValues});
 
   const validationRoles = {
     title: {

@@ -7,12 +7,11 @@ export type MaintenanceData = {
 }
 
 export type InputMaintenance = {
-  mode: string
   title: string
   ATA: string
   MaintenanceMessage: string
-  Checkbox: boolean
-  Select: number
+  Completed: boolean
+  Priority: number
   description: string
   shipId: string
   userId: number | undefined

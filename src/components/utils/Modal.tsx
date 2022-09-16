@@ -35,13 +35,12 @@ export const BasicModal = () => {
   const { currentUser } = useContext(AuthContext)
 
   const defaultValues: DefaultValues<InputMaintenance> = {
-    mode: "onSubmit",
     title: "",
     ATA: "",
     MaintenanceMessage: "",
-    Checkbox: false,
+    Completed: false,
     description: "",
-    Select: 0,
+    Priority: 0,
     shipId: selectShipId,
     userId: currentUser?.id
   }
@@ -152,7 +151,7 @@ export const BasicModal = () => {
               <Grid item xs={4}>
                 <label>優先度</label>
                 <Controller
-                  name="Select"
+                  name="Priority"
                   control={control}
                   rules={validationRoles.priority}
                   render={({ field, fieldState }) => (
@@ -186,7 +185,7 @@ export const BasicModal = () => {
               </Grid>
               <Grid item xs={6}>
                 <Controller
-                  name="Checkbox"
+                  name="Completed"
                   control={control}
                   render={({ field }) =>
                     <FormControlLabel

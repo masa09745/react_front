@@ -20,6 +20,10 @@ import type {InputMaintenance} from "types/maintenance"
 import {ShipContext} from "components/providers/ShipContextProvider"
 import { AuthContext } from "components/providers/AuthContextProvider"
 
+import { createMaintenance } from 'lib/api/maintenance'
+
+
+
 
 
 export const BasicModal = () => {
@@ -63,8 +67,18 @@ export const BasicModal = () => {
     }
   }
 
-  const onSubmit:SubmitHandler<InputMaintenance> =(data)=> {
-   console.log(data)
+  const onSubmit = async (data:InputMaintenance) => {
+    try {
+      const res = await createMaintenance(data)
+
+      if (res.status === 200) {
+        console.log("create success!!")
+      }
+      
+    }
+    catch(err) {
+      console.log(err)
+    }
   }
 
   const style = {

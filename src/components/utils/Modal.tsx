@@ -16,20 +16,11 @@ import FormControl from '@mui/material/FormControl';
 import { useForm, SubmitHandler, Controller } from "react-hook-form"
 
 import type { DefaultValues } from "react-hook-form"
+import type {InputMaintenance} from "types/maintenance"
 import {ShipContext} from "components/providers/ShipContextProvider"
 import { AuthContext } from "components/providers/AuthContextProvider"
 
-type Inputs = {
-  mode: string
-  title: string
-  ATA: string
-  MaintenanceMessage: string
-  Checkbox: boolean
-  Select: number
-  description: string
-  shipId: string
-  userId: number | undefined
-}
+
 
 export const BasicModal = () => {
   const [open, setOpen] = React.useState(false);
@@ -39,7 +30,7 @@ export const BasicModal = () => {
   const {selectShipId, selectShip} = useContext(ShipContext)
   const { currentUser } = useContext(AuthContext)
 
-  const defaultValues: DefaultValues<Inputs> = {
+  const defaultValues: DefaultValues<InputMaintenance> = {
     mode: "onSubmit",
     title: "",
     ATA: "",
@@ -51,7 +42,7 @@ export const BasicModal = () => {
     userId: currentUser?.id
   }
 
-  const { control, handleSubmit } = useForm<Inputs>({defaultValues});
+  const { control, handleSubmit } = useForm<InputMaintenance>({defaultValues});
 
   const validationRoles = {
     title: {
@@ -72,7 +63,7 @@ export const BasicModal = () => {
     }
   }
 
-  const onSubmit:SubmitHandler<Inputs> =(data)=> {
+  const onSubmit:SubmitHandler<InputMaintenance> =(data)=> {
    console.log(data)
   }
 

@@ -14,6 +14,7 @@ import FormControl from '@mui/material/FormControl';
 
 import { useForm, SubmitHandler, Controller } from "react-hook-form"
 
+import type { DefaultValues } from "react-hook-form"
 import {ShipContext} from "components/providers/ShipContextProvider"
 import { AuthContext } from "components/providers/AuthContextProvider"
 
@@ -26,6 +27,15 @@ type Inputs = {
   description: string
 }
 
+const defaultValues: DefaultValues<Inputs> = {
+  title: "",
+  ATA: "",
+  MaintenanceMessage: "",
+  Checkbox: true,
+  description: "",
+  Select: 10,
+}
+
 export const BasicModal = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -36,16 +46,7 @@ export const BasicModal = () => {
 
   console.log(currentUser?.employeeNumber)
 
-  const { control } = useForm<Inputs>({
-    defaultValues: {
-      title: "",
-      ATA: "",
-      MaintenanceMessage: "",
-      Checkbox: true,
-      description: "",
-      Select: 10,
-    }
-  });
+  const { control, handleSubmit } = useForm<Inputs>({defaultValues});
 
   const validationRoles = {
     title: {
@@ -55,8 +56,8 @@ export const BasicModal = () => {
     description: {required: "内容を入力してください"}
   }
 
-  const onSubmit:SubmitHandler<Inputs> =(data: Inputs)=> {
-    console.log(`submit: ${data.title}`)
+  const onSubmit:SubmitHandler<Inputs> =(data)=> {
+    alert(JSON.stringify(data))
   }
 
   const style = {
@@ -85,7 +86,7 @@ export const BasicModal = () => {
           <Typography id="modal-modal-title" variant="h5" component="h1">
             選択中の機番: {selectShip}
           </Typography>
-          <Box component="form" id="modal-modal-description">
+          <Box component="form" id="modal-modal-description"  onSubmit={handleSubmit(onSubmit)}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <label>タイトル</label>

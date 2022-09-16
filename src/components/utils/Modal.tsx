@@ -12,6 +12,7 @@ import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 
+
 import { useForm, SubmitHandler, Controller } from "react-hook-form"
 
 import type { DefaultValues } from "react-hook-form"
@@ -31,9 +32,9 @@ const defaultValues: DefaultValues<Inputs> = {
   title: "",
   ATA: "",
   MaintenanceMessage: "",
-  Checkbox: true,
+  Checkbox: false,
   description: "",
-  Select: 10,
+  Select: 0,
 }
 
 export const BasicModal = () => {
@@ -46,18 +47,29 @@ export const BasicModal = () => {
 
   console.log(currentUser?.employeeNumber)
 
-  const { control, handleSubmit } = useForm<Inputs>({defaultValues});
+  const { control, handleSubmit, formState:{errors} } = useForm<Inputs>({defaultValues});
 
   const validationRoles = {
     title: {
-      required: "タイトルを入力してください",
-      minLength: {value: 4, message:'4文字以上です'}
+      required: "入力必須です"
     },
-    description: {required: "内容を入力してください"}
+    description: {
+      required: "入力必須です"
+    },
+    ATA: {
+      required: "入力必須です"
+    },
+    priority: {
+      min: {
+        value: 1,
+        message: "優先度を選んで下さい"
+      }
+
+    }
   }
 
   const onSubmit:SubmitHandler<Inputs> =(data)=> {
-    alert(JSON.stringify(data))
+   console.log(data)
   }
 
   const style = {
@@ -91,51 +103,77 @@ export const BasicModal = () => {
               <Grid item xs={12}>
                 <label>タイトル</label>
                 <Controller
-                  render={({ field }) => <TextField fullWidth {...field} />}
                   name="title"
                   control={control}
+                  rules={validationRoles.title}
+                  render={({ field, fieldState }) =>(
+                    <TextField
+                     {...field}
+                     fullWidth
+                     type="text"
+                     helperText={fieldState.error?.message}
+                    />
+                  )}
                 />
               </Grid>
               <Grid item xs={3}>
                 <label>ATA</label>
                 <Controller
-                  render={({ field }) => <TextField fullWidth {...field} />}
                   name="ATA"
                   control={control}
+                  rules={validationRoles.ATA}
+                  render={({ field, fieldState}) =>(
+                    <TextField
+                      fullWidth
+                      {...field}
+                      type="text"
+                      helperText={fieldState.error?.message}
+                    />
+                  )}
                 />
               </Grid>
               <Grid item xs={5}>
                 <label>MaintenanceMessage</label>
                 <Controller
-                  render={({ field }) => <TextField fullWidth {...field} />}
                   name="MaintenanceMessage"
                   control={control}
+                  render={({ field }) => <TextField fullWidth {...field} />}
                 />
               </Grid>
               <Grid item xs={4}>
                 <label>優先度</label>
                 <Controller
-                render={({ field }) => (
-                  <FormControl fullWidth>
-                    <Select {...field}>
-                      <MenuItem value={10}>高</MenuItem>
-                      <MenuItem value={20}>中</MenuItem>
-                      <MenuItem value={30}>低</MenuItem>
-                    </Select>
-                  </FormControl>
-
-                )}
-                name="Select"
-                control={control}
-              />
+                  name="Select"
+                  control={control}
+                  rules={validationRoles.priority}
+                  render={({ field, fieldState }) => (
+                  <TextField select fullWidth {...field} type="number" helperText={fieldState.error?.message} >
+                      <MenuItem value={0}></MenuItem>
+                      <MenuItem value={1}>高</MenuItem>
+                      <MenuItem value={2}>中</MenuItem>
+                      <MenuItem value={3}>低</MenuItem>
+                    </TextField>
+                  )}
+                />
               </Grid>
               <Grid item xs={12}>
                 <label>内容</label>
                 <Controller
-                render={({ field }) => <TextField multiline minRows={5} maxRows={10} fullWidth {...field} />}
-                name="description"
-                control={control}
-              />
+                  name="description"
+                  control={control}
+                  rules={validationRoles.description}
+                  render={({ field, fieldState }) =>(
+                    <TextField
+                      {...field}
+                      multiline
+                      minRows={5}
+                      maxRows={10}
+                      fullWidth
+                      type="text"
+                      helperText={fieldState.error?.message}
+                    />
+                  )}
+                />
               </Grid>
               <Grid item xs={6}>
                 <Controller

@@ -105,7 +105,7 @@ export const ShipDetails = () => {
                 <Table>
                   <TableHead>
                     <TableRow>
-                      <TableCell>Action</TableCell>
+                      <TableCell align='center'>Action</TableCell>
                       <TableCell align='center'>Title</TableCell>
                       <TableCell align='center'>Description</TableCell>
                       <TableCell align='center'>ATA</TableCell>
@@ -115,7 +115,16 @@ export const ShipDetails = () => {
                   </TableHead>
                   <TableBody>
                     {maintenances.map((maintenance) =>(
-                      <MaintenanceList key={maintenance.id} id={maintenance.id} title={maintenance.title} ata={maintenance.ata} description={maintenance.description} completed={maintenance.completed} priority={maintenance.priority}/>
+                      <MaintenanceList
+                        key={maintenance.id}
+                        id={maintenance.id}
+                        title={maintenance.title}
+                        ata={maintenance.ata}
+                        description={maintenance.description}
+                        completed={maintenance.completed}
+                        priority={maintenance.priority}
+                        shipId={maintenance.shipId}
+                        userId={maintenance.userId}/>
                     ))}
                   </TableBody>
                 </Table>

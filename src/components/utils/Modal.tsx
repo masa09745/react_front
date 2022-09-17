@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, { useState, useContext, useEffect } from'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -7,10 +7,8 @@ import Grid from '@mui/material/Grid';
 import Modal from '@mui/material/Modal';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel  from '@mui/material/FormControlLabel';
-import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-import InputLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
+import Alert from '@mui/material/Alert';
 
 
 import { useForm, SubmitHandler, Controller } from "react-hook-form"
@@ -20,19 +18,23 @@ import type {InputMaintenance} from "types/maintenance"
 import {ShipContext} from "components/providers/ShipContextProvider"
 import { AuthContext } from "components/providers/AuthContextProvider"
 
+import {useNavigate} from "react-router-dom"
+
 import { createMaintenance } from 'lib/api/maintenance'
+import AlertMessage from './AlertMessage';
 
 
 
 
 
 export const BasicModal = () => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
   const {selectShipId, selectShip} = useContext(ShipContext)
   const { currentUser } = useContext(AuthContext)
+  const navigate = useNavigate()
 
   const defaultValues: DefaultValues<InputMaintenance> = {
     title: "",
@@ -45,7 +47,7 @@ export const BasicModal = () => {
     userId: currentUser?.id
   }
 
-  const { control, handleSubmit } = useForm<InputMaintenance>({defaultValues});
+  const { control, reset, formState, formState:{isSubmitSuccessful}, handleSubmit, } = useForm<InputMaintenance>({defaultValues});
 
   const validationRoles = {
     title: {
@@ -66,19 +68,27 @@ export const BasicModal = () => {
     }
   }
 
+  useEffect (() => {
+    if(formState.isSubmitSuccessful) {
+      reset()
+    }
+  }, [formState, isSubmitSuccessful,reset])
+
   const onSubmit = async (data:InputMaintenance) => {
     try {
       const res = await createMaintenance(data)
 
       if (res.status === 200) {
         console.log("create success!!")
+        setOpen(false)
+        setAlertMessageOpen(true)
       }
-      
     }
     catch(err) {
       console.log(err)
     }
   }
+
 
   const style = {
     position: 'absolute' as 'absolute',
@@ -200,6 +210,7 @@ export const BasicModal = () => {
           </Box>
         </Box>
       </Modal>
+      <AlertMessage open={alertMessageOpen} setOpen={setAlertMessageOpen} severity="success" message="作成しました" />
     </div>
   );
 }

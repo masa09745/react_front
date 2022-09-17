@@ -264,7 +264,7 @@ export const SignUp: React.FC =() => {
           </Box>
         </FormControl>
       </Card>
-      <AlertMessage open={alertMessageOpen} setOpen={setAlertMessageOpen} severity="error" message="メールアドレスかパスワードが間違っています" /> 
+      <AlertMessage open={alertMessageOpen} setOpen={setAlertMessageOpen} severity="error" message="メールアドレスかパスワードが間違っています" />
     </>
   );
 }

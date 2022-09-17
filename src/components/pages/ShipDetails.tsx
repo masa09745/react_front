@@ -105,6 +105,7 @@ export const ShipDetails = () => {
                 <Table>
                   <TableHead>
                     <TableRow>
+                      <TableCell>Action</TableCell>
                       <TableCell align='center'>Title</TableCell>
                       <TableCell align='center'>Description</TableCell>
                       <TableCell align='center'>ATA</TableCell>

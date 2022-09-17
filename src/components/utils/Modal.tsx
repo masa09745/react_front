@@ -34,20 +34,25 @@ export const BasicModal = () => {
   const handleClose = () => setOpen(false);
   const {selectShipId, selectShip} = useContext(ShipContext)
   const { currentUser } = useContext(AuthContext)
-  const navigate = useNavigate()
 
   const defaultValues: DefaultValues<InputMaintenance> = {
     title: "",
     ATA: "",
-    MaintenanceMessage: "",
-    Completed: false,
+    maintenanceMessage: "",
+    completed: false,
     description: "",
-    Priority: 0,
+    priority: "",
     shipId: selectShipId,
     userId: currentUser?.id
   }
 
-  const { control, reset, formState, formState:{isSubmitSuccessful}, handleSubmit, } = useForm<InputMaintenance>({defaultValues});
+  const {
+    control,
+    reset,
+    formState,
+    formState:{isSubmitSuccessful},
+    handleSubmit,
+  } = useForm<InputMaintenance>({defaultValues});
 
   const validationRoles = {
     title: {
@@ -60,13 +65,10 @@ export const BasicModal = () => {
       required: "入力必須です"
     },
     priority: {
-      min: {
-        value: 1,
-        message: "優先度を選んで下さい"
-      }
-
+      validate: (value: string | '') => value !== '' || '入力必須です'
     }
   }
+
 
   useEffect (() => {
     if(formState.isSubmitSuccessful) {
@@ -79,7 +81,6 @@ export const BasicModal = () => {
       const res = await createMaintenance(data)
 
       if (res.status === 200) {
-        console.log("create success!!")
         setOpen(false)
         setAlertMessageOpen(true)
       }
@@ -153,7 +154,7 @@ export const BasicModal = () => {
               <Grid item xs={5}>
                 <label>MaintenanceMessage</label>
                 <Controller
-                  name="MaintenanceMessage"
+                  name="maintenanceMessage"
                   control={control}
                   render={({ field }) => <TextField fullWidth {...field} />}
                 />
@@ -161,15 +162,15 @@ export const BasicModal = () => {
               <Grid item xs={4}>
                 <label>優先度</label>
                 <Controller
-                  name="Priority"
+                  name="priority"
                   control={control}
                   rules={validationRoles.priority}
                   render={({ field, fieldState }) => (
                   <TextField select fullWidth {...field} type="number" helperText={fieldState.error?.message} >
-                      <MenuItem value={0}></MenuItem>
-                      <MenuItem value={1}>高</MenuItem>
-                      <MenuItem value={2}>中</MenuItem>
-                      <MenuItem value={3}>低</MenuItem>
+                      <MenuItem value={""}></MenuItem>
+                      <MenuItem value={"高"}>高</MenuItem>
+                      <MenuItem value={"中"}>中</MenuItem>
+                      <MenuItem value={"低"}>低</MenuItem>
                     </TextField>
                   )}
                 />
@@ -195,7 +196,7 @@ export const BasicModal = () => {
               </Grid>
               <Grid item xs={6}>
                 <Controller
-                  name="Completed"
+                  name="completed"
                   control={control}
                   render={({ field }) =>
                     <FormControlLabel

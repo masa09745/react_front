@@ -58,7 +58,6 @@ export const ShipDetails = () => {
   }
 
 
-
   return(
     <>
       <Typography sx={{mb:1}}>
@@ -106,15 +105,16 @@ export const ShipDetails = () => {
                 <Table>
                   <TableHead>
                     <TableRow>
-                      <TableCell align='center'>Date</TableCell>
-                      <TableCell align='center'>ATA</TableCell>
                       <TableCell align='center'>Title</TableCell>
                       <TableCell align='center'>Description</TableCell>
+                      <TableCell align='center'>ATA</TableCell>
+                      <TableCell align='center'>Priority</TableCell>
+                      <TableCell align='center'>Completed</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
                     {maintenances.map((maintenance) =>(
-                      <MaintenanceList key={maintenance.id} id={maintenance.id} date={changeView(maintenance.date)} ata={maintenance.ata} title={maintenance.title} description={maintenance.description}/>
+                      <MaintenanceList key={maintenance.id} id={maintenance.id} title={maintenance.title} ata={maintenance.ata} description={maintenance.description} completed={maintenance.completed} priority={maintenance.priority}/>
                     ))}
                   </TableBody>
                 </Table>

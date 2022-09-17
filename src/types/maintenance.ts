@@ -1,17 +1,18 @@
 export type MaintenanceData = {
   id: number
-  date: string
-  ata: string
   title: string
+  ata: string
+  completed: boolean
+  priority: string
   description: string
 }
 
 export type InputMaintenance = {
   title: string
   ATA: string
-  MaintenanceMessage: string
-  Completed: boolean
-  Priority: number
+  maintenanceMessage: string
+  completed: boolean
+  priority: string
   description: string
   shipId: string
   userId: number | undefined

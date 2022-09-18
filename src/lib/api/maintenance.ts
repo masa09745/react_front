@@ -6,6 +6,6 @@ export const createMaintenance = (data: InputMaintenance) =>{
   return client.post("maintenances", data)
 }
 
-export const deleteMaintenance = (id:string | undefined) =>{
+export const deleteMaintenance = (id:number | undefined) =>{
   return client.delete(`maintenances/${id}`)
 }

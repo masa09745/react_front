@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Box, Typography} from "@mui/material";
 
-import { ShipList } from "components/pages/ShipList"
+import { ShipList } from "components/utils/ShipList"
 
 import { ShipContextProvider } from "components/providers/ShipContextProvider"
 

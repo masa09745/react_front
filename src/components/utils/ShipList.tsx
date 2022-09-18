@@ -4,7 +4,7 @@ import { Box, Card, CardActionArea, CardContent, Typography} from "@mui/material
 
 import { ShipContext } from "components/providers/ShipContextProvider"
 
-import { ShipDetails } from 'components/pages/ShipDetails'
+import { ShipDetails } from 'components/utils/ShipDetails'
 
 
 export const ShipList = () => {

@@ -34,7 +34,6 @@ export const App: React.FC = () =>  {
           <Route  path="/signup" element={<SignUp />} />
           <Route  path="/signin" element={<SignIn />} />
           <Route  path="/ship" element={ <PrivateRoute><Ship /></PrivateRoute>} />
-          <Route  path="/schedule" element={ <PrivateRoute><Schedule /></PrivateRoute>} />
           <Route  path="/" element={ <PrivateRoute><Home /></PrivateRoute> }/>
         </Routes>
       </CommonLayout>

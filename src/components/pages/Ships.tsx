@@ -6,7 +6,7 @@ import { ShipList } from "components/utils/ShipList"
 
 import { ShipContextProvider } from "components/providers/ShipContextProvider"
 
-export const Ship = () => {
+export const Ships = () => {
  
   return(
     <>

@@ -101,7 +101,7 @@ export const SignUp: React.FC =() => {
         setIsSignedIn(true)
         setCurrentUser(res.data.data)
 
-        navigate("/")
+        navigate("/ships")
 
         console.log("sign in success!!")
       }

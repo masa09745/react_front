@@ -4,5 +4,8 @@ import type { InputMaintenance } from 'types/maintenance'
 
 export const createMaintenance = (data: InputMaintenance) =>{
   return client.post("maintenances", data)
+}
 
+export const deleteMaintenance = (id:string | undefined) =>{
+  return client.delete(`maintenances/${id}`)
 }

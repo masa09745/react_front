@@ -5,7 +5,6 @@ import { CommonLayout } from "components/layouts/CommonLayout"
 import { Home } from "components/pages/Home"
 import { SignIn } from "components/pages/SignIn"
 import { SignUp } from "components/pages/SignUp"
-import { Schedule } from "components/pages/Schedule"
 import { Ship } from "components/pages/Ship"
 
 import {AuthContext} from "components/providers/AuthContextProvider"

@@ -9,8 +9,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 
+import {BasicModal} from 'components/utils/Modal'
 
-import type { MaintenanceData } from "types/maintenance"
 
 import { maintenance } from 'lib/api/ship'
 
@@ -18,6 +18,7 @@ import { ShipContext } from "components/providers/ShipContextProvider"
 import {AuthContext} from "components/providers/AuthContextProvider"
 
 import { deleteMaintenance } from "lib/api/maintenance"
+import type { MaintenanceData } from "types/maintenance"
 
 
 
@@ -45,11 +46,12 @@ export const ShipDetails = () => {
 
   return(
     <>
-      <Typography sx={{mb:1}}>整備情報</Typography>
       <Box>
-        <Box sx={{px:2, mb:1}}>
-          機番 : {selectShip}
-        </Box>
+        <Typography sx={{mb:1}}>整備情報</Typography>
+        <span>機番 : {selectShip}</span>
+      </Box>
+      <Box>
+        <BasicModal />
         <Box sx={{width: '100%', typography:'body1'}}>
           <TableContainer component={Paper}>
             <Table>

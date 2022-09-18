@@ -104,8 +104,8 @@ export const BasicModal = () => {
   
 
   return (
-    <div>
-      <Button onClick={handleOpen}>追加</Button>
+    <>
+      <Button variant="contained" onClick={handleOpen}>新規作成</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -211,6 +211,6 @@ export const BasicModal = () => {
         </Box>
       </Modal>
       <AlertMessage open={alertMessageOpen} setOpen={setAlertMessageOpen} severity="success" message="作成しました" />
-    </div>
+    </>
   );
 }

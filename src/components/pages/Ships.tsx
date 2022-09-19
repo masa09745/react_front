@@ -6,6 +6,8 @@ import { ShipList } from "components/utils/ShipList"
 
 import { ShipContextProvider } from "components/providers/ShipContextProvider"
 
+console.log("Ship Pageのレンダリング")
+
 export const Ships = () => {
  
   return(

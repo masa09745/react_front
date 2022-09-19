@@ -20,30 +20,35 @@ import { AuthContext } from "components/providers/AuthContextProvider"
 import {useNavigate} from "react-router-dom"
 
 import { createMaintenance } from 'lib/api/maintenance'
-import { maintenance } from 'lib/api/ship'
+import { getMaintenance } from 'lib/api/ship'
 
 import type { MaintenanceData } from "types/maintenance"
 
 import AlertMessage from './AlertMessage';
 
 
+type props = {
+  open: boolean
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>
+  data?: MaintenanceData
+}
 
 
-
-export const BasicModal = () => {
-  const [open, setOpen] = useState(false);
+export const FormModal = (props:props) => {
+  const {open, setOpen, data} = props
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
-  const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const {selectShipId, selectShip, setMaintenances} = useContext(ShipContext)
   const { currentUser } = useContext(AuthContext)
 
+
+
   const defaultValues: DefaultValues<InputMaintenance> = {
-    title: "",
+    title: data?.title,
     ATA: "",
     maintenanceMessage: "",
     completed: false,
-    description: "",
+    description:  "",
     priority: "",
     shipId: selectShipId,
     userId: currentUser?.id
@@ -86,7 +91,7 @@ export const BasicModal = () => {
       if (res.status === 200) {
         setOpen(false)
         setAlertMessageOpen(true)
-        const res = await maintenance(selectShipId)
+        const res = await getMaintenance(selectShipId)
         console.log(res.data)
         setMaintenances(res.data)
         
@@ -113,7 +118,6 @@ export const BasicModal = () => {
 
   return (
     <>
-      <Button variant="contained" onClick={handleOpen}>新規作成</Button>
       <Modal
         open={open}
         onClose={handleClose}

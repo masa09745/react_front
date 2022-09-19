@@ -5,7 +5,6 @@ import type { MaintenanceData } from "types/maintenance"
 
 
 import { ship } from 'lib/api/ship';
-import { maintenance } from 'lib/api/ship'
 
 
 

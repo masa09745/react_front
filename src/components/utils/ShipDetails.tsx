@@ -4,19 +4,20 @@ import { Box, Typography } from "@mui/material";
 
 import { Table, TableBody, TableRow, TableCell, TableHead, TableContainer, Paper} from "@mui/material"
 
-
+import { Button } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 
-import {BasicModal} from 'components/utils/Modal'
+import {FormModal} from 'components/utils/FormModal'
 
 
-import { maintenance } from 'lib/api/ship'
+import { getMaintenance } from 'lib/api/ship'
 
 import { ShipContext } from "components/providers/ShipContextProvider"
 import {AuthContext} from "components/providers/AuthContextProvider"
 
+import { editMaintenance } from "lib/api/maintenance"
 import { deleteMaintenance } from "lib/api/maintenance"
 import type { MaintenanceData } from "types/maintenance"
 
@@ -26,16 +27,25 @@ import type { MaintenanceData } from "types/maintenance"
 export const ShipDetails = () => {
 
   const { selectShip, selectShipId, maintenances, setMaintenances} = useContext(ShipContext)
+  const { currentUser } =useContext(AuthContext)
 
-  const {currentUser} =useContext(AuthContext)
+  const [maintenanceData, setMaintenanceData]  = useState<MaintenanceData>()
 
-  const onEditClick = () => {
-    console.log("Edit btn clicked")
+  const [open, setOpen] = useState(false);
+
+
+  const handleOpen = () => setOpen(true);
+
+  const onEditClick = async (id:number) => {
+    const res = await editMaintenance(id)
+    setMaintenanceData(res.data)
+    setOpen(true)
   }
+
   const onDeleteClick = async (id:number) => {
     const res = await deleteMaintenance(id)
     if (res?.status === 204) {
-      const res = await maintenance(selectShipId);
+      const res = await getMaintenance(selectShipId);
       setMaintenances(res.data)
     }
     console.log("Delete btn clicked")
@@ -43,12 +53,12 @@ export const ShipDetails = () => {
 
   useEffect (() => {
     const fetchMaintenance = async () => {
-      const res = await maintenance(selectShipId);
+      const res = await getMaintenance(selectShipId);
       setMaintenances(res.data)
+
     };
     fetchMaintenance();
   }, [selectShipId])
-
 
   return(
     <>
@@ -57,7 +67,8 @@ export const ShipDetails = () => {
         <span>機番 : {selectShip}</span>
       </Box>
       <Box>
-        <BasicModal />
+        <Button onClick={handleOpen}>新規作成</Button>
+        <FormModal open={open} setOpen={setOpen} data={maintenanceData}/>
         <Box sx={{width: '100%', typography:'body1'}}>
           <TableContainer component={Paper}>
             <Table>
@@ -76,7 +87,7 @@ export const ShipDetails = () => {
                   return(
                     <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }} key={maintenance.id} >
                       <TableCell sx={{minWidth:100}} align="center">
-                        {currentUser?.section === "整備部"? <EditIcon sx={{mr:1}} onClick={onEditClick}></EditIcon>:<VisibilityIcon></VisibilityIcon>}
+                        {currentUser?.section === "整備部"? <EditIcon sx={{mr:1}} onClick={()=>{onEditClick(maintenance.id)}}></EditIcon>:<VisibilityIcon></VisibilityIcon>}
                         {currentUser?.id === maintenance.userId? <DeleteIcon onClick={() => {{onDeleteClick(maintenance.id)}}}></DeleteIcon>: ""}
                       </TableCell>
                       <TableCell sx={{minWidth:350}} align='center' > {maintenance.title} </TableCell>

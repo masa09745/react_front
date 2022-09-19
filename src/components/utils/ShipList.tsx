@@ -9,7 +9,7 @@ import { ShipDetails } from 'components/utils/ShipDetails'
 
 export const ShipList = () => {
 
-  const { ships, isActive,  setSelectShipId, setSelectShip, setIsActive } = useContext(ShipContext)
+  const { ships, isActive, setSelectShipId, setSelectShip, setIsActive } = useContext(ShipContext)
 
 
   const onClickSwitch = (e: React.MouseEvent<HTMLElement>) => {

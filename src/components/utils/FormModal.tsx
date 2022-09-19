@@ -20,6 +20,7 @@ import { AuthContext } from "components/providers/AuthContextProvider"
 import {useNavigate} from "react-router-dom"
 
 import { createMaintenance } from 'lib/api/maintenance'
+import { updateMaintenance } from 'lib/api/maintenance'
 import { getMaintenance } from 'lib/api/ship'
 
 import type { MaintenanceData } from "types/maintenance"
@@ -43,10 +44,12 @@ export const FormModal = (props:props) => {
     setOpen(false);
   }
 
+  console.log(data?.id)
 
   const defaultValues: DefaultValues<InputMaintenance> = {
     userId: currentUser?.id
   }
+
 
   const {
     control,
@@ -76,22 +79,38 @@ export const FormModal = (props:props) => {
     if(formState.isSubmitSuccessful) {
       reset()
     }
-  }, [formState, isSubmitSuccessful,reset])
+  }, [formState, isSubmitSuccessful, reset])
 
-  const onSubmit = async (data:InputMaintenance) => {
-    try {
-      const res = await createMaintenance(data)
+  const onSubmit = async (inputData: InputMaintenance) => {
 
-      if (res.status === 200) {
-        setOpen(false)
-        setAlertMessageOpen(true)
-        const res = await getMaintenance(selectShipId)
-        setMaintenances(res.data)
-        
+    if(data !== undefined) {
+      try {
+        const res = await updateMaintenance(data.id, inputData)
+        if(res.status === 200){
+          setOpen(false)
+          console.log('update Success')
+          setAlertMessageOpen(true)
+          const res = await getMaintenance(selectShipId)
+          setMaintenances(res.data)
+        }
+      }
+      catch(err) {
+        console.log(err)
       }
     }
-    catch(err) {
-      console.log(err)
+    else {
+      try{
+        const res = await createMaintenance(inputData)
+          if (res.status === 200) {
+            setOpen(false)
+            setAlertMessageOpen(true)
+            const res = await getMaintenance(selectShipId)
+            setMaintenances(res.data)
+          }
+        }
+        catch(err) {
+          console.log(err)
+        }
     }
   }
 
@@ -138,7 +157,8 @@ export const FormModal = (props:props) => {
                   control={control}
                   rules={validationRoles.title}
                   defaultValue={
-                    data === undefined? "" : data?.title}
+                    data === undefined? "": data?.title
+                  }
                   render={({ field, fieldState }) =>(
                     <TextField
                      {...field}
@@ -152,7 +172,7 @@ export const FormModal = (props:props) => {
               <Grid item xs={3}>
                 <label>ATA</label>
                 <Controller
-                  name="ATA"
+                  name="ata"
                   control={control}
                   rules={validationRoles.ATA}
                   defaultValue={
@@ -236,7 +256,8 @@ export const FormModal = (props:props) => {
                 />
               </Grid>
             </Grid>
-            <Button type="submit">送信</Button>
+            {data === undefined ? <Button type="submit">送信</Button> : <Button type="submit">更新</Button>  }
+            
           </Box>
         </Box>
       </Modal>

@@ -17,7 +17,7 @@ import { getMaintenance } from 'lib/api/ship'
 import { ShipContext } from "components/providers/ShipContextProvider"
 import {AuthContext} from "components/providers/AuthContextProvider"
 
-import { editMaintenance } from "lib/api/maintenance"
+
 import { deleteMaintenance } from "lib/api/maintenance"
 import type { MaintenanceData } from "types/maintenance"
 
@@ -60,9 +60,7 @@ export const ShipDetails = () => {
     fetchMaintenance();
   }, [selectShipId])
 
-  useEffect (() => {
-    setMaintenanceData(undefined)
-  },[handleOpen])
+
 
   return(
     <>

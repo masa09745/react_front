@@ -12,7 +12,7 @@ export type MaintenanceData = {
 
 export type InputMaintenance = {
   title: string
-  ATA: string
+  ata: string
   maintenanceMessage: string
   completed: boolean
   priority: string

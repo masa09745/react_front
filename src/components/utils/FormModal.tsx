@@ -27,30 +27,21 @@ import type { MaintenanceData } from "types/maintenance"
 import AlertMessage from './AlertMessage';
 
 
-type props = {
-  open: boolean
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>
-  data?: MaintenanceData
-}
-
-
-export const FormModal = (props:props) => {
-  const {open, setOpen, data} = props
+export const FormModal = () => {
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
+  const [open, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
   const {selectShipId, selectShip, setMaintenances} = useContext(ShipContext)
   const { currentUser } = useContext(AuthContext)
 
-
-
   const defaultValues: DefaultValues<InputMaintenance> = {
-    title: data?.title,
+    title: "",
     ATA: "",
     maintenanceMessage: "",
     completed: false,
     description:  "",
     priority: "",
-    shipId: selectShipId,
+    shipId : selectShipId,
     userId: currentUser?.id
   }
 
@@ -77,6 +68,12 @@ export const FormModal = (props:props) => {
     }
   }
 
+  const handleOpen = () =>{
+    reset()
+    setOpen(true);
+  } 
+
+
 
   useEffect (() => {
     if(formState.isSubmitSuccessful) {
@@ -92,7 +89,6 @@ export const FormModal = (props:props) => {
         setOpen(false)
         setAlertMessageOpen(true)
         const res = await getMaintenance(selectShipId)
-        console.log(res.data)
         setMaintenances(res.data)
         
       }
@@ -118,6 +114,7 @@ export const FormModal = (props:props) => {
 
   return (
     <>
+      <Button onClick={handleOpen}>新規作成</Button>
       <Modal
         open={open}
         onClose={handleClose}

@@ -37,7 +37,8 @@ export const ShipDetails = () => {
 
  
 
-  const onEditClick = async () => {
+  const onEditClick = (data: MaintenanceData) =>{
+    setMaintenanceData(data)
     setOpen(true);
   }
 
@@ -59,6 +60,10 @@ export const ShipDetails = () => {
     fetchMaintenance();
   }, [selectShipId])
 
+  useEffect (() => {
+    setMaintenanceData(undefined)
+  },[handleOpen])
+
   return(
     <>
       <Box>
@@ -67,7 +72,7 @@ export const ShipDetails = () => {
       </Box>
       <Box>
         <Button onClick={handleOpen}>新規作成</Button>
-        <FormModal open={open} setOpen={setOpen} />
+        <FormModal open={open} setOpen={setOpen} data={maintenanceData} />
         <Box sx={{width: '100%', typography:'body1'}}>
           <TableContainer component={Paper}>
             <Table>
@@ -86,7 +91,7 @@ export const ShipDetails = () => {
                   return(
                     <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }} key={maintenance.id} >
                       <TableCell sx={{minWidth:100}}>
-                        {currentUser?.section === "整備部"? <EditIcon sx={{mr:1}} onClick={()=>{onEditClick()}}></EditIcon>:<VisibilityIcon></VisibilityIcon>}
+                        {currentUser?.section === "整備部"? <EditIcon sx={{mr:1}} onClick={()=>{onEditClick(maintenance)}}></EditIcon>:<VisibilityIcon></VisibilityIcon>}
                         {currentUser?.id === maintenance.userId? <DeleteIcon onClick={() => {{onDeleteClick(maintenance.id)}}}></DeleteIcon>: ""}
                       </TableCell>
                       <TableCell sx={{minWidth:350}} align='center' > {maintenance.title} </TableCell>

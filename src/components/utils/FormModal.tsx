@@ -29,22 +29,22 @@ import AlertMessage from './AlertMessage';
 type props = {
   open: boolean
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
+  data?: MaintenanceData
 }
 
 export const FormModal = (props:props) => {
-  const {open, setOpen} =props
+  const {open, setOpen, data} =props
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
-  const handleClose = () => setOpen(false);
   const {selectShipId, selectShip, setMaintenances} = useContext(ShipContext)
   const { currentUser } = useContext(AuthContext)
 
+  const handleClose = () =>{
+    reset()
+    setOpen(false);
+  }
+
+
   const defaultValues: DefaultValues<InputMaintenance> = {
-    title: "",
-    ATA: "",
-    maintenanceMessage: "",
-    completed: false,
-    description:  "",
-    priority: "",
     userId: currentUser?.id
   }
 
@@ -137,6 +137,8 @@ export const FormModal = (props:props) => {
                   name="title"
                   control={control}
                   rules={validationRoles.title}
+                  defaultValue={
+                    data === undefined? "" : data?.title}
                   render={({ field, fieldState }) =>(
                     <TextField
                      {...field}
@@ -153,6 +155,9 @@ export const FormModal = (props:props) => {
                   name="ATA"
                   control={control}
                   rules={validationRoles.ATA}
+                  defaultValue={
+                    data === undefined? "": data?.ata
+                  }
                   render={({ field, fieldState}) =>(
                     <TextField
                       fullWidth
@@ -168,6 +173,9 @@ export const FormModal = (props:props) => {
                 <Controller
                   name="maintenanceMessage"
                   control={control}
+                  defaultValue={
+                    data === undefined? "": data?.maintenanceMessage
+                  }
                   render={({ field }) => <TextField fullWidth {...field} />}
                 />
               </Grid>
@@ -177,6 +185,9 @@ export const FormModal = (props:props) => {
                   name="priority"
                   control={control}
                   rules={validationRoles.priority}
+                  defaultValue={
+                    data === undefined? "": data?.priority
+                  }
                   render={({ field, fieldState }) => (
                   <TextField select fullWidth {...field} type="number" helperText={fieldState.error?.message} >
                       <MenuItem value={""}></MenuItem>
@@ -193,6 +204,9 @@ export const FormModal = (props:props) => {
                   name="description"
                   control={control}
                   rules={validationRoles.description}
+                  defaultValue={
+                    data === undefined? "": data?.description
+                  }
                   render={({ field, fieldState }) =>(
                     <TextField
                       {...field}
@@ -210,6 +224,9 @@ export const FormModal = (props:props) => {
                 <Controller
                   name="completed"
                   control={control}
+                  defaultValue={
+                    data === undefined? false: data?.completed
+                  }
                   render={({ field }) =>
                     <FormControlLabel
                       control={ <Checkbox {...field} />}

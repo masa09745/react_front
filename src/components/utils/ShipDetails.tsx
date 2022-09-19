@@ -33,7 +33,9 @@ export const ShipDetails = () => {
   const onEditClick = () => {
     console.log("Edit btn clicked")
   }
-  const onDeleteClick = () => {
+  const onDeleteClick = async (id:number) => {
+    const res = await deleteMaintenance(id)
+    console.log("Delete btn clicked")
   }
 
   useEffect (() => {
@@ -43,6 +45,7 @@ export const ShipDetails = () => {
     };
     fetchMaintenance();
   }, [selectShipId])
+
 
   return(
     <>
@@ -69,16 +72,16 @@ export const ShipDetails = () => {
                 {maintenances.map((maintenance) =>{
                   return(
                     <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }} key={maintenance.id} >
-                    <TableCell sx={{minWidth:100}} align="center">
-                      {currentUser?.section === "整備部"? <EditIcon sx={{mr:1}} onClick={onEditClick}></EditIcon>:<VisibilityIcon></VisibilityIcon>}
-                      {currentUser?.id === maintenance.userId? <DeleteIcon onClick={onDeleteClick}></DeleteIcon>: ""}
-                    </TableCell>
-                    <TableCell sx={{minWidth:350}} align='center' > {maintenance.title} </TableCell>
-                    <TableCell sx={{minWidth:350, whiteSpace:'normal', wordWrap: 'break-word'}} > {maintenance.description} </TableCell>
-                    <TableCell align='center'> {maintenance.ata} </TableCell>
-                    <TableCell align='center'> {maintenance.priority} </TableCell>
-                    <TableCell align='center'> {maintenance.completed} </TableCell>
-                  </TableRow>
+                      <TableCell sx={{minWidth:100}} align="center">
+                        {currentUser?.section === "整備部"? <EditIcon sx={{mr:1}} onClick={onEditClick}></EditIcon>:<VisibilityIcon></VisibilityIcon>}
+                        {currentUser?.id === maintenance.userId? <DeleteIcon onClick={() => {{onDeleteClick(maintenance.id)}}}></DeleteIcon>: ""}
+                      </TableCell>
+                      <TableCell sx={{minWidth:350}} align='center' > {maintenance.title} </TableCell>
+                      <TableCell sx={{minWidth:350, whiteSpace:'normal', wordWrap: 'break-word'}} > {maintenance.description} </TableCell>
+                      <TableCell align='center'> {maintenance.ata} </TableCell>
+                      <TableCell align='center'> {maintenance.priority} </TableCell>
+                      <TableCell align='center'> {maintenance.completed} </TableCell>
+                    </TableRow>
                   )
                 })}
               </TableBody>

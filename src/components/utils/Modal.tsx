@@ -20,6 +20,10 @@ import { AuthContext } from "components/providers/AuthContextProvider"
 import {useNavigate} from "react-router-dom"
 
 import { createMaintenance } from 'lib/api/maintenance'
+import { maintenance } from 'lib/api/ship'
+
+import type { MaintenanceData } from "types/maintenance"
+
 import AlertMessage from './AlertMessage';
 
 
@@ -31,7 +35,7 @@ export const BasicModal = () => {
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const {selectShipId, selectShip} = useContext(ShipContext)
+  const {selectShipId, selectShip, setMaintenances} = useContext(ShipContext)
   const { currentUser } = useContext(AuthContext)
 
   const defaultValues: DefaultValues<InputMaintenance> = {
@@ -82,6 +86,10 @@ export const BasicModal = () => {
       if (res.status === 200) {
         setOpen(false)
         setAlertMessageOpen(true)
+        const res = await maintenance(selectShipId)
+        console.log(res.data)
+        setMaintenances(res.data)
+        
       }
     }
     catch(err) {

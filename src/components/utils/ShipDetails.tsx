@@ -25,8 +25,7 @@ import type { MaintenanceData } from "types/maintenance"
 
 export const ShipDetails = () => {
 
-  const { selectShip, selectShipId } = useContext(ShipContext)
-  const [maintenances, setMaintenance] = useState<MaintenanceData[]>([])
+  const { selectShip, selectShipId, maintenances, setMaintenances} = useContext(ShipContext)
 
   const {currentUser} =useContext(AuthContext)
 
@@ -35,13 +34,17 @@ export const ShipDetails = () => {
   }
   const onDeleteClick = async (id:number) => {
     const res = await deleteMaintenance(id)
+    if (res?.status === 204) {
+      const res = await maintenance(selectShipId);
+      setMaintenances(res.data)
+    }
     console.log("Delete btn clicked")
   }
 
   useEffect (() => {
     const fetchMaintenance = async () => {
       const res = await maintenance(selectShipId);
-      setMaintenance(res.data)
+      setMaintenances(res.data)
     };
     fetchMaintenance();
   }, [selectShipId])

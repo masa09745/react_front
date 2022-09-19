@@ -26,10 +26,14 @@ import type { MaintenanceData } from "types/maintenance"
 
 import AlertMessage from './AlertMessage';
 
+type props = {
+  open: boolean
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>
+}
 
-export const FormModal = () => {
+export const FormModal = (props:props) => {
+  const {open, setOpen} =props
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
-  const [open, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
   const {selectShipId, selectShip, setMaintenances} = useContext(ShipContext)
   const { currentUser } = useContext(AuthContext)
@@ -41,7 +45,6 @@ export const FormModal = () => {
     completed: false,
     description:  "",
     priority: "",
-    shipId : selectShipId,
     userId: currentUser?.id
   }
 
@@ -67,12 +70,6 @@ export const FormModal = () => {
       validate: (value: string | '') => value !== '' || '入力必須です'
     }
   }
-
-  const handleOpen = () =>{
-    reset()
-    setOpen(true);
-  } 
-
 
 
   useEffect (() => {
@@ -114,7 +111,6 @@ export const FormModal = () => {
 
   return (
     <>
-      <Button onClick={handleOpen}>新規作成</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -126,6 +122,14 @@ export const FormModal = () => {
             選択中の機番: {selectShip}
           </Typography>
           <Box component="form" id="modal-modal-description"  onSubmit={handleSubmit(onSubmit)}>
+            <Grid item xs={5} display="none" >
+              <Controller
+                name="shipId"
+                defaultValue={selectShipId}
+                control={control}
+                render={({ field }) => <TextField fullWidth {...field} />}
+              />
+            </Grid>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <label>タイトル</label>
@@ -210,7 +214,7 @@ export const FormModal = () => {
                     <FormControlLabel
                       control={ <Checkbox {...field} />}
                       label="完了"
-                     />
+                    />
                   }
                 />
               </Grid>

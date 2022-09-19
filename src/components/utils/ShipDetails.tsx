@@ -28,15 +28,17 @@ export const ShipDetails = () => {
 
   const { selectShip, selectShipId, maintenances, setMaintenances} = useContext(ShipContext)
   const { currentUser } =useContext(AuthContext)
+  const [open, setOpen] = useState(false);
 
   const [maintenanceData, setMaintenanceData]  = useState<MaintenanceData>()
 
+  const handleOpen = () => setOpen(true);
 
 
  
 
-  const onEditClick = async (id:number) => {
-
+  const onEditClick = async () => {
+    setOpen(true);
   }
 
   const onDeleteClick = async (id:number) => {
@@ -64,7 +66,8 @@ export const ShipDetails = () => {
         <span>機番 : {selectShip}</span>
       </Box>
       <Box>
-        <FormModal/>
+        <Button onClick={handleOpen}>新規作成</Button>
+        <FormModal open={open} setOpen={setOpen} />
         <Box sx={{width: '100%', typography:'body1'}}>
           <TableContainer component={Paper}>
             <Table>
@@ -83,7 +86,7 @@ export const ShipDetails = () => {
                   return(
                     <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }} key={maintenance.id} >
                       <TableCell sx={{minWidth:100}}>
-                        {currentUser?.section === "整備部"? <EditIcon sx={{mr:1}} onClick={()=>{onEditClick(maintenance.id)}}></EditIcon>:<VisibilityIcon></VisibilityIcon>}
+                        {currentUser?.section === "整備部"? <EditIcon sx={{mr:1}} onClick={()=>{onEditClick()}}></EditIcon>:<VisibilityIcon></VisibilityIcon>}
                         {currentUser?.id === maintenance.userId? <DeleteIcon onClick={() => {{onDeleteClick(maintenance.id)}}}></DeleteIcon>: ""}
                       </TableCell>
                       <TableCell sx={{minWidth:350}} align='center' > {maintenance.title} </TableCell>

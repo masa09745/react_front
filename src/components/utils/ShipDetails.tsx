@@ -1,46 +1,43 @@
-import React, { useContext, useEffect, useState } from "react"
+import React, { useContext, useEffect, useState, memo, useCallback } from "react"
 
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Table, TableBody, TableRow, TableCell, TableHead, TableContainer, Paper, Button} from "@mui/material"
 
-import { Table, TableBody, TableRow, TableCell, TableHead, TableContainer, Paper} from "@mui/material"
-
-import { Button } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 
-import {FormModal} from 'components/utils/FormModal'
-
-
 import { getMaintenance } from 'lib/api/ship'
+import { deleteMaintenance } from "lib/api/maintenance"
 
-import { ShipContext } from "components/providers/ShipContextProvider"
 import {AuthContext} from "components/providers/AuthContextProvider"
 
-
-import { deleteMaintenance } from "lib/api/maintenance"
 import type { MaintenanceData } from "types/maintenance"
 
 
 
+type props = {
+  selectShip?: string
+  selectShipId?: string
+  handleOpen: (e: React.MouseEvent<HTMLElement>) => void
+  open: boolean
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>
+}
 
-export const ShipDetails = () => {
-
-  const { selectShip, selectShipId, maintenances, setMaintenances} = useContext(ShipContext)
+export const ShipDetails =memo((props: props) => {
+  console.log("ship detailのレンダリング")
+  const { selectShip, selectShipId, handleOpen, open, setOpen } = props
   const { currentUser } =useContext(AuthContext)
-  const [open, setOpen] = useState(false);
+  
 
   const [maintenanceData, setMaintenanceData]  = useState<MaintenanceData>()
+  const [maintenances, setMaintenances] = useState<MaintenanceData[]>([])
 
-  const handleOpen = () => setOpen(true);
 
 
- 
-
-  const onEditClick = (data: MaintenanceData) =>{
+  const onEditClick = useCallback((data: MaintenanceData) =>{
     setMaintenanceData(data)
-    setOpen(true);
-  }
+    setOpen(true)
+  },[maintenanceData])
 
   const onDeleteClick = async (id:number) => {
     const res = await deleteMaintenance(id)
@@ -70,7 +67,6 @@ export const ShipDetails = () => {
       </Box>
       <Box>
         <Button onClick={handleOpen}>新規作成</Button>
-        <FormModal open={open} setOpen={setOpen} data={maintenanceData} />
         <Box sx={{width: '100%', typography:'body1'}}>
           <TableContainer component={Paper}>
             <Table>
@@ -107,4 +103,4 @@ export const ShipDetails = () => {
       </Box>
     </>
   )
-}
+})

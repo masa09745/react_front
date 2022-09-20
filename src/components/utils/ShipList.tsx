@@ -1,22 +1,20 @@
-import { useContext } from "react"
+import { memo } from "react"
 
 import { Box, Card, CardActionArea, CardContent, Typography} from "@mui/material";
 
-import { ShipContext } from "components/providers/ShipContextProvider"
 
-import { ShipDetails } from 'components/utils/ShipDetails'
+import type { ShipData } from "types/ship";
+
+type props = {
+  ships: ShipData[]
+  onClickSwitch: (e: React.MouseEvent<HTMLElement>) => void;
+}
 
 
-export const ShipList = () => {
 
-  const { ships, isActive, setSelectShipId, setSelectShip, setIsActive } = useContext(ShipContext)
-
-
-  const onClickSwitch = (e: React.MouseEvent<HTMLElement>) => {
-    setSelectShip(e.currentTarget.dataset.ship)
-    setSelectShipId(e.currentTarget.dataset.id)
-    setIsActive(true)
-  }
+export const ShipList = memo((props:props) => {
+  console.log("ship listのレンダリング")
+  const {ships, onClickSwitch} = props
 
   return(
     <>
@@ -51,7 +49,5 @@ export const ShipList = () => {
           </Card>
         )}
       </Box>
-      {isActive? <ShipDetails /> : "機番を選んで下さい"}
     </>
-)
-}
+)})

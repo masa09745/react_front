@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from'react';
+import React, { useState, useContext, useEffect, memo } from'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -28,15 +28,17 @@ import type { MaintenanceData } from "types/maintenance"
 import AlertMessage from './AlertMessage';
 
 type props = {
+  selectShip: string| undefined
+  selectShipId: string| undefined
   open: boolean
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
   data?: MaintenanceData
+  setMaintenances: React.Dispatch<React.SetStateAction<MaintenanceData[]>>
 }
 
-export const FormModal = (props:props) => {
-  const {open, setOpen, data} =props
+export const FormModal = memo((props:props) => {
+  const {open, setOpen, data, selectShipId, selectShip, setMaintenances} =props
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
-  const {selectShipId, selectShip, setMaintenances} = useContext(ShipContext)
   const { currentUser } = useContext(AuthContext)
 
   const handleClose = () =>{
@@ -44,7 +46,7 @@ export const FormModal = (props:props) => {
     setOpen(false);
   }
 
-  console.log(data?.id)
+  console.log('Modalのレンダリング')
 
   const defaultValues: DefaultValues<InputMaintenance> = {
     title: "",
@@ -53,7 +55,6 @@ export const FormModal = (props:props) => {
     maintenanceMessage: "",
     priority: "",
     completed: false,
-    shipId: selectShipId,
     userId: currentUser?.id
   }
 
@@ -83,7 +84,6 @@ export const FormModal = (props:props) => {
 
 
   useEffect (() => {
-    console.log(formState)
     if(formState.isSubmitSuccessful) {
       reset()
     }
@@ -259,4 +259,4 @@ export const FormModal = (props:props) => {
       <AlertMessage open={alertMessageOpen} setOpen={setAlertMessageOpen} severity="success" message="作成しました" />
     </>
   );
-}
+})

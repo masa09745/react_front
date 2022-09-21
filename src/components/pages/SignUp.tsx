@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useRef } from 'react'
+import React, { useState, useContext, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import  Cookies from 'js-cookie'
 
@@ -101,7 +101,7 @@ export const SignUp: React.FC =() => {
         setIsSignedIn(true)
         setCurrentUser(res.data.data)
 
-        navigate("/")
+        navigate("/ships")
 
         console.log("sign in success!!")
       }
@@ -264,7 +264,7 @@ export const SignUp: React.FC =() => {
           </Box>
         </FormControl>
       </Card>
-      <AlertMessage open={alertMessageOpen} setOpen={setAlertMessageOpen} severity="error" message="メールアドレスかパスワードが間違っています" /> 
+      <AlertMessage open={alertMessageOpen} setOpen={setAlertMessageOpen} severity="error" message="メールアドレスかパスワードが間違っています" />
     </>
   );
 }

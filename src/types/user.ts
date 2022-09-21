@@ -17,7 +17,7 @@ export type SignInData = {
 }
 
 export type User = {
-  id: number
+  id: string
   uid: string
   provider: string
   firstName: string,

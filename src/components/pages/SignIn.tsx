@@ -44,7 +44,7 @@ import type { SignInData } from "types/user"
         setIsSignedIn(true)
         setCurrentUser(res.data.data)
 
-        navigate("/")
+        navigate("/ships")
 
         console.log("sign in success!!!")
       }

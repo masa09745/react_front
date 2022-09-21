@@ -8,7 +8,7 @@ import { Link } from "react-router-dom"
 
 export const MenuList = (
   <React.Fragment>
-    <Typography component={Link} sx={{textDecoration: 'none', color: 'inherit'}} to="/ship">
+    <Typography component={Link} sx={{textDecoration: 'none', color: 'inherit'}} to="/ships">
       <ListItemButton>
         <ListItemIcon>
           < AirplanemodeActiveIcon />

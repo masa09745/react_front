@@ -1,20 +1,19 @@
 import { memo } from "react"
 
 import { Box, Card, CardActionArea, CardContent, Typography} from "@mui/material";
-
+import { Link } from "react-router-dom"
 
 import type { ShipData } from "types/ship";
 
 type props = {
   ships: ShipData[]
-  onClickSwitch: (e: React.MouseEvent<HTMLElement>) => void;
 }
 
 
 
 export const ShipList = memo((props:props) => {
   console.log("ship listのレンダリング")
-  const {ships, onClickSwitch} = props
+  const {ships} = props
 
   return(
     <>
@@ -32,7 +31,6 @@ export const ShipList = memo((props:props) => {
             key={ship.id}
             data-id={ship.id}
             data-ship={ship.regiNumber}
-            onClick={onClickSwitch}
             sx={{
               width:100,
               textDecoration:"none",
@@ -42,7 +40,9 @@ export const ShipList = memo((props:props) => {
             <CardActionArea>
               <CardContent>
                 <Typography variant="h6" component="div">
-                  {ship.regiNumber}
+                  <Link to={`${ship.id}`}>
+                    {ship.regiNumber}
+                  </Link>
                 </Typography>
               </CardContent>
             </CardActionArea>

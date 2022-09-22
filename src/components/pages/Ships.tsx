@@ -1,12 +1,13 @@
 import React, {useState, useEffect, memo, useCallback} from 'react';
 
 import { Box, Typography} from "@mui/material";
+import { Outlet } from "react-router-dom"
 
 import { ShipList } from "components/utils/ShipList"
 import { ShipDetails } from 'components/utils/ShipDetails'
 import {FormModal} from 'components/utils/FormModal'
 
-import { ship } from 'lib/api/ship';
+import { getShips } from 'lib/api/ship';
 
 import type { ShipData } from "types/ship";
 import type { MaintenanceData } from "types/maintenance"
@@ -27,15 +28,9 @@ export const Ships = memo(() => {
 
 
 
-  const onClickSwitch = useCallback((e: React.MouseEvent<HTMLElement>) =>{
-    setSelectShip(e.currentTarget.dataset.ship)
-    setSelectShipId(e.currentTarget.dataset.id)
-    setIsActive(true)
-  }, [])
-
   useEffect (() => {
     const fetchShip = async () => {
-      const res =  await ship();
+      const res =  await getShips();
       setShips(res.data)
     };
     fetchShip();
@@ -47,9 +42,8 @@ export const Ships = memo(() => {
         <Typography sx={{ mb:1 }}>
           機材一覧
         </Typography>
-        <ShipList ships={ships} onClickSwitch={onClickSwitch} />
-        {isActive? <ShipDetails open={open} setOpen={setOpen} selectShip={selectShip} selectShipId={selectShipId} handleOpen={handleOpen} /> : <p>機番を選んで下さい</p>}
-        <FormModal open={open} setOpen={setOpen} data={maintenanceData} selectShip={selectShip} selectShipId={selectShipId} setMaintenances={setMaintenances} />
+        <ShipList ships={ships} />
+        <Outlet />
       </Box>
     </>
   )

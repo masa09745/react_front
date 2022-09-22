@@ -15,17 +15,10 @@ import type { MaintenanceData } from "types/maintenance"
 
 
 
-type props = {
-  selectShip?: string
-  selectShipId?: string
-  handleOpen: (e: React.MouseEvent<HTMLElement>) => void
-  open: boolean
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>
-}
 
-export const ShipDetails =memo((props: props) => {
+export const ShipDetails =memo(() => {
   console.log("ship detailのレンダリング")
-  const { selectShip, selectShipId, handleOpen, open, setOpen } = props
+
   const { currentUser } =useContext(AuthContext)
   
 
@@ -33,40 +26,14 @@ export const ShipDetails =memo((props: props) => {
   const [maintenances, setMaintenances] = useState<MaintenanceData[]>([])
 
 
-
-  const onEditClick = useCallback((data: MaintenanceData) =>{
-    setMaintenanceData(data)
-    setOpen(true)
-  },[maintenanceData])
-
-  const onDeleteClick = async (id:number) => {
-    const res = await deleteMaintenance(id)
-    if (res?.status === 204) {
-      const res = await getMaintenance(selectShipId);
-      setMaintenances(res.data)
-    }
-    console.log("Delete btn clicked")
-  }
-
-  useEffect (() => {
-    const fetchMaintenance = async () => {
-      const res = await getMaintenance(selectShipId);
-      setMaintenances(res.data)
-
-    };
-    fetchMaintenance();
-  }, [selectShipId])
-
-
-
   return(
     <>
       <Box>
         <Typography sx={{mb:1}}>整備情報</Typography>
-        <span>機番 : {selectShip}</span>
+        <span>機番 :</span>
       </Box>
       <Box>
-        <Button onClick={handleOpen}>新規作成</Button>
+        <Button >新規作成</Button>
         <Box sx={{width: '100%', typography:'body1'}}>
           <TableContainer component={Paper}>
             <Table>
@@ -85,8 +52,8 @@ export const ShipDetails =memo((props: props) => {
                   return(
                     <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }} key={maintenance.id} >
                       <TableCell sx={{minWidth:100}}>
-                        {currentUser?.section === "整備部"? <EditIcon sx={{mr:1}} onClick={()=>{onEditClick(maintenance)}}></EditIcon>:<VisibilityIcon></VisibilityIcon>}
-                        {currentUser?.id === maintenance.userId? <DeleteIcon onClick={() => {{onDeleteClick(maintenance.id)}}}></DeleteIcon>: ""}
+                        {currentUser?.section === "整備部"? <EditIcon sx={{mr:1}}></EditIcon>:<VisibilityIcon></VisibilityIcon>}
+                        {currentUser?.id === maintenance.userId? <DeleteIcon ></DeleteIcon>: ""}
                       </TableCell>
                       <TableCell sx={{minWidth:350}} align='center' > {maintenance.title} </TableCell>
                       <TableCell sx={{minWidth:350, whiteSpace:'normal', wordWrap: 'break-word'}} > {maintenance.description} </TableCell>

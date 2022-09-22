@@ -12,14 +12,13 @@ import {AuthContext} from "components/providers/AuthContextProvider"
 
 export const App: React.FC = () =>  {
 
-  const {loading, currentUser} = useContext(AuthContext)
-
+  const {loading, isSignedIn} = useContext(AuthContext)
   const PrivateRoute = ({ children }: { children: JSX.Element }) => {
     if(!loading) {
-      if (!currentUser) {
-        return <Navigate to="/" replace/>;
-      } else {
+      if (isSignedIn) {
         return children
+      } else {
+        return  <Navigate to="/signin" replace/>;
       }
     }else {
       return  <></>
@@ -29,14 +28,14 @@ export const App: React.FC = () =>  {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route  path="/" element={<CommonLayout />} >
+        <Route index element={<Home />} />
         <Route  path="signup" element={<SignUp />} />
         <Route  path="signin" element={<SignIn />} />
         <Route  path="ships" element={ <PrivateRoute><Ships/></PrivateRoute>} >
           < Route path=":shipId" element={<ShipDetails />} />
         </Route>
       </Route>
-  )
-  )
+  ))
 
   return (
     <RouterProvider router={router}  />

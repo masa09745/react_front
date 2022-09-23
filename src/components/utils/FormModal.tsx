@@ -20,7 +20,6 @@ import {useNavigate} from "react-router-dom"
 
 import { createMaintenance } from 'lib/api/maintenance'
 import { updateMaintenance } from 'lib/api/maintenance'
-import { getMaintenance } from 'lib/api/ship'
 
 import type { MaintenanceData } from "types/maintenance"
 
@@ -90,35 +89,6 @@ export const FormModal = memo((props:props) => {
 
   const onSubmit = async (inputData: InputMaintenance) => {
 
-    if(data !== undefined) {
-      try {
-        const res = await updateMaintenance(data.id, inputData)
-        if(res.status === 200){
-          setOpen(false)
-          console.log('update Success')
-          setAlertMessageOpen(true)
-          const res = await getMaintenance(selectShipId)
-          setMaintenances(res.data)
-        }
-      }
-      catch(err) {
-        console.log(err)
-      }
-    }
-    else {
-      try{
-        const res = await createMaintenance(inputData)
-          if (res.status === 200) {
-            setOpen(false)
-            setAlertMessageOpen(true)
-            const res = await getMaintenance(selectShipId)
-            setMaintenances(res.data)
-          }
-        }
-        catch(err) {
-          console.log(err)
-        }
-    }
   }
 
 

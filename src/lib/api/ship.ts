@@ -7,7 +7,3 @@ export const getShips = () => {
 export const selectShip = (id:string | undefined) => {
   return client.get(`/ships/${id}`);
 };
-
-export const getMaintenance = (id: string | undefined) => {
-  return client.get(`ships/${id}/maintenances`)
-}

@@ -1,19 +1,20 @@
 import { memo } from "react"
 
-import { Box, Card, CardActionArea, CardContent, Typography} from "@mui/material";
-import { Link } from "react-router-dom"
+import {
+  Box,
+  Card,
+  CardActionArea,
+  CardContent,
+  Typography
+} from "@mui/material";
+import { Link, useLoaderData } from "react-router-dom"
 
 import type { ShipData } from "types/ship";
 
-type props = {
-  ships: ShipData[]
-}
 
-
-
-export const ShipList = memo((props:props) => {
+export const ShipList = memo(() => {
   console.log("ship listのレンダリング")
-  const {ships} = props
+  const ships = useLoaderData() as ShipData[]
 
   return(
     <>
@@ -40,7 +41,7 @@ export const ShipList = memo((props:props) => {
             <CardActionArea>
               <CardContent>
                 <Typography variant="h6" component="div">
-                  <Link to={`${ship.id}`}>
+                  <Link to={`/ships/${ship.id}`}>
                     {ship.regiNumber}
                   </Link>
                 </Typography>
@@ -49,5 +50,6 @@ export const ShipList = memo((props:props) => {
           </Card>
         )}
       </Box>
+
     </>
 )})

@@ -1,12 +1,18 @@
 import React, { useContext }  from "react"
-import { BrowserRouter, Routes, Route, Navigate, createBrowserRouter, createRoutesFromElements, RouterProvider }  from "react-router-dom"
+import {
+  Route,
+  Navigate,
+  createBrowserRouter,
+  createRoutesFromElements,
+  RouterProvider,
+ } from "react-router-dom"
 
 import { CommonLayout } from "components/layouts/CommonLayout"
 import { Home } from "components/pages/Home"
 import { SignIn } from "components/pages/SignIn"
 import { SignUp } from "components/pages/SignUp"
-import { Ships } from "components/pages/Ships"
-import { ShipDetails } from "components/utils/ShipDetails"
+import { Ships, shipsLoader } from "components/pages/Ships"
+import { ShipDetails, detailLoader } from "components/utils/ShipDetails"
 
 import {AuthContext} from "components/providers/AuthContextProvider"
 
@@ -31,8 +37,14 @@ export const App: React.FC = () =>  {
         <Route index element={<Home />} />
         <Route  path="signup" element={<SignUp />} />
         <Route  path="signin" element={<SignIn />} />
-        <Route  path="ships" element={ <PrivateRoute><Ships/></PrivateRoute>} >
-          < Route path=":shipId" element={<ShipDetails />} />
+        <Route  path="ships"
+          loader = {shipsLoader}
+          element={ <PrivateRoute><Ships/></PrivateRoute>}
+        >
+          < Route path=":id"
+            loader = {detailLoader}
+            element={<ShipDetails />}
+          />
         </Route>
       </Route>
   ))

@@ -20,8 +20,6 @@ import {useNavigate, useLocation, Link} from "react-router-dom"
 
 import { createMaintenance } from 'lib/api/maintenance'
 
-import type { SelectShip } from "types/ship"
-
 
 type State = {
   id: number | undefined,

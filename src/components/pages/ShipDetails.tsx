@@ -6,7 +6,7 @@ import {
   Button
 } from "@mui/material"
 
-import {useLocation, Link, Outlet } from "react-router-dom"
+import {useLocation, Link } from "react-router-dom"
 import { DetailList } from "components/utils/DetailList";
  
 import { getSelectShipData } from 'lib/api/ship'
@@ -43,6 +43,7 @@ export const ShipDetails = memo(() => {
           <div>
             選択中の機番 : {selectShip}
           </div>
+          {}
           <Link to={`create`} state={{id: id, selectShip: selectShip}}>
             <Button variant="contained">新規作成</Button>
           </Link>

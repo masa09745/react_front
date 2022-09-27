@@ -1,5 +1,5 @@
 import React, { useContext }  from "react"
-import { BrowserRouter, Routes, Route, Navigate, useParams }  from "react-router-dom"
+import { BrowserRouter, Routes, Route, Navigate }  from "react-router-dom"
 
 import { CommonLayout } from "components/layouts/CommonLayout"
 import { Home } from "components/pages/Home"

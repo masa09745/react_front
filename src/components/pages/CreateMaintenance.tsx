@@ -73,10 +73,13 @@ export const CreateMaintenance = () => {
   }
 
   const onSubmit = async (inputData: InputMaintenance) => {
+    console.log(id)
+
     try{
       const res = await createMaintenance(inputData)
         if (res.status === 200) {
           console.log("作成成功")
+          navigate("/ships")
         }
       }
       catch(err) {

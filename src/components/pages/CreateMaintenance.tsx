@@ -16,18 +16,25 @@ import type {InputMaintenance} from "types/maintenance"
 import { AuthContext } from "components/providers/AuthContextProvider"
 
 
-import {useNavigate, useLoaderData, Link} from "react-router-dom"
+import {useNavigate, useLocation, Link} from "react-router-dom"
 
 import { createMaintenance } from 'lib/api/maintenance'
 
 import type { SelectShip } from "types/ship"
 
 
-
+type State = {
+  id: number | undefined,
+  selectShip: string | undefined
+}
 
 
 export const CreateMaintenance = () => {
-  const ship = useLoaderData() as SelectShip
+  const location = useLocation()
+  const { id, selectShip } = location.state as State
+
+  console.log(id)
+
   const { currentUser } = useContext(AuthContext)
   const navigate = useNavigate()
 
@@ -70,7 +77,6 @@ export const CreateMaintenance = () => {
       const res = await createMaintenance(inputData)
         if (res.status === 200) {
           console.log("作成成功")
-          navigate(`/ships/${ship.id}`)
         }
       }
       catch(err) {
@@ -89,18 +95,18 @@ export const CreateMaintenance = () => {
   return(
     <>
       <Typography variant="h5" component="h5" sx={{mb:1}}>機材情報作成フォーム</Typography>
-      <Link to={`/ships/${ship.id}`}>
+      <Link to={`/ships/${id}`} state={{id: id, selectShip: selectShip}}>
         <Button variant="contained">機材情報一覧</Button>
       </Link>
       <Box sx={{width: 750, mx: "auto", p:1}}>
           <Typography variant="h5" component="h1">
-            選択中の機番: {ship.regiNumber}
+            選択中の機番: {selectShip}
           </Typography>
           <Box component="form" onSubmit={handleSubmit(onSubmit)}  >
             <Grid item xs={5} display="none" >
               <Controller
                 name="shipId"
-                defaultValue={ship.id}
+                defaultValue={id}
                 control={control}
                 render={({ field }) => <TextField fullWidth {...field} />}
               />

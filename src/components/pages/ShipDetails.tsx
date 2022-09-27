@@ -1,4 +1,4 @@
-import React, { memo, } from "react"
+import React, { memo, useState, useEffect } from "react"
 
 import {
   Box,
@@ -6,31 +6,32 @@ import {
   Button
 } from "@mui/material"
 
-
-
-import { useLoaderData, LoaderFunctionArgs, Link } from "react-router-dom"
+import {useLocation, Link, Outlet } from "react-router-dom"
 import { DetailList } from "components/utils/DetailList";
  
-import { selectShip } from 'lib/api/ship'
+import { getSelectShipData } from 'lib/api/ship'
+
+import type {MaintenanceData} from "types/maintenance"
 
 
-import type { SelectShip } from "types/ship"
-
-
-
-export const detailLoader = async ({params}: LoaderFunctionArgs): Promise<SelectShip> => {
-  const res = await selectShip(params.id);
-  const ship = res.data
-  return ship
+type State = {
+  id: number | undefined,
+  selectShip: string | undefined
 }
 
-
-
 export const ShipDetails = memo(() => {
-  const ship = useLoaderData() as SelectShip
+  const location = useLocation()
+  const {id, selectShip } = location.state as State
+  const [maintenances, setMaintenances] = useState<MaintenanceData[]>([])
 
 
-
+  useEffect (() => {
+    const fetchMaintenance = async () => {
+      const res = await getSelectShipData(id);
+      setMaintenances(res.data.maintenances)
+    };
+    fetchMaintenance();
+  }, [id])
 
   console.log("ship detailのレンダリング")
 
@@ -40,14 +41,14 @@ export const ShipDetails = memo(() => {
         <Typography variant="h5" component="h5" sx={{mb:1}}>整備情報</Typography>
         <Typography variant="h6" component="div" sx={{px:1}}>
           <div>
-            選択中の機番 : {ship.regiNumber}
+            選択中の機番 : {selectShip}
           </div>
-          <Link to={`/ships/${ship.id}/create`}>
+          <Link to={`create`} state={{id: id, selectShip: selectShip}}>
             <Button variant="contained">新規作成</Button>
           </Link>
         </Typography>
       </Box>
-      {ship.maintenances.length === 0? <Box component="div" sx={{mt:1, px:1}}>整備情報はありません</Box>:<DetailList maintenances={ship.maintenances} />}
+      {maintenances.length === 0? <Box component="div" sx={{mt:1, px:1}}>整備情報はありません</Box>:<DetailList maintenances={maintenances} />}
     </>
   )
 })

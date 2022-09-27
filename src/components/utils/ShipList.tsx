@@ -10,9 +10,12 @@ import { Link, useLoaderData } from "react-router-dom"
 
 import type { ShipData } from "types/ship";
 
+type props = {
+  ships: ShipData[]
+}
 
-export const ShipList = memo(() => {
-  const ships = useLoaderData() as ShipData[]
+export const ShipList = memo((props:props) => {
+  const {ships} = props
   console.log("ship listのレンダリング")
 
   return(
@@ -27,7 +30,7 @@ export const ShipList = memo(() => {
         }}
       >
         {ships.map((ship) =>
-          <Link to={`/ships/${ship.id}`} key={ship.id}>
+          <Link to={`/ships/${ship.id}`} key={ship.id} state={{id: ship.id, selectShip: ship.regiNumber}}>
             <Card>
               <CardContent>
                 <Typography variant="h6" component="div">

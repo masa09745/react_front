@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { useState,useEffect, memo } from 'react';
 
 import { Box, Typography} from "@mui/material";
 import { Outlet } from "react-router-dom"
@@ -10,15 +10,16 @@ import { getShips } from 'lib/api/ship';
 import type { ShipData } from "types/ship";
 
 
-export const shipsLoader = async():Promise<ShipData> => {
-  const res = await getShips()
-  const ships = res.data
-
-  return ships
-
-}
-
 export const Ships = memo(() => {
+  const [ships, setShips] = useState<ShipData[]>([])
+
+  useEffect (() => {
+    const fetchShip = async () => {
+      const res =  await getShips();
+      setShips(res.data)
+    };
+    fetchShip();
+  }, [])
 
   console.log("shipのレンダリング")
 
@@ -28,7 +29,7 @@ export const Ships = memo(() => {
         <Typography variant="h5" component="h5" sx={{ mb:1 }}>
           機材一覧
         </Typography>
-        <ShipList />
+        <ShipList ships={ships} />
         <Outlet />
       </Box>
     </>

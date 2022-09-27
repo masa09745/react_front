@@ -19,6 +19,10 @@ import { AuthContext } from "components/providers/AuthContextProvider"
 import { MenuList } from "components/utils/MenuList"
 import { Footer } from 'components/layouts/Footer'
 
+type CommonLayoutProps = {
+  children: React.ReactElement
+}
+
 
 const drawerWidth = 240;
 
@@ -71,7 +75,7 @@ const Main = styled('main', {
     justifyContent: 'flex-end',
   }));
 
-export const CommonLayout = () => {
+export const CommonLayout = ({ children }: CommonLayoutProps) => {
   const [open, setOpen] = React.useState(false);
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -80,7 +84,7 @@ export const CommonLayout = () => {
     setOpen(false);
   };
 
-  const { loading, isSignedIn, setIsSignedIn } = useContext(AuthContext)
+  const { loading, isSignedIn, setIsSignedIn, setCurrentUser } = useContext(AuthContext)
   const navigate = useNavigate()
 
   const handleSignOut = async(e: React.MouseEvent<HTMLButtonElement>) => {
@@ -93,6 +97,7 @@ export const CommonLayout = () => {
         Cookies.remove("_uid")
 
         setIsSignedIn(false)
+        setCurrentUser(undefined)
         navigate("/signin")
 
         console.log("sign out success!!")
@@ -175,7 +180,7 @@ export const CommonLayout = () => {
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-        <Outlet />
+          {children}
         <Box
           component="footer"
           sx={{

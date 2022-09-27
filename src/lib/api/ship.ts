@@ -4,6 +4,6 @@ export const getShips = () => {
   return client.get('/ships');
 };
 
-export const selectShip = (id:string | undefined) => {
+export const getSelectShipData = (id:number | undefined) => {
   return client.get(`/ships/${id}`);
 };

@@ -1,18 +1,12 @@
 import React, { useContext }  from "react"
-import {
-  Route,
-  Navigate,
-  createBrowserRouter,
-  createRoutesFromElements,
-  RouterProvider,
- } from "react-router-dom"
+import { BrowserRouter, Routes, Route, Navigate, useParams }  from "react-router-dom"
 
 import { CommonLayout } from "components/layouts/CommonLayout"
 import { Home } from "components/pages/Home"
 import { SignIn } from "components/pages/SignIn"
 import { SignUp } from "components/pages/SignUp"
-import { Ships, shipsLoader } from "components/pages/Ships"
-import { ShipDetails, detailLoader } from "components/pages/ShipDetails"
+import { Ships } from "components/pages/Ships"
+import { ShipDetails } from "components/pages/ShipDetails"
 import { CreateMaintenance } from "components/pages/CreateMaintenance"
 
 import {AuthContext} from "components/providers/AuthContextProvider"
@@ -20,32 +14,33 @@ import {AuthContext} from "components/providers/AuthContextProvider"
 export const App: React.FC = () =>  {
 
   const {loading, isSignedIn} = useContext(AuthContext)
+
+
   const PrivateRoute = ({ children }: { children: JSX.Element }) => {
     if(!loading) {
-      if (isSignedIn) {
-        return children
+      if (!isSignedIn) {
+        return <Navigate to="/signin" replace/>;
       } else {
-        return  <Navigate to="/signin" replace/>;
+        return children
       }
-    }else {
-      return  <></>
+    }else{
+      return <></>
     }
   }
 
-  const router = createBrowserRouter(
-    createRoutesFromElements(
-      <Route  path="/" element={<CommonLayout />} >
-        <Route index element={<Home />} />
-        <Route  path="signup" element={<SignUp />} />
-        <Route  path="signin" element={<SignIn />} />
-        <Route  path="ships" loader = {shipsLoader} element={ <PrivateRoute><Ships/></PrivateRoute>}>
-          <Route path=":id" loader = {detailLoader} element={<ShipDetails />}/>
-          <Route path=":id/create" loader = {detailLoader} element={<CreateMaintenance />}/>
-        </Route>
-      </Route>
-  ))
-
   return (
-    <RouterProvider router={router}  />
-  );
+    <BrowserRouter>
+      <CommonLayout>
+        <Routes>
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/ships" element={ <PrivateRoute><Ships/></PrivateRoute>}>
+            <Route path=":shipId" element={<ShipDetails />}/>
+            <Route path=":shipId/create" element={<CreateMaintenance />} />
+          </Route>
+          <Route  path="/" element={ <PrivateRoute><Home /></PrivateRoute> }/>
+        </Routes>
+      </CommonLayout>
+    </BrowserRouter>
+  )
 };

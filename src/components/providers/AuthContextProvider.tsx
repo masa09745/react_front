@@ -4,6 +4,8 @@ import { getCurrentUser } from "lib/api/auth"
 
 
 
+
+
 export const AuthContext = createContext({} as {
   loading: boolean
   setLoading: React.Dispatch<React.SetStateAction<boolean>>
@@ -27,10 +29,7 @@ export const AuthContextProvider = (props: props) => {
 
   const handleGetCurrentUser = async () => {
     try {
-
       const res = await getCurrentUser()
-
-
       if (res?.status === 200) {
         setIsSignedIn(true)
         setCurrentUser(res?.data.currentUser)
@@ -42,7 +41,6 @@ export const AuthContextProvider = (props: props) => {
     catch(err) {
       console.log(err)
     }
-
     setLoading(false)
   }
 
@@ -50,8 +48,10 @@ export const AuthContextProvider = (props: props) => {
     handleGetCurrentUser()
   }, [setCurrentUser])
 
+  const value = {loading, setLoading, isSignedIn, setIsSignedIn, currentUser, setCurrentUser}
+
   return (
-    <AuthContext.Provider value={{ loading, setLoading, isSignedIn, setIsSignedIn, currentUser, setCurrentUser }}>
+    <AuthContext.Provider value={value}>
       {props.children}
     </AuthContext.Provider>
   )

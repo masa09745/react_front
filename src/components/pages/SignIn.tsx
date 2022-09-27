@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react"
+import React, { useState, useContext, useEffect } from "react"
 import { useNavigate, Link } from "react-router-dom"
 import Cookies from "js-cookie"
 
@@ -43,10 +43,9 @@ import type { SignInData } from "types/user"
 
         setIsSignedIn(true)
         setCurrentUser(res.data.data)
-
-        navigate("/ships")
-
-        console.log("sign in success!!!")
+        setEmployeeNumber("")
+        setPassword("")
+        navigate("/")
       }
       else {
         setAlertMessageOpen(true)
@@ -60,11 +59,11 @@ import type { SignInData } from "types/user"
 
   return (
   <>
-    <form noValidate autoComplete="off" >
-      <Card sx={{ maxWidth: 400, mt:10, mx:"auto"}}>
+      <Card sx={{ maxWidth: 400, mt:10, mx:"auto"}} component="form">
         <CardHeader sx={{ textAlign: 'center' }} title="サインイン" />
         <CardContent>
         <TextField
+          autoComplete="employeeNumber"
           variant="outlined"
           required
           fullWidth
@@ -74,7 +73,7 @@ import type { SignInData } from "types/user"
           onChange={event => setEmployeeNumber(event.target.value)}
         />
         <TextField
-          auto-complete="current-password"
+          autoComplete="current-password"
           variant="outlined"
           required
           fullWidth
@@ -98,7 +97,7 @@ import type { SignInData } from "types/user"
         </Box>
         </CardContent>
       </Card>
-    </form>
+
     <AlertMessage open={alertMessageOpen} setOpen={setAlertMessageOpen} severity="error" message="メールアドレスかパスワードが間違っています" />
   </>
   );

@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import{ Box, Typography } from "@mui/material"
 import CssBaseline from '@mui/material/CssBaseline';
 import { styled } from '@mui/material/styles';
-import { useNavigate, Link } from "react-router-dom"
+import { useNavigate, Link, Outlet } from "react-router-dom"
 import Cookies from "js-cookie"
 
 import MUIAppBar, {AppBarProps as MUIAppBarProps} from "@mui/material/AppBar"
@@ -19,10 +19,6 @@ import { AuthContext } from "components/providers/AuthContextProvider"
 import { MenuList } from "components/utils/MenuList"
 import { Footer } from 'components/layouts/Footer'
 
-
-interface CommonLayoutProps {
-  children: React.ReactElement
-}
 
 const drawerWidth = 240;
 
@@ -75,7 +71,7 @@ const Main = styled('main', {
     justifyContent: 'flex-end',
   }));
 
-export const CommonLayout = ({ children }: CommonLayoutProps) => {
+export const CommonLayout = () => {
   const [open, setOpen] = React.useState(false);
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -179,7 +175,7 @@ export const CommonLayout = ({ children }: CommonLayoutProps) => {
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-        {children}
+        <Outlet />
         <Box
           component="footer"
           sx={{

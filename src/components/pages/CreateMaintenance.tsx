@@ -1,52 +1,35 @@
-import React, { useState, useContext, useEffect, memo } from'react';
+import React, { useContext, useEffect, } from'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
-import Modal from '@mui/material/Modal';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel  from '@mui/material/FormControlLabel';
 import MenuItem from '@mui/material/MenuItem';
 
 
-import { useForm, SubmitHandler, Controller } from "react-hook-form"
+import { useForm, Controller } from "react-hook-form"
 
 import type { DefaultValues } from "react-hook-form"
 import type {InputMaintenance} from "types/maintenance"
-import {ShipContext} from "components/providers/ShipContextProvider"
 import { AuthContext } from "components/providers/AuthContextProvider"
 
-import {useNavigate} from "react-router-dom"
+
+import {useNavigate, useLoaderData, Link} from "react-router-dom"
 
 import { createMaintenance } from 'lib/api/maintenance'
-import { updateMaintenance } from 'lib/api/maintenance'
-import { getMaintenance } from 'lib/api/ship'
 
-import type { MaintenanceData } from "types/maintenance"
+import type { SelectShip } from "types/ship"
 
-import AlertMessage from './AlertMessage';
 
-type props = {
-  selectShip: string| undefined
-  selectShipId: string| undefined
-  open: boolean
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>
-  data?: MaintenanceData
-  setMaintenances: React.Dispatch<React.SetStateAction<MaintenanceData[]>>
-}
 
-export const FormModal = memo((props:props) => {
-  const {open, setOpen, data, selectShipId, selectShip, setMaintenances} =props
-  const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
+
+
+export const CreateMaintenance = () => {
+  const ship = useLoaderData() as SelectShip
   const { currentUser } = useContext(AuthContext)
-
-  const handleClose = () =>{
-    reset()
-    setOpen(false);
-  }
-
-  console.log('Modalのレンダリング')
+  const navigate = useNavigate()
 
   const defaultValues: DefaultValues<InputMaintenance> = {
     title: "",
@@ -82,6 +65,19 @@ export const FormModal = memo((props:props) => {
     }
   }
 
+  const onSubmit = async (inputData: InputMaintenance) => {
+    try{
+      const res = await createMaintenance(inputData)
+        if (res.status === 200) {
+          console.log("作成成功")
+          navigate(`/ships/${ship.id}`)
+        }
+      }
+      catch(err) {
+        console.log(err)
+      }
+    }
+
 
   useEffect (() => {
     if(formState.isSubmitSuccessful) {
@@ -89,70 +85,22 @@ export const FormModal = memo((props:props) => {
     }
   }, [formState, isSubmitSuccessful, reset])
 
-  const onSubmit = async (inputData: InputMaintenance) => {
 
-    if(data !== undefined) {
-      try {
-        const res = await updateMaintenance(data.id, inputData)
-        if(res.status === 200){
-          setOpen(false)
-          console.log('update Success')
-          setAlertMessageOpen(true)
-          const res = await getMaintenance(selectShipId)
-          setMaintenances(res.data)
-        }
-      }
-      catch(err) {
-        console.log(err)
-      }
-    }
-    else {
-      try{
-        const res = await createMaintenance(inputData)
-          if (res.status === 200) {
-            setOpen(false)
-            setAlertMessageOpen(true)
-            const res = await getMaintenance(selectShipId)
-            setMaintenances(res.data)
-          }
-        }
-        catch(err) {
-          console.log(err)
-        }
-    }
-  }
-
-
-  const style = {
-    position: 'absolute' as 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 700,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-  };
-  
-
-  return (
+  return(
     <>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h5" component="h1">
-            選択中の機番: {selectShip}
+      <Typography variant="h5" component="h5" sx={{mb:1}}>機材情報作成フォーム</Typography>
+      <Link to={`/ships/${ship.id}`}>
+        <Button variant="contained">機材情報一覧</Button>
+      </Link>
+      <Box sx={{width: 750, mx: "auto", p:1}}>
+          <Typography variant="h5" component="h1">
+            選択中の機番: {ship.regiNumber}
           </Typography>
-          <Box component="form" id="modal-modal-description"  onSubmit={handleSubmit(onSubmit)}>
+          <Box component="form" onSubmit={handleSubmit(onSubmit)}  >
             <Grid item xs={5} display="none" >
               <Controller
                 name="shipId"
-                defaultValue={selectShipId}
+                defaultValue={ship.id}
                 control={control}
                 render={({ field }) => <TextField fullWidth {...field} />}
               />
@@ -237,7 +185,7 @@ export const FormModal = memo((props:props) => {
                   )}
                 />
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={10}>
                 <Controller
                   name="completed"
                   control={control}
@@ -251,12 +199,10 @@ export const FormModal = memo((props:props) => {
                 />
               </Grid>
             </Grid>
-            {data === undefined ? <Button type="submit">送信</Button> : <Button type="submit">更新</Button>  }
-            
+            <Button type="submit" variant="contained" >送信</Button>
           </Box>
         </Box>
-      </Modal>
-      <AlertMessage open={alertMessageOpen} setOpen={setAlertMessageOpen} severity="success" message="作成しました" />
     </>
-  );
-})
+  )
+
+}

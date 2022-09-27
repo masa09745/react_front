@@ -1,6 +1,10 @@
-import client from 'lib/api/client'
+import {client} from 'lib/api/client'
 
 import type { InputMaintenance } from 'types/maintenance'
+
+export const showMaintenance = (id: number | undefined) =>{
+  return client.get(`maintenances/${id}`)
+}
 
 export const createMaintenance = (data: InputMaintenance) =>{
   return client.post("maintenances", data)
@@ -11,5 +15,7 @@ export const updateMaintenance = (id:number | undefined,  data:InputMaintenance)
 }
 
 export const deleteMaintenance = (id:number | undefined) =>{
-  return client.delete(`maintenances/${id}`)
+  return (
+    client.delete(`maintenances/${id}`)
+  )
 }

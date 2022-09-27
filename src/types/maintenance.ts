@@ -6,7 +6,7 @@ export type MaintenanceData = {
   completed: boolean
   priority: string
   description: string
-  shipId: string
+  shipId: number
   userId: string
 }
 
@@ -17,6 +17,6 @@ export type InputMaintenance = {
   completed: boolean
   priority: string
   description: string
-  shipId: string
+  shipId: number
   userId: string | undefined
 }

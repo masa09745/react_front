@@ -1,4 +1,4 @@
-import React, { useContext, memo, useState } from "react"
+import React, { memo, } from "react"
 
 import {
   Box,
@@ -12,10 +12,10 @@ import { useLoaderData, LoaderFunctionArgs, Link } from "react-router-dom"
 import { DetailList } from "components/utils/DetailList";
  
 import { selectShip } from 'lib/api/ship'
-import { deleteMaintenance } from "lib/api/maintenance"
+
 
 import type { SelectShip } from "types/ship"
-import { CreateMaintenance } from "./CreateMaintenance";
+
 
 
 export const detailLoader = async ({params}: LoaderFunctionArgs): Promise<SelectShip> => {
@@ -46,9 +46,7 @@ export const ShipDetails = memo(() => {
             <Button variant="contained">新規作成</Button>
           </Link>
         </Typography>
-
       </Box>
-      
       {ship.maintenances.length === 0? <Box component="div" sx={{mt:1, px:1}}>整備情報はありません</Box>:<DetailList maintenances={ship.maintenances} />}
     </>
   )

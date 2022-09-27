@@ -1,4 +1,4 @@
-import react, { useContext } from 'react';
+import React, { useContext } from 'react';
 
 import {
   Table,
@@ -15,6 +15,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import CheckIcon from '@mui/icons-material/Check';
 
+import {Link} from "react-router-dom"
+
 import type { MaintenanceData } from 'types/maintenance'
 
 import {AuthContext} from "components/providers/AuthContextProvider"
@@ -27,6 +29,10 @@ type props = {
 export const DetailList = (props:props) => {
   const {maintenances} = props
   const { currentUser } =useContext(AuthContext)
+
+  const handleClick = (id:number) => {
+    console.log(id)
+  }
 
   return(
     <>
@@ -46,8 +52,9 @@ export const DetailList = (props:props) => {
             {maintenances.map((maintenance) =>{
               return(
                 <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }} key={maintenance.id} >
-                  <TableCell sx={{minWidth:100}}>
-                    {currentUser?.section === "整備部"? <EditIcon sx={{mr:1}} />:<VisibilityIcon />}
+                  <TableCell sx={{minWidth:150}}>
+                    <VisibilityIcon sx={{mr:1}} />
+                    {currentUser?.section === "整備部"? <EditIcon sx={{mr:1}} onClick={()=>handleClick(maintenance.id)} />:""}
                     {currentUser?.id === maintenance.userId? <DeleteIcon />: ""}
                   </TableCell>
                   <TableCell sx={{minWidth:350}} > {maintenance.title} </TableCell>

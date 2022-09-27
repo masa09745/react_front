@@ -90,9 +90,7 @@ import type { SignInData } from "types/user"
         </Box>
         <Box sx={{ textAlign:"center", pt:'2rem' }}>
           <Typography sx={{ variant: "body2" }} >
-            まだアカウントがない方は
-            <Link to="/signup">こちら</Link>
-            から作成してください
+            アカウントがない方は<Link to="/signup">こちら</Link>
           </Typography>
         </Box>
         </CardContent>

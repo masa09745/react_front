@@ -8,6 +8,7 @@ import { SignUp } from "components/pages/SignUp"
 import { Ships } from "components/pages/Ships"
 import { ShipDetails } from "components/pages/ShipDetails"
 import { CreateMaintenance } from "components/pages/CreateMaintenance"
+import { EditMaintenance } from "components/pages/EditMaintenance"
 
 import {AuthContext} from "components/providers/AuthContextProvider"
 
@@ -38,6 +39,7 @@ export const App: React.FC = () =>  {
             <Route path=":shipId" element={<ShipDetails />}/>
             <Route path=":shipId/create" element={<CreateMaintenance />} />
           </Route>
+          <Route path="maintenances/:maintenanceId/edit" element={<EditMaintenance />} />
           <Route  path="/" element={ <PrivateRoute><Home /></PrivateRoute> }/>
         </Routes>
       </CommonLayout>

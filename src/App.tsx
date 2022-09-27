@@ -12,7 +12,8 @@ import { Home } from "components/pages/Home"
 import { SignIn } from "components/pages/SignIn"
 import { SignUp } from "components/pages/SignUp"
 import { Ships, shipsLoader } from "components/pages/Ships"
-import { ShipDetails, detailLoader } from "components/utils/ShipDetails"
+import { ShipDetails, detailLoader } from "components/pages/ShipDetails"
+import { CreateMaintenance } from "components/pages/CreateMaintenance"
 
 import {AuthContext} from "components/providers/AuthContextProvider"
 
@@ -37,14 +38,9 @@ export const App: React.FC = () =>  {
         <Route index element={<Home />} />
         <Route  path="signup" element={<SignUp />} />
         <Route  path="signin" element={<SignIn />} />
-        <Route  path="ships"
-          loader = {shipsLoader}
-          element={ <PrivateRoute><Ships/></PrivateRoute>}
-        >
-          < Route path=":id"
-            loader = {detailLoader}
-            element={<ShipDetails />}
-          />
+        <Route  path="ships" loader = {shipsLoader} element={ <PrivateRoute><Ships/></PrivateRoute>}>
+          <Route path=":id" loader = {detailLoader} element={<ShipDetails />}/>
+          <Route path=":id/create" loader = {detailLoader} element={<CreateMaintenance />}/>
         </Route>
       </Route>
   ))

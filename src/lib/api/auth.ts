@@ -1,4 +1,4 @@
-import client from "lib/api/client"
+import {client} from "lib/api/client"
 import Cookies from "js-cookie"
 
 import type { SignUpData, SignInData } from "types/user"

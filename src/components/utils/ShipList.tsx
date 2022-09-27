@@ -13,8 +13,8 @@ import type { ShipData } from "types/ship";
 
 
 export const ShipList = memo(() => {
-  console.log("ship listのレンダリング")
   const ships = useLoaderData() as ShipData[]
+  console.log("ship listのレンダリング")
 
   return(
     <>
@@ -28,26 +28,15 @@ export const ShipList = memo(() => {
         }}
       >
         {ships.map((ship) =>
-          <Card
-            key={ship.id}
-            data-id={ship.id}
-            data-ship={ship.regiNumber}
-            sx={{
-              width:100,
-              textDecoration:"none",
-              textAlign: "center"
-            }}
-          >
-            <CardActionArea>
+          <Link to={`/ships/${ship.id}`} key={ship.id}>
+            <Card>
               <CardContent>
                 <Typography variant="h6" component="div">
-                  <Link to={`/ships/${ship.id}`}>
                     {ship.regiNumber}
-                  </Link>
                 </Typography>
               </CardContent>
-            </CardActionArea>
-          </Card>
+            </Card>
+          </Link>
         )}
       </Box>
 

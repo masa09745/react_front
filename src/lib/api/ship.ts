@@ -1,4 +1,4 @@
-import client from 'lib/api/client';
+import {client} from 'lib/api/client';
 
 export const getShips = () => {
   return client.get('/ships');

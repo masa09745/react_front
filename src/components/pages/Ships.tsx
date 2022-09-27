@@ -25,7 +25,7 @@ export const Ships = memo(() => {
   return(
     <>
       <Box>
-        <Typography sx={{ mb:1 }}>
+        <Typography variant="h5" component="h5" sx={{ mb:1 }}>
           機材一覧
         </Typography>
         <ShipList />

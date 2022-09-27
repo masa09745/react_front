@@ -45,6 +45,7 @@ export const CreateMaintenance = () => {
     maintenanceMessage: "",
     priority: "",
     completed: false,
+    shipId: id,
     userId: currentUser?.id
   }
 
@@ -106,14 +107,6 @@ export const CreateMaintenance = () => {
             選択中の機番: {selectShip}
           </Typography>
           <Box component="form" onSubmit={handleSubmit(onSubmit)}  >
-            <Grid item xs={5} display="none" >
-              <Controller
-                name="shipId"
-                defaultValue={id}
-                control={control}
-                render={({ field }) => <TextField fullWidth {...field} />}
-              />
-            </Grid>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <label>タイトル</label>

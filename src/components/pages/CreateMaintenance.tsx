@@ -32,6 +32,7 @@ import type { SelectShip } from "types/ship"
 export const CreateMaintenance = () => {
   const ship = useLoaderData() as SelectShip
   const { currentUser } = useContext(AuthContext)
+  const navigate = useNavigate()
 
   const defaultValues: DefaultValues<InputMaintenance> = {
     title: "",
@@ -67,6 +68,19 @@ export const CreateMaintenance = () => {
     }
   }
 
+  const onSubmit = async (inputData: InputMaintenance) => {
+    try{
+      const res = await createMaintenance(inputData)
+        if (res.status === 200) {
+          console.log("作成成功")
+          navigate(`/ships/${ship.id}`)
+        }
+      }
+      catch(err) {
+        console.log(err)
+      }
+    }
+
 
   useEffect (() => {
     if(formState.isSubmitSuccessful) {
@@ -74,20 +88,26 @@ export const CreateMaintenance = () => {
     }
   }, [formState, isSubmitSuccessful, reset])
 
-  const onSubmit = async (inputData: InputMaintenance) => {
 
-  }
   return(
     <>
       <Typography variant="h5" component="h5" sx={{mb:1}}>機材情報作成フォーム</Typography>
       <Link to={`/ships/${ship.id}`}>
         <Button variant="contained">機材情報一覧</Button>
       </Link>
-      <Box sx={{width: 750, mx: "auto", p:3}}>
-          <Typography id="modal-modal-title" variant="h5" component="h1">
+      <Box sx={{width: 750, mx: "auto", p:1}}>
+          <Typography variant="h5" component="h1">
             選択中の機番: {ship.regiNumber}
           </Typography>
-          <Box component="form" id="modal-modal-description">
+          <Box component="form" onSubmit={handleSubmit(onSubmit)}  >
+            <Grid item xs={5} display="none" >
+              <Controller
+                name="shipId"
+                defaultValue={ship.id}
+                control={control}
+                render={({ field }) => <TextField fullWidth {...field} />}
+              />
+            </Grid>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <label>タイトル</label>
@@ -181,10 +201,8 @@ export const CreateMaintenance = () => {
                   }
                 />
               </Grid>
-              <Grid item xs={2}>
-                <Button type="submit" variant="contained" >送信</Button>
-              </Grid>
             </Grid>
+            <Button type="submit" variant="contained" >送信</Button>
           </Box>
         </Box>
     </>

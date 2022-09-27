@@ -23,7 +23,7 @@ export const ShipList = memo(() => {
           display: 'flex',
           flexWrap:" wrap",
           gap: 2,
-          mb: 5,
+          mb: 3,
           px: 2,
         }}
       >

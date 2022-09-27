@@ -54,7 +54,7 @@ export const DetailList = (props:props) => {
                   <TableCell sx={{minWidth:350, whiteSpace:'normal', wordWrap: 'break-word'}} > {maintenance.description} </TableCell>
                   <TableCell align='center'> {maintenance.ata} </TableCell>
                   <TableCell align='center'> {maintenance.priority} </TableCell>
-                  { maintenance.completed === true? <TableCell><CheckIcon /></TableCell> : <TableCell></TableCell>}
+                  { maintenance.completed === true? <TableCell align='center'><CheckIcon /></TableCell> : <TableCell></TableCell>}
                 </TableRow>
               )
             })}

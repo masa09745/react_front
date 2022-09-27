@@ -1,4 +1,4 @@
-import React, { memo, useState, useEffect } from "react"
+import React, { memo, useState, useEffect, useContext } from "react"
 
 import {
   Box,
@@ -8,9 +8,8 @@ import {
 
 import {useLocation, Link } from "react-router-dom"
 import { DetailList } from "components/utils/DetailList";
- 
 import { getSelectShipData } from 'lib/api/ship'
-
+import {AuthContext} from "components/providers/AuthContextProvider"
 import type {MaintenanceData} from "types/maintenance"
 
 
@@ -20,6 +19,7 @@ type State = {
 }
 
 export const ShipDetails = memo(() => {
+  const {currentUser} = useContext(AuthContext)
   const location = useLocation()
   const {id, selectShip } = location.state as State
   const [maintenances, setMaintenances] = useState<MaintenanceData[]>([])
@@ -43,10 +43,11 @@ export const ShipDetails = memo(() => {
           <div>
             選択中の機番 : {selectShip}
           </div>
-          {}
-          <Link to={`create`} state={{id: id, selectShip: selectShip}}>
-            <Button variant="contained">新規作成</Button>
-          </Link>
+          {currentUser?.section === "整備部" ?
+            <Link to={`create`} state={{id: id, selectShip: selectShip}}>
+              <Button variant="contained">新規作成</Button>
+             </Link> : <></>
+          }
         </Typography>
       </Box>
       {maintenances.length === 0? <Box component="div" sx={{mt:1, px:1}}>整備情報はありません</Box>:<DetailList maintenances={maintenances} />}

@@ -8,7 +8,6 @@ import { SignUp } from "components/pages/SignUp"
 import { Ships } from "components/pages/Ships"
 import { ShipDetails } from "components/pages/ShipDetails"
 import { CreateMaintenance } from "components/pages/CreateMaintenance"
-import { EditMaintenance } from "components/pages/EditMaintenance"
 
 import {AuthContext} from "components/providers/AuthContextProvider"
 

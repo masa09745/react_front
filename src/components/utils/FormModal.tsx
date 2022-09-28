@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect, memo } from'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Modal from '@mui/material/Modal';
@@ -10,7 +9,7 @@ import FormControlLabel  from '@mui/material/FormControlLabel';
 import MenuItem from '@mui/material/MenuItem';
 
 
-import { useForm, SubmitHandler, Controller } from "react-hook-form"
+import { useForm, Controller } from "react-hook-form"
 
 import type { DefaultValues } from "react-hook-form"
 import type {InputMaintenance} from "types/maintenance"
@@ -18,9 +17,7 @@ import { AuthContext } from "components/providers/AuthContextProvider"
 
 import {useNavigate} from "react-router-dom"
 
-import { createMaintenance } from 'lib/api/maintenance'
 import { updateMaintenance } from 'lib/api/maintenance'
-import { getSelectShipData } from 'lib/api/ship'
 
 import type { MaintenanceData } from "types/maintenance"
 
@@ -40,10 +37,9 @@ export const FormModal = memo((props:Props) => {
   const { currentUser } = useContext(AuthContext)
   const navigate = useNavigate()
 
-
   const handleClose = () =>{
     reset()
-    setOpen(false);
+    setOpen(false)
   }
 
   console.log('Modalのレンダリング')
@@ -51,8 +47,6 @@ export const FormModal = memo((props:Props) => {
   const defaultValues: DefaultValues<InputMaintenance> = {
     userId: currentUser?.id
   }
-
-
 
   const {
     control,
@@ -77,7 +71,6 @@ export const FormModal = memo((props:Props) => {
     }
   }
 
-
   useEffect (() => {
     if(formState.isSubmitSuccessful) {
       reset()
@@ -93,7 +86,7 @@ export const FormModal = memo((props:Props) => {
           setOpen(false)
           console.log('update Success')
           setAlertMessageOpen(true)
-          navigate("/ships")
+          navigate(`/ships`)
 
         }
       }
@@ -212,10 +205,12 @@ export const FormModal = memo((props:Props) => {
                 <Controller
                   name="completed"
                   control={control}
-                  defaultValue={maintenance?.completed}
+                  defaultValue={
+                    maintenance !== undefined ? maintenance.completed : false
+                  }
                   render={({ field }) =>
                     <FormControlLabel
-                      control={ <Checkbox {...field} />}
+                      control={ <Checkbox {...field} checked={field.value} />}
                       label="完了"
                     />
                   }

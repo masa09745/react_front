@@ -189,7 +189,6 @@ export const CreateMaintenance = () => {
                 <Controller
                   name="completed"
                   control={control}
-
                   render={({ field }) =>
                     <FormControlLabel
                       control={ <Checkbox {...field} />}

@@ -14,12 +14,13 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import CheckIcon from '@mui/icons-material/Check';
-
+import {useNavigate} from "react-router-dom"
 import { FormModal } from 'components/utils/FormModal';
 
 import type { MaintenanceData } from 'types/maintenance'
 
 import {AuthContext} from "components/providers/AuthContextProvider"
+import { deleteMaintenance } from "lib/api/maintenance"
 
 type props = {
   maintenances: MaintenanceData[]
@@ -31,10 +32,19 @@ export const DetailList = (props:props) => {
   const { currentUser } = useContext(AuthContext)
   const [open, setOpen] = useState<boolean>(false)
   const [maintenance, setMaintenance] = useState<MaintenanceData>()
+  const navigate = useNavigate()
 
-  const handleClick = (data:MaintenanceData) => {
+  const handleEdit = (data:MaintenanceData) => {
     setMaintenance(data)
     setOpen(true)
+  }
+
+  const handleDelete = async (id:number) => {
+    const res = await deleteMaintenance(id)
+    if (res?.status === 204) {
+      navigate('/ships')
+    }
+    console.log("Delete btn clicked")
   }
 
   return(
@@ -57,8 +67,8 @@ export const DetailList = (props:props) => {
                 <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }} key={maintenance.id} >
                   <TableCell sx={{minWidth:150}}>
                     <VisibilityIcon sx={{mr:1}} />
-                    {currentUser?.section === "整備部"? <EditIcon sx={{mr:1}} onClick={()=>handleClick(maintenance)} />:""}
-                    {currentUser?.id === maintenance.userId? <DeleteIcon />: ""}
+                    {currentUser?.section === "整備部"? <EditIcon sx={{mr:1}} onClick={()=>handleEdit(maintenance)} />:""}
+                    {currentUser?.id === maintenance.userId? <DeleteIcon onClick={()=>handleDelete(maintenance.id)} />: ""}
                   </TableCell>
                   <TableCell sx={{minWidth:350}} > {maintenance.title} </TableCell>
                   <TableCell sx={{minWidth:350, whiteSpace:'normal', wordWrap: 'break-word'}} > {maintenance.description} </TableCell>

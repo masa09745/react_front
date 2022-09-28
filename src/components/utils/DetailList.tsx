@@ -16,6 +16,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import CheckIcon from '@mui/icons-material/Check';
 import {useNavigate} from "react-router-dom"
 import { FormModal } from 'components/utils/FormModal';
+import { ShowModal } from 'components/utils/ShowModal';
 
 import type { MaintenanceData } from 'types/maintenance'
 
@@ -31,8 +32,13 @@ export const DetailList = (props:props) => {
   const {maintenances} = props
   const { currentUser } = useContext(AuthContext)
   const [open, setOpen] = useState<boolean>(false)
+  const [modalOpen, setModalOpen] = useState<boolean>(false)
   const [maintenance, setMaintenance] = useState<MaintenanceData>()
   const navigate = useNavigate()
+
+  const handleShow =() =>{
+    setModalOpen(true)
+  }
 
   const handleEdit = (data:MaintenanceData) => {
     setMaintenance(data)
@@ -66,7 +72,7 @@ export const DetailList = (props:props) => {
               return(
                 <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }} key={maintenance.id} >
                   <TableCell sx={{minWidth:150}}>
-                    <VisibilityIcon sx={{mr:1}} />
+                    <VisibilityIcon sx={{mr:1}} onClick={()=>handleShow()} />
                     {currentUser?.section === "整備部"? <EditIcon sx={{mr:1}} onClick={()=>handleEdit(maintenance)} />:""}
                     {currentUser?.id === maintenance.userId? <DeleteIcon onClick={()=>handleDelete(maintenance.id)} />: ""}
                   </TableCell>
@@ -82,6 +88,7 @@ export const DetailList = (props:props) => {
         </Table>
       </TableContainer>
       <FormModal open={open} setOpen={setOpen} maintenance={maintenance}/>
+      <ShowModal modalOpen={modalOpen} setModalOpen={setModalOpen} />
     </>
   )
 }

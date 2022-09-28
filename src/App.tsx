@@ -39,7 +39,6 @@ export const App: React.FC = () =>  {
             <Route path=":shipId" element={<ShipDetails />}/>
             <Route path=":shipId/create" element={<CreateMaintenance />} />
           </Route>
-          <Route path="maintenances/:maintenanceId/edit" element={<EditMaintenance />} />
           <Route  path="/" element={ <PrivateRoute><Home /></PrivateRoute> }/>
         </Routes>
       </CommonLayout>

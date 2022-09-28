@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 
 import {
   Table,
@@ -15,7 +15,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import CheckIcon from '@mui/icons-material/Check';
 
-import {Link} from "react-router-dom"
+import { FormModal } from 'components/utils/FormModal';
 
 import type { MaintenanceData } from 'types/maintenance'
 
@@ -28,10 +28,13 @@ type props = {
 
 export const DetailList = (props:props) => {
   const {maintenances} = props
-  const { currentUser } =useContext(AuthContext)
+  const { currentUser } = useContext(AuthContext)
+  const [open, setOpen] = useState<boolean>(false)
+  const [maintenance, setMaintenance] = useState<MaintenanceData>()
 
-  const handleClick = (id:number) => {
-    console.log(id)
+  const handleClick = (data:MaintenanceData) => {
+    setMaintenance(data)
+    setOpen(true)
   }
 
   return(
@@ -54,7 +57,7 @@ export const DetailList = (props:props) => {
                 <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }} key={maintenance.id} >
                   <TableCell sx={{minWidth:150}}>
                     <VisibilityIcon sx={{mr:1}} />
-                    {currentUser?.section === "整備部"? <EditIcon sx={{mr:1}} onClick={()=>handleClick(maintenance.id)} />:""}
+                    {currentUser?.section === "整備部"? <EditIcon sx={{mr:1}} onClick={()=>handleClick(maintenance)} />:""}
                     {currentUser?.id === maintenance.userId? <DeleteIcon />: ""}
                   </TableCell>
                   <TableCell sx={{minWidth:350}} > {maintenance.title} </TableCell>
@@ -68,6 +71,7 @@ export const DetailList = (props:props) => {
           </TableBody>
         </Table>
       </TableContainer>
+      <FormModal open={open} setOpen={setOpen} maintenance={maintenance}/>
     </>
   )
 }

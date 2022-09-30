@@ -36,7 +36,8 @@ export const DetailList = (props:props) => {
   const [maintenance, setMaintenance] = useState<MaintenanceData>()
   const navigate = useNavigate()
 
-  const handleShow =() =>{
+  const handleShow =(data: MaintenanceData) =>{
+    setMaintenance(data)
     setModalOpen(true)
   }
 
@@ -72,7 +73,7 @@ export const DetailList = (props:props) => {
               return(
                 <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }} key={maintenance.id} >
                   <TableCell sx={{minWidth:150}}>
-                    <VisibilityIcon sx={{mr:1}} onClick={()=>handleShow()} />
+                    <VisibilityIcon sx={{mr:1}} onClick={()=>handleShow(maintenance)} />
                     {currentUser?.section === "整備部"? <EditIcon sx={{mr:1}} onClick={()=>handleEdit(maintenance)} />:""}
                     {currentUser?.id === maintenance.userId? <DeleteIcon onClick={()=>handleDelete(maintenance.id)} />: ""}
                   </TableCell>
@@ -88,7 +89,7 @@ export const DetailList = (props:props) => {
         </Table>
       </TableContainer>
       <FormModal open={open} setOpen={setOpen} maintenance={maintenance}/>
-      <ShowModal modalOpen={modalOpen} setModalOpen={setModalOpen} />
+      <ShowModal modalOpen={modalOpen} setModalOpen={setModalOpen} maintenance={maintenance}/>
     </>
   )
 }

@@ -18,6 +18,8 @@ import type { SignInData } from "types/user"
 
  export const SignIn: React.FC = () => {
   const navigate = useNavigate()
+  console.log(process.env)
+
 
   const { setIsSignedIn, setCurrentUser } = useContext(AuthContext)
 

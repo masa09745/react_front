@@ -4,8 +4,7 @@ import { AuthContext } from "components/providers/AuthContextProvider"
 export const Home: React.FC = () =>  {
   const { currentUser } = useContext(AuthContext)
 
-  const API_ENDPOINT = process.env.REACT_API_ENDPOINT!;
-  console.log(API_ENDPOINT)
+  console.log(process.env)
 
   return(
     <>

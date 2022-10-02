@@ -4,8 +4,6 @@ import { AuthContext } from "components/providers/AuthContextProvider"
 export const Home: React.FC = () =>  {
   const { currentUser } = useContext(AuthContext)
 
-  console.log(process.env)
-
   return(
     <>
       <p>社員番号 : {currentUser?.employeeNumber}</p>
